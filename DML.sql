@@ -13,6 +13,8 @@ VALUES(:orderID_input, :employyeID_input, :storeID_input, :customerID_input, ord
 -- Read
 SELECT * FROM Orders;
 
+
+
 -----------------Stores-------------------
 -- Create
 INSERT INTO Stores(storeID, addressStreet, addressCity, addressState, addressZip)
@@ -21,14 +23,6 @@ VALUES(:storeID_input, :addressStreet_input, :addressCity_input, :addressState_i
 -- Read
 SELECT * FROM Stores;
 
--- Update
-UPDATE Stores SET
-    addressStreet = :addressStreet_input, addressCity = :addressCity_input, addressState = :addressState_input, 
-    addressZip = :addressZip
-    WHERE storeID = :storeID_input;
-
--- Delete
-DELETE FROM Stores WHERE Stores.storeID = :storeID_input;
 
 
 -----------------Customers-------------------
@@ -38,15 +32,6 @@ VALUES(:customerID_input, :email_input, :firstName_input, :lastName_input, :addr
 
 -- Read
 SELECT * FROM Customers;
-
--- Update
-UPDATE Customers SET
-    customerID = :customerID_input, email = :email_input, first_name = :firstName_input, lastname = :lastName_input, 
-    addressStreet = :addressStreet_input, addressCity = :addressCity_input, addressState = :addressState_input, addressZip = :addressZip_input, totalSales = :totalSales_input, rewardsTierId = :rewardsTierId_input
-    WHERE customerID = :customerID_input;
-
--- Delete
-DELETE FROM Customers WHERE Customers.customerId = :customerID_input;
 
 
 
@@ -58,15 +43,6 @@ VALUES(:employeeID_input, :SocialSecurityNumber, :firstName_input, :lastName_inp
 -- Read
 SELECT * FROM Employees;
 
--- Update
-UPDATE Employees SET
-    employeeID = :employeeID_input, SocialSecurityNumber = :SocialSecurityNumber, first_name = :firstName_input, lastname = :lastName_input, 
-    addressStreet = :addressStreet_input, addressCity = :addressCity_input, addressState = :addressState_input, addressZip = :addressZip_input
-    WHERE employeeID = :employeeID_input;
-
--- Delete
-DELETE FROM Employees WHERE Employees.employeeId = :employeeID_input;
-
 
 
 -----------------Liquors-------------------
@@ -76,14 +52,6 @@ VALUES(:productID_input, :productName_input, :productSize_input, :productPrice_i
 
 -- Read
 SELECT * FROM Liquors;
-
--- Update
-UPDATE Liquors SET
-    productID = :productID_input, productName = :productName_input, productSize = :productSize_input, productPrice = :productPrice_input
-    WHERE productID = :productID_input;
-
--- Delete
-DELETE FROM Liquors WHERE Liquors.productID = :prodcutID_input;
 
 
 
@@ -95,14 +63,6 @@ VALUES(:rewardsTierID_input, :rewardsTierName_input, :rewardsTierDiscount_input,
 
 -- Read
 SELECT * FROM RewardsTiers;
-
--- Update
-UPDATE RewardsTiers SET
-    produrewardsTierID = :rewardsTierID_input, rewardsTierName = :rewardsTierName_input, rewardsTierDiscount = :rewardsTierDiscount_input, rewardsTierMinPurchase = :rewardsTierMinPurchase_input
-    WHERE RewardsTiersID = :RewardsTiersID_input;
-
--- Delete
-DELETE FROM RewardsTiers WHERE RewardsTiers.RewardsTiersID = :RewardsTiersID_input;
 
 
 
