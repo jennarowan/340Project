@@ -122,7 +122,7 @@ INSERT INTO RewardsTiers(
 ) VALUES (
   "Bronze",
   .995,
-  0
+  100
 ),
 (
   "Silver",
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS Customers (
   addressState VARCHAR(45) NOT NULL,
   addressZip INT NOT NULL,
   cusTotalSales INT NOT NULL DEFAULT 0,
-  RewardsTiers_rewardsTierId INT NOT NULL,
+  RewardsTiers_rewardsTierId INT,
   PRIMARY KEY (customerID),
   INDEX fk_Customers_RewardsTiers1_idx (RewardsTiers_rewardsTierId ASC) VISIBLE,
   CONSTRAINT fk_Customers_RewardsTiers1
