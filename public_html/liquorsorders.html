@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>LiquorsOrders</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { 
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newLiquorsOrders() { showform('insert'); }
+    function updateLiquorsOrders(pid) { showform('update'); }
+    function deleteLiquorsOrders(pid) { showform ('delete'); }
+    function browseLiquorsOrders() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseLiquor()">
+<h1>LiquorsOrders</h1>
+
+[ <a href="orders.html">Orders</a> ~ <a href="stores.html">Stores</a> ~ <a href="customers.html">Customers</a> ~ <a href="employees.html">Employees</a> ~ <a href="liquors.html">Liquors</a> ~ <a href="rewardtiers.html">RewardTiers</a> ~ <a href="liquorsorders.html">LiquorsOrders</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Show CRUD</a></p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newLiquorsOrders()">New</a></th>
+    <th></th>
+    <th>productID</th>
+    <th>orderID</th>
+    <th>productQuantity</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateLiquorsOrders('this.LiquorsOrdersID')">Edit</a></td>
+    <td><a href="#" onclick="deleteLiquorsOrders('this.LiquorsOrdersID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td >1</td>
+    <td>2</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateLiquorsOrders('this.LiquorsOrdersID')">Edit</a></td>
+    <td><a href="#" onclick="deleteLiquorsOrders('this.LiquorsOrdersID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td >2</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateLiquorsOrders('this.LiquorsOrdersID')">Edit</a></td>
+    <td><a href="#" onclick="deleteLiquorsOrders('this.LiquorsOrdersID')">Delete</a></td>
+    <td align ="right">3</td>
+    <td>3</td>
+    <td>1</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> 
+<div id="insert">
+    <form method="POST" id="addLiquorsOrders">
+        <legend><strong>Add LiquorsOrders</strong></legend>
+          <fieldset class="fields">
+            <label>productID</label> <input type="text" name="productID">
+            <label>orderID</label> <input type="text" name="orderID">
+            <label>productQuantity</label> <input type="text" name = "productQuantity">
+      </fieldset>
+          <input class="btn" type="submit" id="addLiquorsOrders" value="Add LiquorsOrders">
+          <input class="btn" type="button" value="cancel" onClick="browseLiquorsOrders()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateLiquorsOrders">
+        <legend><strong>Update LiquorsOrders</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="LiquorsOrdersID" id="updateLiquorsOrdersID" value="1">
+          <label>productID</label> <input type="text" name="productID" value="1">
+          <label>orderID</label> <input type="text" name="productName" value="1">
+          <label>productQuantity</label> <input type="text" name = "productSize(ML)" value="2">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveLiquorsOrders" value="Save Update LiquorsOrders">
+          <input class="btn" type="button" value="cancel" onClick="browseLiquorsOrders()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteLiquorsOrders">
+      <legend><strong>Delete LiquorsOrders</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="LiquorsOrdersID" id="deleteLiquorsOrdersID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>LiquorsOrders</strong> </label> 1
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteLiquorsOrders" value="Delete LiquorsOrders">
+          <input class="btn" type="button" value="cancel" onClick="browseLiquorsOrders()">
+  </form> 
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+  body {
+    background-color: khaki;
+    margin: 3%;
+}
+
+h1 {
+    color: whitesmoke;
+    margin: 1%;
+}
+
+table {
+    border-collapse:collapse;
+}
+
+th, td {border:1px solid gray;}
+
+th{ 
+    background-color:azure;
+}
+
+tr:nth-child(odd) td {background-color: gold;}

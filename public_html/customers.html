@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>Customers</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newCustomer() { showform('insert'); }
+    function updateCustomer(pid) { showform('update'); }
+    function deleteCustomer(pid) { showform ('delete'); }
+    function browseCustomer() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseCustomer()">
+<h1>Customers</h1>
+
+[ <a href="orders.html">Orders</a> ~ <a href="stores.html">Stores</a> ~ <a href="customers.html">Customers</a> ~ <a href="employees.html">Employees</a> ~ <a href="liquors.html">Liquors</a> ~ <a href="rewardtiers.html">RewardTiers</a> ~ <a href="liquorsorders.html">LiquorsOrders</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newCustomer()">New</a></th>
+    <th></th>
+    <th>customerID</th>
+    <th>email</th>
+    <th>firstName</th>
+    <th>lastName</th>
+    <th>addressStreet</th>
+    <th>addressCity</th>
+    <th>addressState</th>
+    <th>addressZip</th>
+    <th>totalSales</th>
+    <th>rewardsTierId</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCustomer('this.CustomerID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCustomer('this.CustomerID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td>gaslover@aol.com</td>
+    <td>Hank</td>
+    <td>Hill</td>
+    <td>72 Desert Rose Lane</td>
+    <td>Arlen</td>
+    <td>TX</td>
+    <td>73104</td>
+    <td>3450</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCustomer('this.CustomerID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCustomer('this.CustomerID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td>watchoutfornsa@protonmail.com</td>
+    <td>Dale</td>
+    <td>Gribble</td>
+    <td>63 Desert Rose Lane</td>
+    <td>Arlen</td>
+    <td>TX</td>
+    <td>73104</td>
+    <td>7288.37</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateCustomer('this.CustomerID')">Edit</a></td>
+    <td><a href="#" onclick="deleteCustomer('this.CustomerID')">Delete</a></td>
+    <td align ="right">3</td>
+    <td>loneylbill@gmail.com</td>
+    <td>Bill</td>
+    <td>Dauterive</td>
+    <td>63 Desert Rose Lane</td>
+    <td>Arlen</td>
+    <td>TX</td>
+    <td>73104</td>
+    <td>867.21</td>
+    <td>2</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> 
+<div id="insert">
+    <form method="POST" id="addCustomer">
+        <legend><strong>Add Customer</strong></legend>
+          <fieldset class="fields">
+            <label>customerID</label><input type="text" name="customerID">
+            <label>email</label><input type="text" name="email">
+            <label>firstName</label><input type="text" name="firstName">
+            <label>lastName</label><input type="text" name="lastName">
+            <label>addressStreet</label><input type="text" name="addressStreet">
+            <label>addressCity</label><input type="text" name="addressCity">
+            <label>addressState</label><input type="text" name="addressState">
+            <label>addressZip</label><input type="text" name="addressZip">
+            <label>totalSales</label><input type="text" name="totalSales">
+            <label>rewardsTierId</label><input type="text" name="rewardsTierId">
+      </fieldset>
+          <input class="btn" type="submit" id="addCustomer" value="Add Customer">
+          <input class="btn" type="button" value="cancel" onClick="browseCustomer()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateCustomer">
+        <legend><strong>Update Customer</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="CustomerID" id="updateCustomerID" value="1">
+          <label> ID: </label> 1
+          <label>customerID</label><input type="text" name="customerID" value = "1">
+          <label>email</label><input type="text" name="email" value = "gaslover@aol.com">
+          <label>firstName</label><input type="text" name="firstName" value = "Hank">
+          <label>lastName</label><input type="text" name="lastName" value = "Hill">
+          <label>addressStreet</label><input type="text" name="addressStreet" value = "72 Desert Rose Lane">
+          <label>addressCity</label><input type="text" name="addressCity" value = "Arlen">
+          <label>addressState</label><input type="text" name="addressState" value = "TX">
+          <label>addressZip</label><input type="text" name="addressZip" value = "73104">
+          <label>totalSales</label><input type="text" name="totalSales" value = "3450">
+          <label>rewardsTierId</label><input type="text" name="rewardsTierId" value = "3">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveCustomer" value="Save Update Customer">
+          <input class="btn" type="button" value="cancel" onClick="browseCustomer()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteCustomer">
+      <legend><strong>Delete Customer</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="CustomerID" id="deleteCustomerID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>email</strong> </label> gaslover@aol.com
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteCustomer" value="Delete Customer">
+          <input class="btn" type="button" value="cancel" onClick="browseCustomer()">
+  </form> 
+</div>
+</body>
+</html>
