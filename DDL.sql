@@ -157,8 +157,7 @@ CREATE TABLE IF NOT EXISTS Customers (
   CONSTRAINT fk_Customers_RewardsTiers1
     FOREIGN KEY (RewardsTiers_rewardsTierId)
     REFERENCES RewardsTiers (rewardsTierId)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 INSERT INTO Customers (
@@ -225,18 +224,15 @@ CREATE TABLE IF NOT EXISTS Orders (
   CONSTRAINT fk_Orders_Employees
     FOREIGN KEY (Employees_employeeID)
     REFERENCES Employees (employeeID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE,
   CONSTRAINT fk_Orders_Stores1
     FOREIGN KEY (Stores_storeID)
     REFERENCES Stores (storeID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE,
   CONSTRAINT fk_Orders_Customers1
     FOREIGN KEY (Customers_customerID)
     REFERENCES Customers (customerID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 INSERT INTO Orders(
@@ -314,13 +310,11 @@ CREATE TABLE IF NOT EXISTS LiquorsOrders (
   CONSTRAINT fk_Orders_has_Liquors_Liquors1
     FOREIGN KEY (Liquors_productID)
     REFERENCES Liquors (productID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE,
   CONSTRAINT fk_LiquorsOrders_Orders1
     FOREIGN KEY (Orders_orderID)
     REFERENCES Orders (orderID)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 INSERT INTO LiquorsOrders(
