@@ -51,42 +51,32 @@
 <div id="browse">
 <p><a href="#" onClick="showAll()">Show CRUD</a> </p>
 <table border="1" cellpadding="5">
-  <tr>
-    <th><a href="#" onClick="newOrders()">New</a></th>
-    <th></th>
-    <th>Order #</th>
-    <th>Employee</th>
-    <th>Store Location</th>
-    <th>Customer</th>
-    <th>Total</th>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
-    <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
-    <td align="left" >1</td>
-    <td >Hank Schrader</td>
-    <td align="left" >9516 Snow Heights Cir NE</td>
-    <td>Hank Hill</td>
-    <td>$39.18</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
-    <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
-    <td align="left" >2</td>
-    <td>Walter White</td>
-    <td align="left" >322 16th St SW</td>
-    <td >Dale Gribble</td>
-    <td>$109.72</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
-    <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
-    <td align ="left">3</td>
-    <td>Jesse Pinkman</td>
-    <td align="left" >2660 Fritts Crossing SE</td>
-    <td>Bill Dauterive</td>
-    <td>$12.93</td>
-  </tr>
+  <thead>
+    <tr>
+        <!-- Iterate through each key in the first entry to get the
+        column name -->
+        {% for key in Orders[0].keys() %}
+
+        <!-- Create a <th> tag with the key inside of it, this will be
+        our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+    </tr>
+    <tbody>
+
+    <!-- Now, iterate through every person in bsg_people -->
+    {% for order in Orders %}
+    <tr>
+        <!-- Then iterate through every key in the current person dictionary -->
+        {% for key in order.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{order[key]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
 </table>
 <p>&nbsp;</p>
 </div> 

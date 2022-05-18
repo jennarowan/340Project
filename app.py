@@ -25,10 +25,34 @@ def root():
 
 @app.route('/orders')
 def orders():
-    return render_template("orders.j2")
+
+    #Read
+    readQuery = """
+    SELECT 
+    Orders.orderID AS "Order #", 
+    CONCAT(Employees.firstName, " ", Employees.lastName) AS "Employee", 
+    Stores.addressStreet AS "Store Location", 
+    CONCAT(Customers.firstName, " ", Customers.lastName) AS "Customer",
+    CONCAT("$", Orders.orderTotal) AS "Total"
+    FROM Orders
+    INNER JOIN Employees ON Orders.Employees_employeeID = Employees.employeeID
+    INNER JOIN Stores ON Orders.Stores_storeID = Stores.storeID
+    INNER JOIN Customers ON Orders.Customers_customerID = Customers.customerID;
+    """
+
+    cursor = db.execute_query(db_connection=db_connection, query=readQuery)
+
+    results = cursor.fetchall()
+
+    return render_template("orders.j2", Orders=results)
 
 @app.route('/stores')
 def stores():
+
+    readQuery = """
+    SELECT * FROM Stores;
+    """
+
     return render_template("stores.j2")
 
 @app.route('/customers')
