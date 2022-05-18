@@ -7,15 +7,15 @@ import database.db_connector as db
 # Configuration
 
 app = Flask(__name__)
-# db_connection = db.connect_to_database()
+db_connection = db.connect_to_database()
 
-# app.config['MYSQL_HOST'] = 'flip3.engr.oregonstate.edu'
-# app.config['MYSQL_USER'] = 'cs340_rowanje'
-# app.config['MYSQL_PASSWORD'] = '7573' #last 4 of onid
-# app.config['MYSQL_DB'] = 'cs340_rowanje'
-# app.config['MYSQL_CURSORCLASS'] = "DictCursor"
+app.config['MYSQL_HOST'] = 'flip3.engr.oregonstate.edu'
+app.config['MYSQL_USER'] = 'cs340_rowanje'
+app.config['MYSQL_PASSWORD'] = '7573' #last 4 of onid
+app.config['MYSQL_DB'] = 'cs340_rowanje'
+app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
-# mysql = MySQL(app)
+mysql = MySQL(app)
 
 # Routes 
 
