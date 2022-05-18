@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>Orders</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newOrders() { showform('insert'); }
+    function updateOrders(pid) { showform('update'); }
+    function deleteOrders(pid) { showform ('delete'); }
+    function browseOrders() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseOrders()">
+<h1>Orders</h1>
+
+[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newOrders()">New</a></th>
+    <th></th>
+    <th>Order #</th>
+    <th>Employee</th>
+    <th>Store Location</th>
+    <th>Customer</th>
+    <th>Total</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
+    <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
+    <td align="left" >1</td>
+    <td >Hank Schrader</td>
+    <td align="left" >9516 Snow Heights Cir NE</td>
+    <td>Hank Hill</td>
+    <td>$39.18</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
+    <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
+    <td align="left" >2</td>
+    <td>Walter White</td>
+    <td align="left" >322 16th St SW</td>
+    <td >Dale Gribble</td>
+    <td>$109.72</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
+    <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
+    <td align ="left">3</td>
+    <td>Jesse Pinkman</td>
+    <td align="left" >2660 Fritts Crossing SE</td>
+    <td>Bill Dauterive</td>
+    <td>$12.93</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> 
+<div id="insert">
+    <form method="POST" id="addOrders">
+        <legend><strong>Add Orders</strong></legend>
+          <fieldset class="fields">
+            <label>orderID</label> <input type="text" name="orderID">
+            <label>employeeID</label> <input type="text" name="employeeID">
+            <label> storeID </label> <input type="text" name = "storeID">
+            <label> orderTotal </label> <input type="text" name="orderTotal">
+      </fieldset>
+          <input class="btn" type="submit" id="addOrders" value="Add Orders">
+          <input class="btn" type="button" value="cancel" onClick="browseOrders()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateOrders">
+        <legend><strong>Update Orders</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="OrdersID" id="updateOrdersID" value="1">
+          <label> ID: </label> 1
+            <label> orderID </label> <input type="text" name="orderID" value="1">
+            <label> employeeID </label> <input type="text" name="employeeID" value="1">
+            <label> storeID </label> <input type="text" name = "storeID" value="1">
+            <label> orderTotal </label> <input type="text" name="orderTotal" value="12.93">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveOrders" value="Save Update Orders">
+          <input class="btn" type="button" value="cancel" onClick="browseOrders()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteOrders">
+      <legend><strong>Delete Orders</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="OrdersID" id="deleteOrdersID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> 1
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteOrders" value="Delete Orders">
+          <input class="btn" type="button" value="cancel" onClick="browseOrders()">
+  </form> 
+</div>
+</body>
+<!-- Template used for this assignment was referenced by OSU CS 340 Professor, 
+and can be found at the following link https://canvas.oregonstate.edu/courses/1870053/files/92584084?wrap=1-->
+</html>

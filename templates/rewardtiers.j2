@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>RewardsTiers</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newRewardsTier() { showform('insert'); }
+    function updateRewardsTier(pid) { showform('update'); }
+    function deleteRewardsTier(pid) { showform ('delete'); }
+    function browseRewardsTier() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseRewardsTier()">
+<h1>RewardsTiers</h1>
+
+[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newRewardsTier()">New</a></th>
+    <th></th>
+    <th>rewardsTierId</th>
+    <th>rewardsTierName</th>
+    <th>rewardsTierDiscount</th>
+    <th>rewardsTierMinPurchase</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRewardsTier('this.RewardsTierID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRewardsTier('this.RewardsTierID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td>Bronze</td>
+    <td>.995</td>
+    <td>0</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRewardsTier('this.RewardsTierID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRewardsTier('this.RewardsTierID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td>Silver</td>
+    <td>.9875</td>
+    <td>500</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateRewardsTier('this.RewardsTierID')">Edit</a></td>
+    <td><a href="#" onclick="deleteRewardsTier('this.RewardsTierID')">Delete</a></td>
+    <td align="right" >3</td>
+    <td>Gold</td>
+    <td>.98</td>
+    <td>1000</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> 
+<div id="insert">
+    <form method="POST" id="addRewardsTier">
+        <legend><strong>Add RewardsTier</strong></legend>
+          <fieldset class="fields">
+            <label>rewardsTierId</label> <input type="text" name="rewardsTierId">
+            <label>rewardsTierName</label> <input type="text" name="rewardsTierName">
+            <label>rewardsTierDiscount</label> <input type="text" name = "rewardsTierDiscount">
+            <label>rewardsTierMinPurchase</label> <input type="text" name="rewardsTierMinPurchase">
+      </fieldset>
+          <input class="btn" type="submit" id="addRewardsTier" value="Add RewardsTier">
+          <input class="btn" type="button" value="cancel" onClick="browseRewardsTier()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateRewardsTier">
+        <legend><strong>Update RewardsTier</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="RewardsTierID" id="updateRewardsTierID" value="1">
+          <label> ID: </label> 1
+            <label>rewardsTierId</label> <input type="text" name="rewardsTierId" value = "1">
+            <label>rewardsTierName</label> <input type="text" name="rewardsTierName" value = "Bronze">
+            <label>rewardsTierDiscount</label> <input type="text" name = "rewardsTierDiscount" value = ".995">
+            <label>rewardsTierMinPurchase</label> <input type="text" name="rewardsTierMinPurchase" value = "0">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveRewardsTier" value="Save Update RewardsTier">
+          <input class="btn" type="button" value="cancel" onClick="browseRewardsTier()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteRewardsTier">
+      <legend><strong>Delete RewardsTier</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="RewardsTierID" id="deleteRewardsTierID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Bronze</strong> </label> .995
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteRewardsTier" value="Delete RewardsTier">
+          <input class="btn" type="button" value="cancel" onClick="browseRewardsTier()">
+  </form> 
+</div>
+</body>
+</html>

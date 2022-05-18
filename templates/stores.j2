@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>Stores</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newStore() { showform('insert'); }
+    function updateStore(pid) { showform('update'); }
+    function deleteStore(pid) { showform ('delete'); }
+    function browseStore() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseStore()">
+<h1>Stores</h1>
+
+[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newStore()">New</a></th>
+    <th></th>
+    <th>storeID</th>
+    <th>addressStreet</th>
+    <th>addressCity</th>
+    <th>addressState</th>
+    <th>addressZip</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateStore('this.storeID')">Edit</a></td>
+    <td><a href="#" onclick="deleteStore('this.storeID')">Delete</a></td>
+    <td align="right" >1</td>
+    <td >9516 Snow Heights Cir NE</td>
+    <td align="right" >Albuquerque</td>
+    <td>NM</td>
+    <td>87112</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateStore('this.storeID')">Edit</a></td>
+    <td><a href="#" onclick="deleteStore('this.storeID')">Delete</a></td>
+    <td align="right" >2</td>
+    <td>322 16th St SW</td>
+    <td align="right" >Albuquerque</td>
+    <td >NM</td>
+    <td>87104</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateStore('this.storeID')">Edit</a></td>
+    <td><a href="#" onclick="deleteStore('this.storeID')">Delete</a></td>
+    <td align ="right">3</td>
+    <td>2660 Fritts Crossing SE</td>
+    <td align="right" >Albuquerque </td>
+    <td>NM </td>
+    <td>87105</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> 
+<div id="insert">
+    <form method="POST" id="addStore">
+        <legend><strong>Add Store</strong></legend>
+          <fieldset class="fields">
+            <label>addressStreet</label> <input type="text" name="addressStreet">
+            <label>addressCity</label> <input type="text" name="addressCity">
+            <label> addressState </label> <input type="text" name = "addressState" value="NM">
+            <label> addressZip </label> <input type="text" name="addressZip">
+      </fieldset>
+          <input class="btn" type="submit" id="addStore" value="Add Store">
+          <input class="btn" type="button" value="cancel" onClick="browseStore()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateStore">
+        <legend><strong>Update Store</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="StoreID" id="updateStoreID" value="1">
+          <label> ID: </label> 1
+            <label> addressStreet </label> <input type="text" name="addressStreet" value="9516 Snow Heights Cir NE	">
+            <label> addressCity </label> <input type="text" name="addressCity" value="Albuquerque">
+            <label> addressState </label> <input type="text" name = "addressState" value="NM">
+            <label> addressZip </label> <input type="text" name="addressZip" value="87105">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveStore" value="Save Update Store">
+          <input class="btn" type="button" value="cancel" onClick="browseStore()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteStore">
+      <legend><strong>Delete Store</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="storeID" id="deletestoreID" value="1">
+          <label><strong>ID:</strong></label> 1
+            <label> <strong>Name</strong> </label> 9516 Snow Heights Cir NE
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteStore" value="Delete Store">
+          <input class="btn" type="button" value="cancel" onClick="browseStore()">
+  </form> 
+</div>
+</body>
+</html>
