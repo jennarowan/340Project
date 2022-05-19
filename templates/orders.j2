@@ -60,7 +60,7 @@
         column name -->
         
         <th></th>
-        {% for key in Orders[0].keys() %}
+        {% for key in orders[0].keys() %}
 
         <!-- Create a <th> tag with the key inside of it, this will be
         our header row -->
@@ -72,9 +72,9 @@
     <tbody>    
 
     <!-- Now, iterate through every person in bsg_people -->
-    {% for order in Orders %}
+    {% for order in orders %}
     <tr>
-        <td><a href="#" onClick="updateOrders('editOrders(order.id)')">Edit</a></td>
+        <td><a href="/edit_order/{{order['Order #']}}" class="btn btn-default">Edit</a></td>
         <td><a href="#" onclick="deleteOrders('deleteOrder(order.id')">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
@@ -92,10 +92,41 @@
     <form action="/orders" method="POST" id="addOrders">
         <legend><strong>Add Orders</strong></legend>
           <fieldset class="fields">
-            <label>orderID</label> <input type="text" class="form-control" name="orderID" id="orderID">
-            <label>employeeID</label> <input type="text" class="form-control" name="employeeID" id="employeeID">
-            <label> storeID </label> <input type="text" class="form-control" name="storeID" id="storeID">
-            <label> customerID </label> <input type="text" class="form-control" name="customerID" id="customerID">
+            <label>orderID:</label><input type="text" class="form-control" name="orderID" id="orderID">
+
+            <label for="employeeID">Employee:</label>
+            <select class="form-control" id="employeeID" name="employeeID" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for employee in employees %}
+                        
+                  <option value="{{ employee['employeeID'] }}"> {{employee['Employee']}}</option> 
+                
+                {% endfor %} 
+            </select>
+            
+            <label for="storeID">Store Location:</label>
+            <select class="form-control" id="storeID" name="storeID" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for store in stores %}
+                        
+                  <option value="{{ store['storeID'] }}"> {{store['Store Location']}}</option> 
+                
+                {% endfor %} 
+            </select>
+
+            <label for="customerID">Customer Name:</label>
+            <select class="form-control" id="customerID" name="customerID" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for customer in customers %}
+                        
+                  <option value="{{ customer['customerID'] }}"> {{customer['Customer']}}</option> 
+                
+                {% endfor %} 
+            </select>	
+
             <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal">
       </fieldset>
           <input class="btn" type="submit" name="Add_Order" id="addOrders" value="Add Orders">
@@ -103,22 +134,52 @@
 	</form> 
 </div>
 <p>&nbsp;</p>
-<div id="update">
-    <form method="POST" id="UpdateOrders">
-        <legend><strong>Update Orders</strong></legend>
+{# <div id="update">
+    <form id="editOrder" action="/edit_order/{{orders[0].id}}" method="post">
+        <legend><strong>Update Order</strong></legend>
           <fieldset class="fields">
-          <input type="hidden" name="OrdersID" id="updateOrdersID" value="1">
-          <label> ID: </label> 1
-            <label> orderID </label> <input type="text" name="orderID" value="1">
-            <label> employeeID </label> <input type="text" name="employeeID" value="1">
-            <label> storeID </label> <input type="text" name = "storeID" value="1">
-            <label> customerID </label> <input type="text" name = "customerID" value="1">
-            <label> orderTotal </label> <input type="text" name="orderTotal" value="12.93">
+          {# <input type="hidden" name="OrdersID" id="updateOrdersID" value="1"> #}
+          <label>orderID:</label><input type="text" class="form-control" name="orderID" id="orderID" placeholder="{{orders[0].orderID}}">
+
+            {# <label for="employeeID">Employee:</label>
+            <select class="form-control" id="employeeID" name="employeeID" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for employee in employees %}
+                        
+                  <option value="{{ employee['employeeID'] }}"> {{employee['Employee']}}</option> 
+                
+                {% endfor %} 
+            </select>
+            
+            <label for="storeID">Store Location:</label>
+            <select class="form-control" id="storeID" name="storeID" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for store in stores %}
+                        
+                  <option value="{{ store['storeID'] }}"> {{store['Store Location']}}</option> 
+                
+                {% endfor %} 
+            </select>
+
+            <label for="customerID">Customer Name:</label>
+            <select class="form-control" id="customerID" name="customerID" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for customer in customers %}
+                        
+                  <option value="{{ customer['customerID'] }}"> {{customer['Customer']}}</option> 
+                
+                {% endfor %} 
+            </select>	 #}
+
+            <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal" value="{{orders[0].orderTotal}}">
       </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveOrders" value="Save Update Orders">
+          <input class="btn" type="submit" id="UpdateSaveOrders" name="Update_Order" value="Save Update Orders">
           <input class="btn" type="button" value="cancel" onClick="browseOrders()">
 	</form> 
-</div>
+</div> #}
 <p>&nbsp;</p>
 <div id="delete" style="display: block">
   <form method="POST" id="deleteOrders">

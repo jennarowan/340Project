@@ -224,15 +224,18 @@ CREATE TABLE IF NOT EXISTS Orders (
   CONSTRAINT fk_Orders_Employees
     FOREIGN KEY (Employees_employeeID)
     REFERENCES Employees (employeeID)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT fk_Orders_Stores1
     FOREIGN KEY (Stores_storeID)
     REFERENCES Stores (storeID)
-    ON DELETE CASCADE,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT fk_Orders_Customers1
     FOREIGN KEY (Customers_customerID)
     REFERENCES Customers (customerID)
-    ON DELETE CASCADE)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 INSERT INTO Orders(

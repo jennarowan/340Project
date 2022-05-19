@@ -4,6 +4,7 @@ from flask import request
 import os
 import database.db_connector as db
 from dotenv import load_dotenv, find_dotenv
+from dropdownQueries import *
 
 # Load our environment variables from the .env file in the root of our project.
 load_dotenv(find_dotenv())
@@ -51,40 +52,10 @@ def orders():
         cursor.execute(readQuery)
         orders = cursor.fetchall()
 
-        # Grabs the employee names to use in a dropdown
-        employeeQuery = """
-        SELECT
-        employeeID, CONCAT(firstName, " ", lastName) AS "Employee"
-        FROM Employees
-        """
+        # Call the dropdown creation function to query the database and pass values to the orders
+        employees, stores, customers, nextOrderNum = createDropdownDatasets()        
 
-        cursor = mysql.connection.cursor()
-        cursor.execute(employeeQuery)
-        employees = cursor.fetchall()
-
-        # Grabs the store locations to use in a dropdown
-        storeQuery = """
-        SELECT
-        storeID, addressStreet
-        FROM Stores
-        """
-
-        cursor = mysql.connection.cursor()
-        cursor.execute(storeQuery)
-        stores = cursor.fetchall()
-
-        # Grabs the customer names to use in a dropdown
-        customerQuery = """
-        SELECT
-        customerID, CONCAT(firstName, " ", lastName) AS "Customer"
-        FROM Customers
-        """
-
-        cursor = mysql.connection.cursor()
-        cursor.execute(customerQuery)
-        customers = cursor.fetchall()
-
-        return render_template("orders.j2", Orders=orders, Employees=employees, Stores=stores, Customers=customers)
+        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers, nextOrderNum=nextOrderNum)
 
     if request.method == "POST":
 
@@ -96,12 +67,71 @@ def orders():
             orderTotal = request.form["orderTotal"]
             customer = request.form["customerID"]
 
-        insertQuery = "INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) VALUES (%s, %s, %s, %s, %s)"
+        insertQuery = """
+        INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
+        VALUES (%s, %s, %s, %s, %s)
+        """
         cursor = mysql.connection.cursor()
         cursor.execute(insertQuery, (orderID, employeeID, storeID, customer, orderTotal))
         mysql.connection.commit()
 
         # Send user back to the main orders page
+        return redirect("/orders")
+
+@app.route("/edit_order/<int:id>", methods=["POST", "GET"])
+def edit_order(id):
+    
+    if request.method == "GET":
+
+        orderQuery = """
+        SELECT 
+        Orders.orderID AS "Order #", 
+        CONCAT(Employees.firstName, " ", Employees.lastName) AS "Employee", 
+        Stores.addressStreet AS "Store Location", 
+        CONCAT(Customers.firstName, " ", Customers.lastName) AS "Customer",
+        CONCAT("$", Orders.orderTotal) AS "Total"
+        FROM Orders
+        INNER JOIN Employees ON Orders.Employees_employeeID = Employees.employeeID
+        INNER JOIN Stores ON Orders.Stores_storeID = Stores.storeID
+        INNER JOIN Customers ON Orders.Customers_customerID = Customers.customerID
+        WHERE orderId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(orderQuery)
+        orders = cur.fetchall()
+
+        # Call the dropdown creation function to query the database and pass values to the orders
+        employees, stores, customers, nextOrderNum = createDropdownDatasets()
+
+        return render_template("edit_order.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Edit_Order"):
+            Employees_employeeID = request.form["employeeID"]
+            storeID = request.form["storeID"]
+            customer = request.form["customerID"]
+            orderTotal = request.form["orderTotal"]
+            orderID = request.form["orderID"]
+
+        fixFKS = "SET FOREIGN_KEY_CHECKS=0"
+        cursor = mysql.connection.cursor()
+        cursor.execute(fixFKS)
+
+        updateQuery = """
+        UPDATE Orders
+        SET 
+        Orders.Employees_employeeID = %s,
+        Orders.Stores_storeID = %s,
+        Orders.Customers_customerID = %s,
+        Orders.orderTotal = %s
+        WHERE
+        Orders.orderID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateQuery, (Employees_employeeID, storeID, customer, orderTotal, orderID))
+        mysql.connection.commit()
+
         return redirect("/orders")
 
 @app.route('/stores')
