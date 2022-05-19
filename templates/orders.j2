@@ -74,8 +74,8 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for order in Orders %}
     <tr>
-        <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
-        <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
+        <td><a href="#" onClick="updateOrders('editOrders(order.id)')">Edit</a></td>
+        <td><a href="#" onclick="deleteOrders('deleteOrder(order.id')">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in order.keys() %}
@@ -89,15 +89,16 @@
 <p>&nbsp;</p>
 </div> 
 <div id="insert">
-    <form method="POST" id="addOrders">
+    <form action="/orders" method="POST" id="addOrders">
         <legend><strong>Add Orders</strong></legend>
           <fieldset class="fields">
-            <label>orderID</label> <input type="text" name="orderID">
-            <label>employeeID</label> <input type="text" name="employeeID">
-            <label> storeID </label> <input type="text" name = "storeID">
-            <label> orderTotal </label> <input type="text" name="orderTotal">
+            <label>orderID</label> <input type="text" class="form-control" name="orderID" id="orderID">
+            <label>employeeID</label> <input type="text" class="form-control" name="employeeID" id="employeeID">
+            <label> storeID </label> <input type="text" class="form-control" name="storeID" id="storeID">
+            <label> customerID </label> <input type="text" class="form-control" name="customerID" id="customerID">
+            <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal">
       </fieldset>
-          <input class="btn" type="submit" id="addOrders" value="Add Orders">
+          <input class="btn" type="submit" name="Add_Order" id="addOrders" value="Add Orders">
           <input class="btn" type="button" value="cancel" onClick="browseOrders()">
 	</form> 
 </div>
@@ -111,6 +112,7 @@
             <label> orderID </label> <input type="text" name="orderID" value="1">
             <label> employeeID </label> <input type="text" name="employeeID" value="1">
             <label> storeID </label> <input type="text" name = "storeID" value="1">
+            <label> customerID </label> <input type="text" name = "customerID" value="1">
             <label> orderTotal </label> <input type="text" name="orderTotal" value="12.93">
       </fieldset>
           <input class="btn" type="submit" id="UpdateSaveOrders" value="Save Update Orders">

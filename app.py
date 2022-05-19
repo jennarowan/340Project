@@ -8,21 +8,16 @@ from dotenv import load_dotenv, find_dotenv
 # Load our environment variables from the .env file in the root of our project.
 load_dotenv(find_dotenv())
 
-# Set the variables in our application with those environment variables
-host = os.environ.get("340DBHOST")
-user = os.environ.get("340DBUSER")
-passwd = os.environ.get("340DBPW")
-database = os.environ.get("340DB")
-
 # Configuration
 
 app = Flask(__name__)
 db_connection = db.connect_to_database()
 
-app.config['MYSQL_HOST'] = host
-app.config['MYSQL_USER'] = user
-app.config['MYSQL_PASSWORD'] = passwd
-app.config['MYSQL_DB'] = database
+# Grab all database credentials
+app.config['MYSQL_HOST'] = os.environ.get("340DBHOST")
+app.config['MYSQL_USER'] = os.environ.get("340DBUSER")
+app.config['MYSQL_PASSWORD'] = os.environ.get("340DBPW")
+app.config['MYSQL_DB'] = database = os.environ.get("340DB")
 app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
@@ -94,15 +89,16 @@ def orders():
     if request.method == "POST":
 
         # Fires if user presses the New button
-        if request.form.get("newOrder"):
+        if request.form.get("Add_Order"):
             orderID = request.form["orderID"]
             employeeID = request.form["employeeID"]
             storeID = request.form["storeID"]
             orderTotal = request.form["orderTotal"]
+            customer = request.form["customerID"]
 
-        insertQuery = "INSERT INTO Orders (orderID, employeeID, storeID, orderTotal) VALUES (%s, %s, %s, %s)"
+        insertQuery = "INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) VALUES (%s, %s, %s, %s, %s)"
         cursor = mysql.connection.cursor()
-        cursor.execute(insertQuery, (orderID, employeeID, storeID, orderTotal))
+        cursor.execute(insertQuery, (orderID, employeeID, storeID, customer, orderTotal))
         mysql.connection.commit()
 
         # Send user back to the main orders page
