@@ -108,16 +108,12 @@ def edit_order(id):
 
          # Fires if user presses the Edit button
         if request.form.get("Edit_Order"):
-            Employees_employeeID = request.form["employeeID"]
+            employeeID = request.form["employeeID"]
             storeID = request.form["storeID"]
             customer = request.form["customerID"]
             orderTotal = request.form["orderTotal"]
             orderID = request.form["orderID"]
-
-        fixFKS = "SET FOREIGN_KEY_CHECKS=0"
-        cursor = mysql.connection.cursor()
-        cursor.execute(fixFKS)
-
+        
         updateQuery = """
         UPDATE Orders
         SET 
@@ -129,7 +125,7 @@ def edit_order(id):
         Orders.orderID = %s
         """
         cursor = mysql.connection.cursor()
-        cursor.execute(updateQuery, (Employees_employeeID, storeID, customer, orderTotal, orderID))
+        cursor.execute(updateQuery, (employeeID, storeID, customer, orderTotal, orderID))
         mysql.connection.commit()
 
         return redirect("/orders")

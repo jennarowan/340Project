@@ -7,39 +7,16 @@
 			if (dowhat == 'insert'){
 				document.getElementById('browse').style.display = 'none';
 				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'none';
 				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'update'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-			}
-      else if (dowhat == 'all'){
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'block';
 			}
 			else { //by default display browse
 				document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
 				document.getElementById('delete').style.display = 'none';
 			}
 		}
     function newOrders() { showform('insert'); }
-    function updateOrders(pid) { showform('update'); }
-    function deleteOrders(pid) { showform ('delete'); }
     function browseOrders() { showform ('browse'); }
-    function showAll() { showform ('all'); }
 </script>
 </head>
 
@@ -49,7 +26,7 @@
 [ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
-<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<p></p>
 <table border="1" cellpadding="5">
   <thead>
     <tr>
@@ -75,7 +52,7 @@
     {% for order in orders %}
     <tr>
         <td><a href="/edit_order/{{order['Order #']}}" class="btn btn-default">Edit</a></td>
-        <td><a href="#" onclick="deleteOrders('deleteOrder(order.id')">Delete</a></td>
+        <td><a href="/delete_order/{{order['Order #']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in order.keys() %}
@@ -89,9 +66,11 @@
 <p>&nbsp;</p>
 </div> 
 <div id="insert">
+    
     <form action="/orders" method="POST" id="addOrders">
         <legend><strong>Add Orders</strong></legend>
           <fieldset class="fields">
+          <p></p>
             <label>orderID:</label><input type="text" class="form-control" name="orderID" id="orderID">
 
             <label for="employeeID">Employee:</label>
@@ -133,67 +112,8 @@
           <input class="btn" type="button" value="cancel" onClick="browseOrders()">
 	</form> 
 </div>
-<p>&nbsp;</p>
-{# <div id="update">
-    <form id="editOrder" action="/edit_order/{{orders[0].id}}" method="post">
-        <legend><strong>Update Order</strong></legend>
-          <fieldset class="fields">
-          {# <input type="hidden" name="OrdersID" id="updateOrdersID" value="1"> #}
-          <label>orderID:</label><input type="text" class="form-control" name="orderID" id="orderID" placeholder="{{orders[0].orderID}}">
 
-            {# <label for="employeeID">Employee:</label>
-            <select class="form-control" id="employeeID" name="employeeID" placeholder="" required> 
-                
-                <option value="0">&nbsp;</option>
-                {% for employee in employees %}
-                        
-                  <option value="{{ employee['employeeID'] }}"> {{employee['Employee']}}</option> 
-                
-                {% endfor %} 
-            </select>
-            
-            <label for="storeID">Store Location:</label>
-            <select class="form-control" id="storeID" name="storeID" placeholder="" required> 
-                
-                <option value="0">&nbsp;</option>
-                {% for store in stores %}
-                        
-                  <option value="{{ store['storeID'] }}"> {{store['Store Location']}}</option> 
-                
-                {% endfor %} 
-            </select>
 
-            <label for="customerID">Customer Name:</label>
-            <select class="form-control" id="customerID" name="customerID" placeholder="" required> 
-                
-                <option value="0">&nbsp;</option>
-                {% for customer in customers %}
-                        
-                  <option value="{{ customer['customerID'] }}"> {{customer['Customer']}}</option> 
-                
-                {% endfor %} 
-            </select>	 #}
-
-            <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal" value="{{orders[0].orderTotal}}">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveOrders" name="Update_Order" value="Save Update Orders">
-          <input class="btn" type="button" value="cancel" onClick="browseOrders()">
-	</form> 
-</div> #}
-<p>&nbsp;</p>
-<div id="delete" style="display: block">
-  <form method="POST" id="deleteOrders">
-      <legend><strong>Delete Orders</strong></legend>
-          <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <input type="hidden" name="OrdersID" id="deleteOrdersID" value="1">
-          <label><strong>ID:</strong></label> 1
-            <label> <strong>Name</strong> </label> 1
-    </fieldset>
-    <input class="btn" type="submit" id="DeleteOrders" value="Delete Orders">
-          <input class="btn" type="button" value="cancel" onClick="browseOrders()">
-  </form> 
-</div>
 </body>
 <!-- Template used for this assignment was referenced by OSU CS 340 Professor, 
 and can be found at the following link https://canvas.oregonstate.edu/courses/1870053/files/92584084?wrap=1-->
