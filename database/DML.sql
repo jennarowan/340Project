@@ -1,14 +1,15 @@
 /*
 Draft Version of DML queries for JL Liquor
-Author: Liam Maloney
-Date: May 5th, 2022
+Author: Liam Maloney and Jenna Rowan
+Creation Date: May 5th, 2022
+Last Updated Date: May 19th, 2022
 */
 
 -----------------Orders-------------------
 
 -- Create
-INSERT INTO Orders(orderID, employeeID, storeID, customerID, orderTotal)
-VALUES(:orderID_input, :employyeID_input, :storeID_input, :customerID_input, orderTotal);
+INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
+VALUES (%s, %s, %s, %s, %s)
 
 -- Read
 SELECT 
@@ -22,6 +23,20 @@ INNER JOIN Employees ON Orders.Employees_employeeID = Employees.employeeID
 INNER JOIN Stores ON Orders.Stores_storeID = Stores.storeID
 INNER JOIN Customers ON Orders.Customers_customerID = Customers.customerID;
 
+-- Update
+UPDATE Orders
+SET 
+Orders.Employees_employeeID = %s,
+Orders.Stores_storeID = %s,
+Orders.Customers_customerID = %s,
+Orders.orderTotal = %s
+WHERE
+Orders.orderID = %s
+
+-- Delete
+DELETE FROM Orders
+WHERE
+Orders.orderID = %s
 
 
 -----------------Stores-------------------
