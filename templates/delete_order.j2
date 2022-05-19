@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<title>Delete Order</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <form id="deleteOrder" action="/delete_order/{{orderNum}}" method="post">
+        <table border="1" cellpadding="5"> 
+            <caption> Deleting Order: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if orders %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in orders[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th>{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for order in orders %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in order.keys() %}
+                       
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{order[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+            <input type="hidden" value="{{orderNum}}" class="form-control" id="orderID" name="orderID" required>
+        </table>
+        
+        <input type="submit" value="Delete Order" name="Delete_Order" class="btn btn-primary" style="margin:.5rem;">
+        <a href='/orders'><input class="btn" type="button" value="cancel"></a>
+        </form>
+    </div>
+</body>
+</html>

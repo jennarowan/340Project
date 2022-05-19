@@ -130,6 +130,46 @@ def edit_order(id):
 
         return redirect("/orders")
 
+@app.route("/delete_order/<int:id>", methods=["POST", "GET"])
+def delete_order(id):
+    
+    if request.method == "GET":
+
+        orderQuery = """
+        SELECT 
+        Orders.orderID AS "Order #", 
+        CONCAT(Employees.firstName, " ", Employees.lastName) AS "Employee", 
+        Stores.addressStreet AS "Store Location", 
+        CONCAT(Customers.firstName, " ", Customers.lastName) AS "Customer",
+        CONCAT("$", Orders.orderTotal) AS "Total"
+        FROM Orders
+        INNER JOIN Employees ON Orders.Employees_employeeID = Employees.employeeID
+        INNER JOIN Stores ON Orders.Stores_storeID = Stores.storeID
+        INNER JOIN Customers ON Orders.Customers_customerID = Customers.customerID
+        WHERE orderId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(orderQuery)
+        orders = cur.fetchall()
+
+        return render_template("delete_order.j2", orders=orders, orderNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Delete_Order"):
+            orderID = request.form["orderID"]
+        
+        deleteQuery = """
+        DELETE FROM Orders
+        WHERE
+        Orders.orderID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (orderID))
+        mysql.connection.commit()
+
+        return redirect("/orders")
+
 @app.route('/stores')
 def stores():
 
