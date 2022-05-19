@@ -53,8 +53,13 @@
 <table border="1" cellpadding="5">
   <thead>
     <tr>
+
+        <th><a href="#" onClick="newOrders()">New</a></th>
+
         <!-- Iterate through each key in the first entry to get the
         column name -->
+        
+        <th></th>
         {% for key in Orders[0].keys() %}
 
         <!-- Create a <th> tag with the key inside of it, this will be
@@ -64,11 +69,14 @@
         <!-- End of this for loop -->
         {% endfor %}
     </tr>
-    <tbody>
+    <tbody>    
 
     <!-- Now, iterate through every person in bsg_people -->
     {% for order in Orders %}
     <tr>
+        <td><a href="#" onClick="updateOrders('this.OrdersID')">Edit</a></td>
+        <td><a href="#" onclick="deleteOrders('this.OrdersID')">Delete</a></td>
+        
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in order.keys() %}
 
