@@ -233,8 +233,8 @@ def stores():
         # Send user back to the main stores page
         return redirect("/stores")
 
-@app.route("/stores-edit/<int:id>", methods=["POST", "GET"])
-def edit_store(id):
+@app.route("/stores-edit/<int:id>/<addressStreet>/<addressCity>/<addressState>/<addressZip>", methods=["POST", "GET"])
+def edit_store(id, addressStreet, addressCity, addressState, addressZip):
 
     if request.method == "GET":
 
@@ -251,9 +251,9 @@ def edit_store(id):
 
         cur = mysql.connection.cursor()
         cur.execute(orderQuery)
-        stores = cur.fetchall()
+        store = cur.fetchall()
 
-        return render_template("stores-edit.j2", stores=stores, storeNum=id)
+        return render_template("stores-edit.j2", store=store, storeNum=id, addressStreet=addressStreet, addressCity=addressCity, addressState=addressState, addressZip=addressZip)
 
 
     if request.method == "POST":

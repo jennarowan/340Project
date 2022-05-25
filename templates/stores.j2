@@ -49,7 +49,7 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for store in stores %}
     <tr>
-        <td><a href="/stores-edit/{{store['Store #']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/stores-edit/{{store['Store #']}}/{{store['Street']}}/{{store['City']}}/{{store['State']}}/{{store['Zip Code']}}" class="btn btn-default">Edit</a></td>
         <td><a href="/stores-delete/{{store['Store #']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
@@ -65,12 +65,22 @@
 </div> 
 <div id="insert">
     <form method="POST" id="addStore">
+        <p></p>
         <legend><strong>Add Store</strong></legend>
+          <p></p>
           <fieldset class="fields">
+            <p>
             <label>addressStreet</label> <input type="text" name="addressStreet">
+            </p>
+            <p>
             <label>addressCity</label> <input type="text" name="addressCity">
-            <label> addressState </label> <input type="text" name = "addressState" value="NM">
+            </p>
+            <p>
+            <label> addressState </label> <input type="text" name = "addressState">
+            </p>
+            <p>
             <label> addressZip </label> <input type="text" name="addressZip">
+            </p>
       </fieldset>
           <input class="btn" type="submit" name="Add_Store" id="addStore" value="Add Store">
           <input class="btn" type="button" value="cancel" onClick="browseStore()">
