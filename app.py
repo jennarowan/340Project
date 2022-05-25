@@ -383,6 +383,51 @@ def customers():
         # Send user back to the main stores page
         return redirect("/customers")
 
+        
+
+@app.route("/customers-delete/<int:id>", methods=["POST", "GET"])
+def delete_customer(id):
+    
+    if request.method == "GET":
+
+        customerQuery = """
+        SELECT
+        Customers.customerID AS "Customer #",
+        Customers.email AS "Email Address",
+        Customers.firstName AS "First",
+        Customers.lastName AS "Last",
+        Customers.addressStreet AS "Street",
+        Customers.addressCity AS "City",
+        Customers.addressState AS "State",
+        Customers.addressZip AS "Zip",
+        Customers.cusTotalSales AS "Total Sales",
+        RewardsTiers.rewardsTierName AS "Rewards Tier"
+        FROM Customers
+        INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        WHERE customerId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(customerQuery)
+        customers = cur.fetchall()
+
+        return render_template("customers-delete.j2", customers=customers, customerNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Delete_Customer"):
+            customerID = request.form["customerID"]
+        
+        deleteQuery = """
+        DELETE FROM Customers
+        WHERE
+        Customers.customerID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (customerID))
+        mysql.connection.commit()
+
+        return redirect("/customers")
+
 @app.route('/employees')
 def employees():
     return render_template("employees.j2")
