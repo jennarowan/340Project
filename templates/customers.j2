@@ -24,7 +24,7 @@
 [ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
-<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<p></p>
 <table border="1" cellpadding="5">
   <thead>
     <tr>
@@ -49,7 +49,7 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for customer in customers %}
     <tr>
-        <td><a href="/customers-edit/{{customer['Customer #']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/customers-edit/{{customer['Customer #']}}/{{customer['Email Address']}}/{{customer['First']}}/{{customer['Last']}}/{{customer['Street']}}/{{customer['City']}}/{{customer['State']}}/{{customer['Zip']}}/{{customer['Total Sales']}}/{{customer['Rewards Tier']}}" class="btn btn-default">Edit</a></td>
         <td><a href="/customers-delete/{{customer['Customer #']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
@@ -65,34 +65,36 @@
 </div> 
 <div id="insert">
     <form method="POST" id="addCustomer">
+        <p></p>
         <legend><strong>Add Customer</strong></legend>
+        <p></p>
           <fieldset class="fields">
             <p>
-            <label>Email:</label><input type="text" name="emailAddress">
+            <label>Email: </label><input type="text" name="emailAddress">
             </p>
             <p>
-            <label>First Name:</label><input type="text" name="firstName">
+            <label>First Name: </label><input type="text" name="firstName">
             </p>
             <p>
-            <label>Last Name:</label><input type="text" name="lastName">
+            <label>Last Name: </label><input type="text" name="lastName">
             </p>
             <p>
-            <label>Street:</label><input type="text" name="addressStreet">
+            <label>Street: </label><input type="text" name="addressStreet">
             </p>
             <p>
-            <label>City:</label><input type="text" name="addressCity">
+            <label>City: </label><input type="text" name="addressCity">
             </p>
             <p>
-            <label>State:</label><input type="text" name="addressState">
+            <label>State: </label><input type="text" name="addressState">
             </p>
             <p>
-            <label>Zip:</label><input type="text" name="addressZip">
+            <label>Zip: </label><input type="text" name="addressZip">
             </p>
             <p>
-            <label>Total Sales:</label><input type="text" name="totalSales">
+            <label>Total Sales: </label><input type="text" name="totalSales">
             </p>            
             <p>
-            <label for="rewardsTier">Rewards Tier::</label>
+            <label for="rewardsTier">Rewards Tier: </label>
             <select class="form-control" id="rewardsTier" name="rewardsTier" placeholder="" required> 
                 
                 <option value="0">&nbsp;</option>

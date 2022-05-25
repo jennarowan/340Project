@@ -39,22 +39,27 @@
         
         <div id="edit">
         
-            <form id="editStore" action="/stores-edit/{{storeNum}}" method="post">
-                
+            <form id="editStore" action="/stores-edit/{{storeNum}}/{{addressStreet}}/{{addressCity}}/{{addressState}}/{{addressZip}}" method="post">
+                <p></p>
                 <legend><strong>Edit Store</strong></legend>
+                <p></p>
                 <fieldset>
                     <!-- We can preset form inputs to match attributes currently stored for 'id' of store to be updated via value= and accessing our passed data tuple -->
                     <!-- Create hidden form input to store the passed 'id' of the store we are editing so we can access it easily in our 'POST' method in our app.py -->
                     <input type="hidden" value="{{storeNum}}" class="form-control" id="storeID" name="storeID" required>
-                    
-                    <label for="street">Street:</label> <input type="text" class="form-control" name="street" id="street">
-
-                    <label for="customerID">City:</label> <input type="text" class="form-control" name="city" id="city">
-
-                    <label> State: </label> <input type="text" class="form-control" name="state" id="state">
-
-                    <label> Zip: </label> <input type="text" class="form-control" name="zip" id="zip">
-                
+                    <p>
+                    <label for="street">Street:</label> <input type="text" class="form-control" name="street" id="street" value="{{addressStreet}}">
+                    </p>
+                    <p>
+                    <label for="customerID">City:</label> <input type="text" class="form-control" name="city" id="city" value="{{addressCity}}">
+                    </p>
+                    <p>
+                    <label> State: </label> <input type="text" class="form-control" name="state" id="state" value="{{addressState}}">
+                    </p>
+                    <p>
+                    <label> Zip: </label> <input type="text" class="form-control" name="zip" id="zip" value="{{addressZip}}">
+                    </p>
+                    <p>                
                 </fieldset>
                 <input type="submit" value="Edit Store" name="Edit_Store" class="btn btn-primary" style="margin:.5rem;">
                 <a href='/stores'><input class="btn" type="button" value="cancel"></a>

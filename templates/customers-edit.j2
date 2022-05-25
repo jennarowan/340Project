@@ -1,0 +1,93 @@
+<html>
+
+<head>
+	<title>Edit Customer</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Customer: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if customers %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in customers[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th>{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for customer in customers %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in customer.keys() %}
+                       
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{customer[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+        
+        <div id="edit">
+        
+            <form id="editCustomer" action="/customers-edit/{{customerNum}}/{{emailAddress}}/{{firstName}}/{{lastName}}/{{addressStreet}}/{{addressCity}}/{{addressState}}/{{addressZip}}/{{totalSales}}/{{rewardsTier}}" method="post">
+                <p></p>
+                <legend><strong>Edit Customer</strong></legend>
+                <p></p>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently customerd for 'id' of customer to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to customer the passed 'id' of the customer we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{customerNum}}" class="form-control" id="customerID" name="customerID" required>
+                    <p>
+                    <label for="street">Email Address:</label> <input type="text" class="form-control" name="emailAddress" id="emailAddress" value="{{emailAddress}}">
+                    </p>
+                    <p>
+                    <label for="street">First Name:</label> <input type="text" class="form-control" name="firstName" id="firstName" value="{{firstName}}">
+                    </p>
+                    <p>
+                    <label for="street">Last Name:</label> <input type="text" class="form-control" name="lastName" id="lastName" value="{{lastName}}">
+                    </p>
+                    <p>
+                    <label for="street">Street:</label> <input type="text" class="form-control" name="street" id="street" value="{{addressStreet}}">
+                    </p>
+                    <p>
+                    <label for="customerID">City:</label> <input type="text" class="form-control" name="city" id="city" value="{{addressCity}}">
+                    </p>
+                    <p>
+                    <label>State:</label> <input type="text" class="form-control" name="state" id="state" value="{{addressState}}">
+                    </p>
+                    <p>
+                    <label>Zip:</label> <input type="text" class="form-control" name="zip" id="zip" value="{{addressZip}}">
+                    </p>
+                    <p>
+                    <label>Total Sales:</label> <input type="text" class="form-control" name="sales" id="sales" value="{{totalSales}}">
+                    </p>
+                    <p>
+                    <label>Rewards Tier:</label>
+                    <select class="form-control" id="tier" name="tier" required> 
+                
+                        <option value="0">&nbsp;</option>
+                        {% for tier in tiers %}
+
+                            <option value="{{ tier['rewardsTierID'] }}"> {{tier['rewardsTierName']}}</option> 
+                        
+                        {% endfor %} 
+
+                    </select>
+                    </p>
+                
+                </fieldset>
+                <input type="submit" value="Edit Customer" name="Edit_Customer" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/customers'><input class="btn" type="button" value="cancel"></a>
+            </form>
+</body>
+</html>

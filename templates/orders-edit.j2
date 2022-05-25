@@ -40,13 +40,14 @@
         <div id="edit">
         
             <form id="editOrder" action="/orders-edit/{{orderNum}}/{{employeeName}}/{{total}}" method="post">
-                
+                <p></p>
                 <legend><strong>Edit Order</strong></legend>
+                <p></p>
                 <fieldset>
                     <!-- We can preset form inputs to match attributes currently stored for 'id' of order to be updated via value= and accessing our passed data tuple -->
                     <!-- Create hidden form input to store the passed 'id' of the order we are editing so we can access it easily in our 'POST' method in our app.py -->
                     <input type="hidden" value="{{orderNum}}" class="form-control" id="orderID" name="orderID" required>
-                   
+                   <p>
                     <label for="employeeID">Employee:</label>
                     <select class="form-control" id="employeeID" name="employeeID" selected="Walter White" required> 
                 
@@ -66,7 +67,8 @@
                         {% endfor %} 
 
                     </select>
-
+                    </p>
+                    <p>
                     <label for="storeID">Store Location:</label>
                     <select class="form-control" id="storeID" name="storeID" placeholder="" required> 
                         
@@ -77,7 +79,8 @@
                         
                         {% endfor %} 
                     </select>
-
+                    </p>
+                    <p>
                     <label for="customerID">Customer Name:</label>
                     <select class="form-control" id="customerID" name="customerID" placeholder="" required> 
                         
@@ -87,10 +90,11 @@
                         <option value="{{ customer['customerID'] }}"> {{customer['Customer']}}</option> 
                         
                         {% endfor %} 
-                    </select>	
-
+                    </select>
+                    </p>
+                    <p>
                     <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal" value="{{ total }}">
-                
+                    </p>
                 </fieldset>
                 <input type="submit" value="Edit Order" name="Edit_Order" class="btn btn-primary" style="margin:.5rem;">
                 <a href='/orders'><input class="btn" type="button" value="cancel"></a>
