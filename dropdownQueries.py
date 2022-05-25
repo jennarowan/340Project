@@ -19,7 +19,7 @@ app.config['MYSQL_CURSORCLASS'] = "DictCursor"
 
 mysql = MySQL(app)
 
-def createDropdownDatasets():
+def ordersDropdownDatasets():
 
     # Grabs the employee names to use in a dropdown
     employeeQuery = """
@@ -64,3 +64,19 @@ def createDropdownDatasets():
     nextOrderNum = cursor.fetchall()
 
     return employees, stores, customers, nextOrderNum
+
+def customersDropDowns():
+
+    # Grabs the rewards tiers to use in an Insert dropdown
+    tierQuery = """
+    SELECT
+    rewardsTierID,
+    rewardsTierName
+    FROM RewardsTiers
+    """
+
+    cursor = mysql.connection.cursor()
+    cursor.execute(tierQuery)
+    tiers = cursor.fetchall()
+
+    return tiers

@@ -62,16 +62,16 @@ VALUES(:customerID_input, :email_input, :firstName_input, :lastName_input, :addr
 
 -- Read
 SELECT 
-Customers.customerID,
-Customers.email,
-Customers.firstName,
-Customers.lastName,
-Customers.addressStreet,
-Customers.addressCity,
-Customers.addressState,
-Customers.addressZip,
-Customers.cusTotalSales,
-RewardsTiers.rewardsTierName
+Customers.customerID AS "Customer #",
+Customers.email AS "Email Address",
+Customers.firstName AS "First",
+Customers.lastName AS "Last",
+Customers.addressStreet AS "Street",
+Customers.addressCity AS "City",
+Customers.addressState AS "State",
+Customers.addressZip AS "Zip",
+Customers.cusTotalSales AS "Total Sales",
+RewardsTiers.rewardsTierName AS "Rewards Tier"
 FROM Customers
 INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
 ORDER BY Customers.customerID ASC;

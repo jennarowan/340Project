@@ -53,7 +53,7 @@ def orders():
         orders = cursor.fetchall()
 
         # Call the dropdown creation function to query the database and pass values to the orders
-        employees, stores, customers, nextOrderNum = createDropdownDatasets()        
+        employees, stores, customers, nextOrderNum = ordersDropdownDatasets()        
 
         return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers, nextOrderNum=nextOrderNum)
 
@@ -308,9 +308,36 @@ def delete_store(id):
 
         return redirect("/stores")
 
-@app.route('/customers')
+@app.route('/customers', methods=["POST", "GET"])
 def customers():
-    return render_template("customers.j2")
+
+    if request.method == "GET":
+
+        # Grabs all data for the main Customers table
+        readQuery = """
+        SELECT 
+        Customers.customerID AS "Customer #",
+        Customers.email AS "Email Address",
+        Customers.firstName AS "First",
+        Customers.lastName AS "Last",
+        Customers.addressStreet AS "Street",
+        Customers.addressCity AS "City",
+        Customers.addressState AS "State",
+        Customers.addressZip AS "Zip",
+        Customers.cusTotalSales AS "Total Sales",
+        RewardsTiers.rewardsTierName AS "Rewards Tier"
+        FROM Customers
+        INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        ORDER BY Customers.customerID ASC;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        customers = cursor.fetchall()
+
+        tiers = customersDropDowns()
+
+        return render_template("customers.j2", customers=customers, tiers=tiers)
 
 @app.route('/employees')
 def employees():

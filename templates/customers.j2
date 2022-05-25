@@ -7,39 +7,14 @@
 			if (dowhat == 'insert'){
 				document.getElementById('browse').style.display = 'none';
 				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'update'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-			}
-      else if (dowhat == 'all'){
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'block';
 			}
 			else { //by default display browse
 				document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
 			}
 		}
     function newCustomer() { showform('insert'); }
-    function updateCustomer(pid) { showform('update'); }
-    function deleteCustomer(pid) { showform ('delete'); }
     function browseCustomer() { showform ('browse'); }
-    function showAll() { showform ('all'); }
 </script>
 </head>
 
@@ -51,62 +26,40 @@
 <div id="browse">
 <p><a href="#" onClick="showAll()">Show CRUD</a> </p>
 <table border="1" cellpadding="5">
-  <tr>
-    <th><a href="#" onClick="newCustomer()">New</a></th>
-    <th></th>
-    <th>customerID</th>
-    <th>email</th>
-    <th>firstName</th>
-    <th>lastName</th>
-    <th>addressStreet</th>
-    <th>addressCity</th>
-    <th>addressState</th>
-    <th>addressZip</th>
-    <th>totalSales</th>
-    <th>rewardsTierName</th>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateCustomer('this.CustomerID')">Edit</a></td>
-    <td><a href="#" onclick="deleteCustomer('this.CustomerID')">Delete</a></td>
-    <td align="right" >1</td>
-    <td>gaslover@aol.com</td>
-    <td>Hank</td>
-    <td>Hill</td>
-    <td>72 Desert Rose Lane</td>
-    <td>Arlen</td>
-    <td>TX</td>
-    <td>73104</td>
-    <td>3450</td>
-    <td>Gold</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateCustomer('this.CustomerID')">Edit</a></td>
-    <td><a href="#" onclick="deleteCustomer('this.CustomerID')">Delete</a></td>
-    <td align="right" >2</td>
-    <td>watchoutfornsa@protonmail.com</td>
-    <td>Dale</td>
-    <td>Gribble</td>
-    <td>63 Desert Rose Lane</td>
-    <td>Arlen</td>
-    <td>TX</td>
-    <td>73104</td>
-    <td>7288.37</td>
-    <td>Gold</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateCustomer('this.CustomerID')">Edit</a></td>
-    <td><a href="#" onclick="deleteCustomer('this.CustomerID')">Delete</a></td>
-    <td align ="right">3</td>
-    <td>loneylbill@gmail.com</td>
-    <td>Bill</td>
-    <td>Dauterive</td>
-    <td>63 Desert Rose Lane</td>
-    <td>Arlen</td>
-    <td>TX</td>
-    <td>73104</td>
-    <td>867.21</td>
-    <td>Silver</td>
-  </tr>
+  <thead>
+    <tr>
+
+        <th><a href="#" onClick="newCustomer()">New</a></th>
+
+        <!-- Iterate through each key in the first entry to get the
+        column name -->
+        
+        <th></th>
+        {% for key in customers[0].keys() %}
+
+        <!-- Create a <th> tag with the key inside of it, this will be
+        our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+    </tr>
+    <tbody>    
+
+    <!-- Now, iterate through every person in bsg_people -->
+    {% for customer in customers %}
+    <tr>
+        <td><a href="/customers-edit/{{customer['Customer #']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/customers-delete/{{customer['Customer #']}}" class="btn btn-default">Delete</a></td>
+        
+        <!-- Then iterate through every key in the current person dictionary -->
+        {% for key in customer.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{customer[key]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
 </table>
 <p>&nbsp;</p>
 </div> 
