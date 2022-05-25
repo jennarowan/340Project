@@ -67,56 +67,47 @@
     <form method="POST" id="addCustomer">
         <legend><strong>Add Customer</strong></legend>
           <fieldset class="fields">
-            <label>customerID</label><input type="text" name="customerID">
-            <label>email</label><input type="text" name="email">
-            <label>firstName</label><input type="text" name="firstName">
-            <label>lastName</label><input type="text" name="lastName">
-            <label>addressStreet</label><input type="text" name="addressStreet">
-            <label>addressCity</label><input type="text" name="addressCity">
-            <label>addressState</label><input type="text" name="addressState">
-            <label>addressZip</label><input type="text" name="addressZip">
-            <label>totalSales</label><input type="text" name="totalSales">
-            <label>rewardsTierId</label><input type="text" name="rewardsTierId">
+            <p>
+            <label>Email:</label><input type="text" name="emailAddress">
+            </p>
+            <p>
+            <label>First Name:</label><input type="text" name="firstName">
+            </p>
+            <p>
+            <label>Last Name:</label><input type="text" name="lastName">
+            </p>
+            <p>
+            <label>Street:</label><input type="text" name="addressStreet">
+            </p>
+            <p>
+            <label>City:</label><input type="text" name="addressCity">
+            </p>
+            <p>
+            <label>State:</label><input type="text" name="addressState">
+            </p>
+            <p>
+            <label>Zip:</label><input type="text" name="addressZip">
+            </p>
+            <p>
+            <label>Total Sales:</label><input type="text" name="totalSales">
+            </p>            
+            <p>
+            <label for="rewardsTier">Rewards Tier::</label>
+            <select class="form-control" id="rewardsTier" name="rewardsTier" placeholder="" required> 
+                
+                <option value="0">&nbsp;</option>
+                {% for tier in tiers %}
+                        
+                  <option value="{{ tier['rewardsTierID'] }}"> {{tier['rewardsTierName']}}</option> 
+                
+                {% endfor %} 
+            </select>
+            </p>
       </fieldset>
-          <input class="btn" type="submit" id="addCustomer" value="Add Customer">
+          <input class="btn" type="submit" name="Add_Customer" id="addCustomer" value="Add Customer">
           <input class="btn" type="button" value="cancel" onClick="browseCustomer()">
 	</form> 
 </div>
-<p>&nbsp;</p>
-<div id="update">
-    <form method="POST" id="UpdateCustomer">
-        <legend><strong>Update Customer</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="CustomerID" id="updateCustomerID" value="1">
-          <label> ID: </label> 1
-          <label>customerID</label><input type="text" name="customerID" value = "1">
-          <label>email</label><input type="text" name="email" value = "gaslover@aol.com">
-          <label>firstName</label><input type="text" name="firstName" value = "Hank">
-          <label>lastName</label><input type="text" name="lastName" value = "Hill">
-          <label>addressStreet</label><input type="text" name="addressStreet" value = "72 Desert Rose Lane">
-          <label>addressCity</label><input type="text" name="addressCity" value = "Arlen">
-          <label>addressState</label><input type="text" name="addressState" value = "TX">
-          <label>addressZip</label><input type="text" name="addressZip" value = "73104">
-          <label>totalSales</label><input type="text" name="totalSales" value = "3450">
-          <label>rewardsTierId</label><input type="text" name="rewardsTierId" value = "3">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveCustomer" value="Save Update Customer">
-          <input class="btn" type="button" value="cancel" onClick="browseCustomer()">
-	</form> 
-</div><!-- update -->
-<p>&nbsp;</p>
-<div id="delete" style="display: block">
-  <form method="POST" id="deleteCustomer">
-      <legend><strong>Delete Customer</strong></legend>
-          <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <input type="hidden" name="CustomerID" id="deleteCustomerID" value="1">
-          <label><strong>ID:</strong></label> 1
-            <label> <strong>email</strong> </label> gaslover@aol.com
-    </fieldset>
-    <input class="btn" type="submit" id="DeleteCustomer" value="Delete Customer">
-          <input class="btn" type="button" value="cancel" onClick="browseCustomer()">
-  </form> 
-</div>
+
 </body>
 </html>

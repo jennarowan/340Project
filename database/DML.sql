@@ -57,8 +57,8 @@ FROM Stores;
 
 -----------------Customers-------------------
 -- Create
-INSERT INTO Customers(customerID, email, firstName, lastName, addressStreet, addressCity, addressState, addressZip, totalSales, rewardsTierId)
-VALUES(:customerID_input, :email_input, :firstName_input, :lastName_input, :addressStreet_input, :addressCity_input, :addressState_input, :addressZip_input, :totalSales_input, :rewardsTierId_input);
+INSERT INTO Customers(customerID, email, firstName, lastName, addressStreet, addressCity, addressState, addressZip, cusTotalSales, RewardsTiers_rewardsTierId)
+VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
 
 -- Read
 SELECT 

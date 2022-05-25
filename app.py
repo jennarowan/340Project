@@ -102,7 +102,7 @@ def edit_order(id):
         orders = cur.fetchall()
 
         # Call the dropdown creation function to query the database and pass values to the orders
-        employees, stores, customers, nextOrderNum = createDropdownDatasets()
+        employees, stores, customers, nextOrderNum = ordersDropdownDatasets()
 
         return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id)
 
@@ -338,6 +338,50 @@ def customers():
         tiers = customersDropDowns()
 
         return render_template("customers.j2", customers=customers, tiers=tiers)
+
+    if request.method == "POST":
+
+        # Fires if user presses the New button
+        if request.form.get("Add_Customer"):
+            email = request.form["emailAddress"]
+            first = request.form["firstName"]
+            last = request.form["lastName"]
+            street = request.form["addressStreet"]
+            city = request.form["addressCity"]
+            state = request.form["addressState"]
+            zip = request.form["addressZip"]
+            sales = request.form["totalSales"]
+            tier = request.form["rewardsTier"]
+
+        # Grabs the next customer number in line, so the user doesn't need to know what the correct order number is for Insert functions
+        nextCustomerQuery = """
+        SELECT MAX(customerID) + 1 AS "nextCustomerNum" FROM Customers
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextCustomerQuery)
+        customerID = cursor.fetchall()
+
+        insertQuery = """
+        INSERT INTO Customers(
+        customerID, 
+        email, 
+        firstName, 
+        lastName, 
+        addressStreet, 
+        addressCity, 
+        addressState, 
+        addressZip, 
+        cusTotalSales, 
+        RewardsTiers_rewardsTierId)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (customerID, email, first, last, street, city, state, zip, sales, tier))
+        mysql.connection.commit()
+
+        # Send user back to the main stores page
+        return redirect("/customers")
 
 @app.route('/employees')
 def employees():
