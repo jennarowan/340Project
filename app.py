@@ -454,7 +454,7 @@ def edit_customer(id, emailAddress, firstName, lastName, addressStreet, addressC
         Customers.addressState = %s,
         Customers.addressZip = %s,
         Customers.cusTotalSales = %s,
-        Customers.RewardsTiers_rewardsTierId = %s,
+        Customers.RewardsTiers_rewardsTierId = %s
         WHERE
         Customers.customerID = %s
         """
