@@ -53,19 +53,27 @@ def orders():
         orders = cursor.fetchall()
 
         # Call the dropdown creation function to query the database and pass values to the orders
-        employees, stores, customers, nextOrderNum = createDropdownDatasets()        
+        employees, stores, customers= ordersDropdownDatasets()        
 
-        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers, nextOrderNum=nextOrderNum)
+        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers)
 
     if request.method == "POST":
 
         # Fires if user presses the New button
         if request.form.get("Add_Order"):
-            orderID = request.form["orderID"]
             employeeID = request.form["employeeID"]
             storeID = request.form["storeID"]
             orderTotal = request.form["orderTotal"]
             customer = request.form["customerID"]
+
+        # Grabs the next order number in line, so the user doesn't need to know what the correct order number is for Insert functions
+        nextOrderQuery = """
+        SELECT MAX(orderID) + 1 AS "nextOrderNum" FROM Orders
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextOrderQuery)
+        orderID = cursor.fetchall()
 
         insertQuery = """
         INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
@@ -78,8 +86,11 @@ def orders():
         # Send user back to the main orders page
         return redirect("/orders")
 
-@app.route("/orders-edit/<int:id>", methods=["POST", "GET"])
-def edit_order(id):
+@app.route("/orders-edit/<int:id>/<employeeName>/<total>", methods=["POST", "GET"])
+def edit_order(id, employeeName, total):
+
+    # Remove dollar sign from total
+    total = total.replace('$', '')
     
     if request.method == "GET":
 
@@ -102,9 +113,9 @@ def edit_order(id):
         orders = cur.fetchall()
 
         # Call the dropdown creation function to query the database and pass values to the orders
-        employees, stores, customers, nextOrderNum = createDropdownDatasets()
+        employees, stores, customers = ordersDropdownDatasets()
 
-        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id)
+        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id, employeeName=employeeName, total=total)
 
     if request.method == "POST":
 
@@ -308,9 +319,125 @@ def delete_store(id):
 
         return redirect("/stores")
 
-@app.route('/customers')
+@app.route('/customers', methods=["POST", "GET"])
 def customers():
-    return render_template("customers.j2")
+
+    if request.method == "GET":
+
+        # Grabs all data for the main Customers table
+        readQuery = """
+        SELECT 
+        Customers.customerID AS "Customer #",
+        Customers.email AS "Email Address",
+        Customers.firstName AS "First",
+        Customers.lastName AS "Last",
+        Customers.addressStreet AS "Street",
+        Customers.addressCity AS "City",
+        Customers.addressState AS "State",
+        Customers.addressZip AS "Zip",
+        Customers.cusTotalSales AS "Total Sales",
+        RewardsTiers.rewardsTierName AS "Rewards Tier"
+        FROM Customers
+        INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        ORDER BY Customers.customerID ASC;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        customers = cursor.fetchall()
+
+        tiers = customersDropDowns()
+
+        return render_template("customers.j2", customers=customers, tiers=tiers)
+
+    if request.method == "POST":
+
+        # Fires if user presses the New button
+        if request.form.get("Add_Customer"):
+            email = request.form["emailAddress"]
+            first = request.form["firstName"]
+            last = request.form["lastName"]
+            street = request.form["addressStreet"]
+            city = request.form["addressCity"]
+            state = request.form["addressState"]
+            zip = request.form["addressZip"]
+            sales = request.form["totalSales"]
+            tier = request.form["rewardsTier"]
+
+        # Grabs the next customer number in line, so the user doesn't need to know what the correct order number is for Insert functions
+        nextCustomerQuery = """
+        SELECT MAX(customerID) + 1 AS "nextCustomerNum" FROM Customers
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextCustomerQuery)
+        customerID = cursor.fetchall()
+
+        insertQuery = """
+        INSERT INTO Customers(
+        customerID, 
+        email, 
+        firstName, 
+        lastName, 
+        addressStreet, 
+        addressCity, 
+        addressState, 
+        addressZip, 
+        cusTotalSales, 
+        RewardsTiers_rewardsTierId)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (customerID, email, first, last, street, city, state, zip, sales, tier))
+        mysql.connection.commit()
+
+        # Send user back to the main stores page
+        return redirect("/customers")
+
+
+
+@app.route("/customers-delete/<int:id>", methods=["POST", "GET"])
+def delete_customer(id):
+    
+    if request.method == "GET":
+
+        customerQuery = """
+        SELECT
+        Customers.customerID AS "Customer #",
+        Customers.email AS "Email Address",
+        Customers.firstName AS "First",
+        Customers.lastName AS "Last",
+        Customers.addressStreet AS "Street",
+        Customers.addressCity AS "City",
+        Customers.addressState AS "State",
+        Customers.addressZip AS "Zip",
+        Customers.cusTotalSales AS "Total Sales",
+        RewardsTiers.rewardsTierName AS "Rewards Tier"
+        FROM Customers
+        INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        WHERE customerId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(customerQuery)
+        customers = cur.fetchall()
+
+        return render_template("customers-delete.j2", customers=customers, customerNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Delete_Customer"):
+            customerID = request.form["customerID"]
+        
+        deleteQuery = """
+        DELETE FROM Customers
+        WHERE
+        Customers.customerID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (customerID))
+        mysql.connection.commit()
+
+        return redirect("/customers")
 
 @app.route('/employees')
 def employees():

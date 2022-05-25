@@ -57,21 +57,21 @@ FROM Stores;
 
 -----------------Customers-------------------
 -- Create
-INSERT INTO Customers(customerID, email, firstName, lastName, addressStreet, addressCity, addressState, addressZip, totalSales, rewardsTierId)
-VALUES(:customerID_input, :email_input, :firstName_input, :lastName_input, :addressStreet_input, :addressCity_input, :addressState_input, :addressZip_input, :totalSales_input, :rewardsTierId_input);
+INSERT INTO Customers(customerID, email, firstName, lastName, addressStreet, addressCity, addressState, addressZip, cusTotalSales, RewardsTiers_rewardsTierId)
+VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
 
 -- Read
 SELECT 
-Customers.customerID,
-Customers.email,
-Customers.firstName,
-Customers.lastName,
-Customers.addressStreet,
-Customers.addressCity,
-Customers.addressState,
-Customers.addressZip,
-Customers.cusTotalSales,
-RewardsTiers.rewardsTierName
+Customers.customerID AS "Customer #",
+Customers.email AS "Email Address",
+Customers.firstName AS "First",
+Customers.lastName AS "Last",
+Customers.addressStreet AS "Street",
+Customers.addressCity AS "City",
+Customers.addressState AS "State",
+Customers.addressZip AS "Zip",
+Customers.cusTotalSales AS "Total Sales",
+RewardsTiers.rewardsTierName AS "Rewards Tier"
 FROM Customers
 INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
 ORDER BY Customers.customerID ASC;

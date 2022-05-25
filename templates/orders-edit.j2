@@ -39,7 +39,7 @@
         
         <div id="edit">
         
-            <form id="editOrder" action="/orders-edit/{{orderNum}}" method="post">
+            <form id="editOrder" action="/orders-edit/{{orderNum}}/{{employeeName}}/{{total}}" method="post">
                 
                 <legend><strong>Edit Order</strong></legend>
                 <fieldset>
@@ -48,12 +48,20 @@
                     <input type="hidden" value="{{orderNum}}" class="form-control" id="orderID" name="orderID" required>
                    
                     <label for="employeeID">Employee:</label>
-                    <select class="form-control" id="employeeID" name="employeeID" value="{{ employeeID }}" required> 
+                    <select class="form-control" id="employeeID" name="employeeID" selected="Walter White" required> 
                 
                         <option value="0">&nbsp;</option>
                         {% for employee in employees %}
                             
-                            <option value="{{ employee['employeeID'] }}"> {{employee['Employee']}}</option>
+                            {# employeeName is passed in correctly but the if condition won't work to select a default value #}
+                            
+                            {# {% if {{employeeName}} == {{employee['Employee']}} %}
+                                <option value="{{ employee['employeeID'] }}" selected>{{ employee['Employee'] }}</option>
+                            {% else %}
+                                <option value="{{ employee['employeeID'] }}">{{ employee['Employee'] }}</option>
+                            {% endif %} #}
+
+                            <option value="{{ employee['employeeID'] }}"> {{employee['Employee']}}</option> 
                         
                         {% endfor %} 
 
@@ -81,7 +89,7 @@
                         {% endfor %} 
                     </select>	
 
-                    <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal">
+                    <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal" value="{{ total }}">
                 
                 </fieldset>
                 <input type="submit" value="Edit Order" name="Edit_Order" class="btn btn-primary" style="margin:.5rem;">
