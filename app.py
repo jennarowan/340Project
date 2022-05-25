@@ -242,7 +242,7 @@ def edit_store(id):
         cur.execute(orderQuery)
         stores = cur.fetchall()
 
-        return render_template("stores-edit.j2", stores=stores, storeID=id)
+        return render_template("stores-edit.j2", stores=stores, storeNum=id)
 
 
     if request.method == "POST":
@@ -267,6 +267,43 @@ def edit_store(id):
         """
         cursor = mysql.connection.cursor()
         cursor.execute(updateQuery, (street, city, state, zip, storeID))
+        mysql.connection.commit()
+
+        return redirect("/stores")
+
+@app.route("/stores-delete/<int:id>", methods=["POST", "GET"])
+def delete_store(id):
+    
+    if request.method == "GET":
+
+        storeQuery = """
+        SELECT 
+        Stores.storeID AS "Store #",
+        Stores.addressStreet AS "Street",
+        Stores.addressCity AS "City",
+        Stores.addressState AS "State",
+        Stores.addressZip AS "Zip Code"
+        FROM Stores
+        WHERE storeId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(storeQuery)
+        stores = cur.fetchall()
+
+        return render_template("stores-delete.j2", stores=stores, storeNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Delete_Store"):
+            storeID = request.form["storeID"]
+        
+        deleteQuery = """
+        DELETE FROM Stores
+        WHERE
+        Stores.storeID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (storeID))
         mysql.connection.commit()
 
         return redirect("/stores")

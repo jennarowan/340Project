@@ -39,13 +39,13 @@
         
         <div id="edit">
         
-            <form id="editStore" action="/stores-edit/{{storeID}}" method="post">
+            <form id="editStore" action="/stores-edit/{{storeNum}}" method="post">
                 
                 <legend><strong>Edit Store</strong></legend>
                 <fieldset>
                     <!-- We can preset form inputs to match attributes currently stored for 'id' of store to be updated via value= and accessing our passed data tuple -->
                     <!-- Create hidden form input to store the passed 'id' of the store we are editing so we can access it easily in our 'POST' method in our app.py -->
-                    <input type="hidden" value="{{storeID}}" class="form-control" id="storeID" name="storeID" required>
+                    <input type="hidden" value="{{storeNum}}" class="form-control" id="storeID" name="storeID" required>
                     
                     <label for="street">Street:</label> <input type="text" class="form-control" name="street" id="street">
 
