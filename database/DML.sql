@@ -105,7 +105,9 @@ WHERE
 Customers.customerID = %s
 
 -- Delete
-
+DELETE FROM Customers
+WHERE
+Customers.customerID = %s
 
 -----------------Employees-------------------
 -- Create
@@ -113,7 +115,17 @@ INSERT INTO Employees(employeeID, SocialSecurityNumber, firstName, lastName, pho
 VALUES(:employeeID_input, :SocialSecurityNumber, :firstName_input, :lastName_input, :phoneNumber_input, :addressStreet_input, :addressCity_input, :addressState_input, :addressZip_input);
 
 -- Read
-SELECT * FROM Employees;
+SELECT
+Employees.employeeID AS "Employee #",
+Employees.socialSecurityNumber AS "SSN",
+Employees.firstName AS "First",
+Employees.lastName AS "Last",
+Employees.phoneNumber AS "Phone #",
+Employees.addressStreet AS "Street",
+Employees.addressCity AS "City",
+Employees.addressState AS "State",
+Employees.addressZip AS "Zip Code"
+FROM Employees;
 
 
 

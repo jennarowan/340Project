@@ -507,9 +507,37 @@ def delete_customer(id):
 
         return redirect("/customers")
 
-@app.route('/employees')
+@app.route('/employees', methods=["POST", "GET"])
 def employees():
-    return render_template("employees.j2")
+
+    if request.method == "GET":
+
+        readQuery = """
+        SELECT
+        Employees.employeeID AS "Employee #",
+        Employees.socialSecurityNumber AS "SSN",
+        Employees.firstName AS "First",
+        Employees.lastName AS "Last",
+        Employees.phoneNumber AS "Phone #",
+        Employees.addressStreet AS "Street",
+        Employees.addressCity AS "City",
+        Employees.addressState AS "State",
+        Employees.addressZip AS "Zip Code"
+        FROM Employees;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        employees = cursor.fetchall()
+
+        return render_template("employees.j2", employees=employees)
+
+    if request.method == "POST":
+
+        return
+
+
+
 
 @app.route('/liquors')
 def liquors():
