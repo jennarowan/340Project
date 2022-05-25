@@ -53,7 +53,20 @@ Stores.addressState AS "State",
 Stores.addressZip AS "Zip Code"
 FROM Stores;
 
+-- Update
+UPDATE Stores
+SET 
+Stores.addressStreet = %s,
+Stores.addressCity = %s,
+Stores.addressState = %s,
+Stores.addressZip = %s
+WHERE
+Stores.storeID = %s
 
+-- Delete
+DELETE FROM Stores
+WHERE
+Stores.storeID = %s
 
 -----------------Customers-------------------
 -- Create
@@ -70,12 +83,28 @@ Customers.addressStreet AS "Street",
 Customers.addressCity AS "City",
 Customers.addressState AS "State",
 Customers.addressZip AS "Zip",
-Customers.cusTotalSales AS "Total Sales",
+CONCAT("$", Customers.cusTotalSales) AS "Total Sales",
 RewardsTiers.rewardsTierName AS "Rewards Tier"
 FROM Customers
 INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
 ORDER BY Customers.customerID ASC;
 
+-- Update
+UPDATE Customers
+SET 
+Customers.email = %s,
+Customers.firstName = %s,
+Customers.lastName = %s,
+Customers.addressStreet = %s,
+Customers.addressCity = %s,
+Customers.addressState = %s,
+Customers.addressZip = %s,
+Customers.cusTotalSales = %s,
+Customers.RewardsTiers_rewardsTierId = %s,
+WHERE
+Customers.customerID = %s
+
+-- Delete
 
 
 -----------------Employees-------------------

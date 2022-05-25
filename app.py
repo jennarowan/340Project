@@ -335,7 +335,7 @@ def customers():
         Customers.addressCity AS "City",
         Customers.addressState AS "State",
         Customers.addressZip AS "Zip",
-        Customers.cusTotalSales AS "Total Sales",
+        CONCAT("$", Customers.cusTotalSales) AS "Total Sales",
         RewardsTiers.rewardsTierName AS "Rewards Tier"
         FROM Customers
         INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
@@ -394,7 +394,75 @@ def customers():
         # Send user back to the main stores page
         return redirect("/customers")
 
+@app.route("/customers-edit/<int:id>/<emailAddress>/<firstName>/<lastName>/<addressStreet>/<addressCity>/<addressState>/<addressZip>/<totalSales>/<rewardsTier>", methods=["POST", "GET"])
+def edit_customer(id, emailAddress, firstName, lastName, addressStreet, addressCity, addressState, addressZip, totalSales, rewardsTier):
 
+    # Remove dollar sign from total
+    totalSales = totalSales.replace('$', '')
+    
+    if request.method == "GET":
+
+        customerQuery = """
+        SELECT 
+        Customers.customerID AS "Customer #",
+        Customers.email AS "Email Address",
+        Customers.firstName AS "First",
+        Customers.lastName AS "Last",
+        Customers.addressStreet AS "Street",
+        Customers.addressCity AS "City",
+        Customers.addressState AS "State",
+        Customers.addressZip AS "Zip",
+        CONCAT("$", Customers.cusTotalSales) AS "Total Sales",
+        RewardsTiers.rewardsTierName AS "Rewards Tier"
+        FROM Customers
+        INNER JOIN RewardsTiers ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        WHERE customerId = %s
+        """ % (id)
+
+        cur = mysql.connection.cursor()
+        cur.execute(customerQuery)
+        customers = cur.fetchall()
+
+        # Call the dropdown creation function to query the database and pass values to the customers
+        tiers = customersDropDowns()
+
+        return render_template("customers-edit.j2", customers=customers, customerNum=id, emailAddress=emailAddress, firstName=firstName, lastName=lastName, addressStreet=addressStreet, addressCity=addressCity, addressState=addressState, addressZip=addressZip, totalSales=totalSales, rewardsTier=rewardsTier, tiers=tiers)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Edit_Customer"):
+            customerID = request.form["customerID"]
+            email = request.form["emailAddress"]
+            first = request.form["firstName"]
+            last = request.form["lastName"]
+            street = request.form["street"]
+            city = request.form["city"]
+            state = request.form["state"]
+            zip = request.form["zip"]
+            sales = request.form["sales"]
+            tier = request.form["tier"]
+        
+        updateQuery = """
+        UPDATE Customers
+        SET 
+        Customers.email = %s,
+        Customers.firstName = %s,
+        Customers.lastName = %s,
+        Customers.addressStreet = %s,
+        Customers.addressCity = %s,
+        Customers.addressState = %s,
+        Customers.addressZip = %s,
+        Customers.cusTotalSales = %s,
+        Customers.RewardsTiers_rewardsTierId = %s,
+        WHERE
+        Customers.customerID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateQuery, (email, first, last, street, city, state, zip, sales, tier, customerID))
+        mysql.connection.commit()
+
+        return redirect("/customers")
 
 @app.route("/customers-delete/<int:id>", methods=["POST", "GET"])
 def delete_customer(id):
