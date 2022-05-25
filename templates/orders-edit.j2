@@ -40,14 +40,14 @@
         <div id="edit">
         
             <!-- form to edit data in bsg_people-->
-            <form id="editOrder" action="/edit_order/{{orderNum}}" method="post">
+            <form id="editOrder" action="/orders-edit/{{orderNum}}" method="post">
                 
                 <legend><strong>Edit Order</strong></legend>
                 <fieldset>
                     <!-- We can preset form inputs to match attributes currently stored for 'id' of order to be updated via value= and accessing our passed data tuple -->
                     <!-- Create hidden form input to store the passed 'id' of the order we are editing so we can access it easily in our 'POST' method in our app.py -->
                     <input type="hidden" value="{{orderNum}}" class="form-control" id="orderID" name="orderID" required>
-                    {% print(orders['Order #']) %}
+                   
                     <label for="employeeID">Employee:</label>
                     <select class="form-control" id="employeeID" name="employeeID" value="{{ employees['employeeID'] }}" required> 
                 

@@ -45,7 +45,13 @@ INSERT INTO Stores(storeID, addressStreet, addressCity, addressState, addressZip
 VALUES(:storeID_input, :addressStreet_input, :addressCity_input, :addressState_input, :addressZip_input);
 
 -- Read
-SELECT * FROM Stores;
+SELECT 
+Stores.storeID AS "Store #",
+Stores.addressStreet AS "Street",
+Stores.addressCity AS "City",
+Stores.addressState AS "State",
+Stores.addressZip AS "Zip Code"
+FROM Stores;
 
 
 

@@ -7,12 +7,10 @@
 			if (dowhat == 'insert'){
 				document.getElementById('browse').style.display = 'none';
 				document.getElementById('insert').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
 			}
 			else { //by default display browse
 				document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
 			}
 		}
     function newOrders() { showform('insert'); }
@@ -51,8 +49,8 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for order in orders %}
     <tr>
-        <td><a href="/edit_order/{{order['Order #']}}" class="btn btn-default">Edit</a></td>
-        <td><a href="/delete_order/{{order['Order #']}}" class="btn btn-default">Delete</a></td>
+        <td><a href="/orders-edit/{{order['Order #']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/orders-delete/{{order['Order #']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in order.keys() %}

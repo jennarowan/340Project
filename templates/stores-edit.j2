@@ -1,0 +1,64 @@
+<html>
+
+<head>
+	<title>Edit Store</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Store: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if stores %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in stores[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th>{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for store in stores %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in store.keys() %}
+                       
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{store[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+        
+        <div id="edit">
+        
+            <!-- form to edit data in bsg_people-->
+            <form id="editStore" action="/edit_store/{{storeNum}}" method="post">
+                
+                <legend><strong>Edit Store</strong></legend>
+                <fieldset>
+                    <!-- We can preset form inputs to match attributes currently stored for 'id' of store to be updated via value= and accessing our passed data tuple -->
+                    <!-- Create hidden form input to store the passed 'id' of the store we are editing so we can access it easily in our 'POST' method in our app.py -->
+                    <input type="hidden" value="{{storeNum}}" class="form-control" id="storeID" name="storeID" required>
+                    
+                    <label for="street">Street:</label> <input type="text" class="form-control" name="street" id="street">
+
+                    <label for="customerID">City:</label> <input type="text" class="form-control" name="storeTotal" id="storeTotal">
+
+                    <label> State: </label> <input type="text" class="form-control" name="storeTotal" id="storeTotal">
+
+                    <label> Zip: </label> <input type="text" class="form-control" name="storeTotal" id="storeTotal">
+                
+                </fieldset>
+                <input type="submit" value="Edit Store" name="Edit_Store" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/stores'><input class="btn" type="button" value="cancel"></a>
+            </form>
+</body>
+</html>

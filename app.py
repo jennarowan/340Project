@@ -78,7 +78,7 @@ def orders():
         # Send user back to the main orders page
         return redirect("/orders")
 
-@app.route("/edit_order/<int:id>", methods=["POST", "GET"])
+@app.route("/orders-edit/<int:id>", methods=["POST", "GET"])
 def edit_order(id):
     
     if request.method == "GET":
@@ -94,7 +94,9 @@ def edit_order(id):
         INNER JOIN Employees ON Orders.Employees_employeeID = Employees.employeeID
         INNER JOIN Stores ON Orders.Stores_storeID = Stores.storeID
         INNER JOIN Customers ON Orders.Customers_customerID = Customers.customerID
-        WHERE orderId = %s""" % (id)
+        WHERE orderId = %s
+        """ % (id)
+
         cur = mysql.connection.cursor()
         cur.execute(orderQuery)
         orders = cur.fetchall()
@@ -102,7 +104,7 @@ def edit_order(id):
         # Call the dropdown creation function to query the database and pass values to the orders
         employees, stores, customers, nextOrderNum = createDropdownDatasets()
 
-        return render_template("edit_order.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id)
+        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id)
 
     if request.method == "POST":
 
@@ -130,7 +132,7 @@ def edit_order(id):
 
         return redirect("/orders")
 
-@app.route("/delete_order/<int:id>", methods=["POST", "GET"])
+@app.route("/orders-delete/<int:id>", methods=["POST", "GET"])
 def delete_order(id):
     
     if request.method == "GET":
@@ -151,7 +153,7 @@ def delete_order(id):
         cur.execute(orderQuery)
         orders = cur.fetchall()
 
-        return render_template("delete_order.j2", orders=orders, orderNum=id)
+        return render_template("orders-delete.j2", orders=orders, orderNum=id)
 
     if request.method == "POST":
 
@@ -170,14 +172,104 @@ def delete_order(id):
 
         return redirect("/orders")
 
-@app.route('/stores')
+@app.route('/stores', methods=["POST", "GET"])
 def stores():
 
-    readQuery = """
-    SELECT * FROM Stores;
-    """
+    if request.method == "GET":
 
-    return render_template("stores.j2")
+        readQuery = """
+        SELECT 
+        Stores.storeID AS "Store #",
+        Stores.addressStreet AS "Street",
+        Stores.addressCity AS "City",
+        Stores.addressState AS "State",
+        Stores.addressZip AS "Zip Code"
+        FROM Stores;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        stores = cursor.fetchall()
+
+        return render_template("stores.j2", stores=stores)
+
+    if request.method == "POST":
+
+        # Fires if user presses the New button
+        if request.form.get("Add_Store"):
+            street = request.form["addressStreet"]
+            city = request.form["addressCity"]
+            state = request.form["addressState"]
+            zip = request.form["addressZip"]
+
+        # Grabs the next store number in line, so the user doesn't need to know what the correct store number is for Insert functions
+        nextStoreQuery = """
+        SELECT MAX(storeID) + 1 FROM Stores
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextStoreQuery)
+        storeID = cursor.fetchall()
+
+        insertQuery = """
+        INSERT INTO Stores (storeID, addressStreet, addressCity, addressState, addressZip) 
+        VALUES (%s, %s, %s, %s, %s)
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (storeID, street, city, state, zip))
+        mysql.connection.commit()
+
+        # Send user back to the main stores page
+        return redirect("/stores")
+
+@app.route("/stores-edit/<int:id>", methods=["POST", "GET"])
+def edit_store(id):
+
+    if request.method == "GET":
+
+        orderQuery = """
+        SELECT 
+        Stores.storeID AS "Store #",
+        Stores.addressStreet AS "Street",
+        Stores.addressCity AS "City",
+        Stores.addressState AS "State",
+        Stores.addressZip AS "Zip Code"
+        FROM Stores
+        WHERE storeID = %s
+        """ % (id)
+
+        cur = mysql.connection.cursor()
+        cur.execute(orderQuery)
+        stores = cur.fetchall()
+
+        return render_template("stores-edit.j2", stores=stores)
+
+
+    if request.method == "POST":
+
+        # Fires if user presses the Edit button
+        if request.form.get("Edit_Store"):
+            storeID = request.form["storeID"]
+            street = request.form["addressStreet"]
+            city = request.form["addressCity"]
+            state = request.form["addressState"]
+            zip = request.form["addressZip"]
+
+        updateQuery = """
+        UPDATE Stores
+        SET 
+        Stores.addressStreet = %s,
+        Stores.addressCity = %s,
+        Stores.addressState = %s,
+        Stores.addressZip = %s
+        WHERE
+        Stores.storeID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateQuery, (street, city, state, zip, storeID))
+        mysql.connection.commit()
+
+        return redirect("/stores")
 
 @app.route('/customers')
 def customers():
