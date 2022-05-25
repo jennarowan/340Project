@@ -242,7 +242,7 @@ def edit_store(id):
         cur.execute(orderQuery)
         stores = cur.fetchall()
 
-        return render_template("stores-edit.j2", stores=stores)
+        return render_template("stores-edit.j2", stores=stores, storeID=id)
 
 
     if request.method == "POST":
@@ -250,10 +250,10 @@ def edit_store(id):
         # Fires if user presses the Edit button
         if request.form.get("Edit_Store"):
             storeID = request.form["storeID"]
-            street = request.form["addressStreet"]
-            city = request.form["addressCity"]
-            state = request.form["addressState"]
-            zip = request.form["addressZip"]
+            street = request.form["street"]
+            city = request.form["city"]
+            state = request.form["state"]
+            zip = request.form["zip"]
 
         updateQuery = """
         UPDATE Stores

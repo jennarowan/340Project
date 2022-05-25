@@ -39,7 +39,6 @@
         
         <div id="edit">
         
-            <!-- form to edit data in bsg_people-->
             <form id="editOrder" action="/orders-edit/{{orderNum}}" method="post">
                 
                 <legend><strong>Edit Order</strong></legend>
@@ -49,7 +48,7 @@
                     <input type="hidden" value="{{orderNum}}" class="form-control" id="orderID" name="orderID" required>
                    
                     <label for="employeeID">Employee:</label>
-                    <select class="form-control" id="employeeID" name="employeeID" value="{{ employees['employeeID'] }}" required> 
+                    <select class="form-control" id="employeeID" name="employeeID" value="{{ employeeID }}" required> 
                 
                         <option value="0">&nbsp;</option>
                         {% for employee in employees %}
