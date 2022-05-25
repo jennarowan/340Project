@@ -49,7 +49,7 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for order in orders %}
     <tr>
-        <td><a href="/orders-edit/{{order['Order #']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/orders-edit/{{order['Order #']}}/{{order['Employee']}}/{{order['Total']}}" class="btn btn-default">Edit</a></td>
         <td><a href="/orders-delete/{{order['Order #']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
@@ -68,9 +68,7 @@
     <form action="/orders" method="POST" id="addOrders">
         <legend><strong>Add Orders</strong></legend>
           <fieldset class="fields">
-          <p></p>
-            <label>orderID:</label><input type="text" class="form-control" name="orderID" id="orderID">
-
+          <p>
             <label for="employeeID">Employee:</label>
             <select class="form-control" id="employeeID" name="employeeID" placeholder="" required> 
                 
@@ -81,7 +79,8 @@
                 
                 {% endfor %} 
             </select>
-            
+            </p>
+            <p>
             <label for="storeID">Store Location:</label>
             <select class="form-control" id="storeID" name="storeID" placeholder="" required> 
                 
@@ -92,7 +91,8 @@
                 
                 {% endfor %} 
             </select>
-
+            </p>
+            <p>
             <label for="customerID">Customer Name:</label>
             <select class="form-control" id="customerID" name="customerID" placeholder="" required> 
                 
@@ -103,8 +103,10 @@
                 
                 {% endfor %} 
             </select>	
-
+            </p>
+            <p>
             <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal">
+            </p>
       </fieldset>
           <input class="btn" type="submit" name="Add_Order" id="addOrders" value="Add Orders">
           <input class="btn" type="button" value="cancel" onClick="browseOrders()">

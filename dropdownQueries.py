@@ -54,16 +54,7 @@ def ordersDropdownDatasets():
     cursor.execute(customerQuery)
     customers = cursor.fetchall()
 
-    # Grabs the next order number in line, so the user doesn't need to know what the correct order number is for Insert functions
-    nextOrderQuery = """
-    SELECT MAX(orderID) + 1 AS "nextOrderNum" FROM Orders
-    """
-
-    cursor = mysql.connection.cursor()
-    cursor.execute(nextOrderQuery)
-    nextOrderNum = cursor.fetchall()
-
-    return employees, stores, customers, nextOrderNum
+    return employees, stores, customers
 
 def customersDropDowns():
 

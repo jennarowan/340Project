@@ -53,19 +53,27 @@ def orders():
         orders = cursor.fetchall()
 
         # Call the dropdown creation function to query the database and pass values to the orders
-        employees, stores, customers, nextOrderNum = ordersDropdownDatasets()        
+        employees, stores, customers= ordersDropdownDatasets()        
 
-        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers, nextOrderNum=nextOrderNum)
+        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers)
 
     if request.method == "POST":
 
         # Fires if user presses the New button
         if request.form.get("Add_Order"):
-            orderID = request.form["orderID"]
             employeeID = request.form["employeeID"]
             storeID = request.form["storeID"]
             orderTotal = request.form["orderTotal"]
             customer = request.form["customerID"]
+
+        # Grabs the next order number in line, so the user doesn't need to know what the correct order number is for Insert functions
+        nextOrderQuery = """
+        SELECT MAX(orderID) + 1 AS "nextOrderNum" FROM Orders
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextOrderQuery)
+        orderID = cursor.fetchall()
 
         insertQuery = """
         INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
@@ -78,8 +86,11 @@ def orders():
         # Send user back to the main orders page
         return redirect("/orders")
 
-@app.route("/orders-edit/<int:id>", methods=["POST", "GET"])
-def edit_order(id):
+@app.route("/orders-edit/<int:id>/<employeeName>/<total>", methods=["POST", "GET"])
+def edit_order(id, employeeName, total):
+
+    # Remove dollar sign from total
+    total = total.replace('$', '')
     
     if request.method == "GET":
 
@@ -102,9 +113,9 @@ def edit_order(id):
         orders = cur.fetchall()
 
         # Call the dropdown creation function to query the database and pass values to the orders
-        employees, stores, customers, nextOrderNum = ordersDropdownDatasets()
+        employees, stores, customers = ordersDropdownDatasets()
 
-        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id)
+        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id, employeeName=employeeName, total=total)
 
     if request.method == "POST":
 
@@ -383,7 +394,7 @@ def customers():
         # Send user back to the main stores page
         return redirect("/customers")
 
-        
+
 
 @app.route("/customers-delete/<int:id>", methods=["POST", "GET"])
 def delete_customer(id):
