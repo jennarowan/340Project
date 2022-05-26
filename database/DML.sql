@@ -157,7 +157,18 @@ Employees.addressZip AS "Zip Code"
 FROM Employees;
 
 -- Update
-
+UPDATE Employees
+SET 
+Employees.socialSecurityNumber = %s,
+Employees.firstName = %s,
+Employees.lastName = %s,
+Employees.phoneNumber = %s,
+Employees.addressStreet = %s,
+Employees.addressCity = %s,
+Employees.addressState = %s,
+Employees.addressZip = %s
+WHERE
+Employees.employeeID = %s
 
 -- Delete
 DELETE FROM Employees

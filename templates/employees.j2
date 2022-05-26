@@ -49,7 +49,7 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for employee in employees %}
     <tr>
-        <td><a href="/employees-edit/{{employee['Employee #']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/employees-edit/{{employee['Employee #']}}/{{employee['SSN']}}/{{employee['First']}}/{{employee['Last']}}/{{employee['Phone #']}}/{{employee['Street']}}/{{employee['City']}}/{{employee['State']}}/{{employee['Zip Code']}}" class="btn btn-default">Edit</a></td>
         <td><a href="/employees-delete/{{employee['Employee #']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
