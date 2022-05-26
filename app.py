@@ -76,7 +76,12 @@ def orders():
         orderID = cursor.fetchall()
 
         insertQuery = """
-        INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
+        INSERT INTO Orders (
+        orderID, 
+        Employees_employeeID, 
+        Stores_storeID, 
+        Customers_customerID, 
+        orderTotal) 
         VALUES (%s, %s, %s, %s, %s)
         """
         cursor = mysql.connection.cursor()
@@ -223,8 +228,13 @@ def stores():
         storeID = cursor.fetchall()
 
         insertQuery = """
-        INSERT INTO Stores (storeID, addressStreet, addressCity, addressState, addressZip) 
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO Stores (
+        storeID, 
+        addressStreet, 
+        addressCity, 
+        addressState, 
+        addressZip) 
+        VALUES (%s, %s, %s, %s, %s);
         """
         cursor = mysql.connection.cursor()
         cursor.execute(insertQuery, (storeID, street, city, state, zip))
@@ -534,7 +544,45 @@ def employees():
 
     if request.method == "POST":
 
-        return
+        # Fires if user presses the New button
+        if request.form.get("Add_Employee"):
+            ssn = request.form["socialSecurityNumber"]
+            first = request.form["firstName"]
+            last = request.form["lastName"]
+            phone = request.form["phoneNumber"]
+            street = request.form["addressStreet"]
+            city = request.form["addressCity"]
+            state = request.form["addressState"]
+            zip = request.form["addressZip"]
+
+        # Grabs the next employee number in line, so the user doesn't need to know what the correct order number is for Insert functions
+        nextEmployeeQuery = """
+        SELECT MAX(employeeID) + 1 AS "nextEmployeeNum" FROM Employees
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextEmployeeQuery)
+        employeeID = cursor.fetchall()
+
+        insertQuery = """
+        INSERT INTO Employees(
+        employeeID, 
+        socialSecurityNumber, 
+        firstName, 
+        lastName, 
+        phoneNumber,
+        addressStreet, 
+        addressCity, 
+        addressState, 
+        addressZip)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (employeeID, ssn, first, last, phone, street, city, state, zip))
+        mysql.connection.commit()
+
+        # Send user back to the main employees page
+        return redirect("/employees")
 
 
 
