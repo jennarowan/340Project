@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<title>Delete Employee</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <form id="deleteEmployee" action="/employees-delete/{{employeeNum}}" method="post">
+        <table border="1" cellpadding="5"> 
+            <caption> Deleting Employee: </caption>
+            <!-- Access data tuple passed from app.py -->
+            {% if employees %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in employees[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th>{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for employee in employees %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in employee.keys() %}
+                       
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{employee[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+            <input type="hidden" value="{{employeeNum}}" class="form-control" id="employeeID" name="employeeID" required>
+        </table>
+        
+        <input type="submit" value="Delete Employee" name="Delete_Employee" class="btn btn-primary" style="margin:.5rem;">
+        <a href='/employees'><input class="btn" type="button" value="cancel"></a>
+        </form>
+    </div>
+</body>
+</html>

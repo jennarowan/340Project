@@ -76,7 +76,12 @@ def orders():
         orderID = cursor.fetchall()
 
         insertQuery = """
-        INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
+        INSERT INTO Orders (
+        orderID, 
+        Employees_employeeID, 
+        Stores_storeID, 
+        Customers_customerID, 
+        orderTotal) 
         VALUES (%s, %s, %s, %s, %s)
         """
         cursor = mysql.connection.cursor()
@@ -223,8 +228,13 @@ def stores():
         storeID = cursor.fetchall()
 
         insertQuery = """
-        INSERT INTO Stores (storeID, addressStreet, addressCity, addressState, addressZip) 
-        VALUES (%s, %s, %s, %s, %s)
+        INSERT INTO Stores (
+        storeID, 
+        addressStreet, 
+        addressCity, 
+        addressState, 
+        addressZip) 
+        VALUES (%s, %s, %s, %s, %s);
         """
         cursor = mysql.connection.cursor()
         cursor.execute(insertQuery, (storeID, street, city, state, zip))
@@ -507,9 +517,173 @@ def delete_customer(id):
 
         return redirect("/customers")
 
-@app.route('/employees')
+@app.route('/employees', methods=["POST", "GET"])
 def employees():
-    return render_template("employees.j2")
+
+    if request.method == "GET":
+
+        readQuery = """
+        SELECT
+        Employees.employeeID AS "Employee #",
+        Employees.socialSecurityNumber AS "SSN",
+        Employees.firstName AS "First",
+        Employees.lastName AS "Last",
+        Employees.phoneNumber AS "Phone #",
+        Employees.addressStreet AS "Street",
+        Employees.addressCity AS "City",
+        Employees.addressState AS "State",
+        Employees.addressZip AS "Zip Code"
+        FROM Employees;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        employees = cursor.fetchall()
+
+        return render_template("employees.j2", employees=employees)
+
+    if request.method == "POST":
+
+        # Fires if user presses the New button
+        if request.form.get("Add_Employee"):
+            ssn = request.form["socialSecurityNumber"]
+            first = request.form["firstName"]
+            last = request.form["lastName"]
+            phone = request.form["phoneNumber"]
+            street = request.form["addressStreet"]
+            city = request.form["addressCity"]
+            state = request.form["addressState"]
+            zip = request.form["addressZip"]
+
+        # Grabs the next employee number in line, so the user doesn't need to know what the correct order number is for Insert functions
+        nextEmployeeQuery = """
+        SELECT MAX(employeeID) + 1 AS "nextEmployeeNum" FROM Employees
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextEmployeeQuery)
+        employeeID = cursor.fetchall()
+
+        insertQuery = """
+        INSERT INTO Employees(
+        employeeID, 
+        socialSecurityNumber, 
+        firstName, 
+        lastName, 
+        phoneNumber,
+        addressStreet, 
+        addressCity, 
+        addressState, 
+        addressZip)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (employeeID, ssn, first, last, phone, street, city, state, zip))
+        mysql.connection.commit()
+
+        # Send user back to the main employees page
+        return redirect("/employees")
+
+@app.route("/employees-edit/<int:id>/<ssn>/<firstName>/<lastName>/<phone>/<addressStreet>/<addressCity>/<addressState>/<addressZip>", methods=["POST", "GET"])
+def edit_employee(id, ssn, firstName, lastName, phone, addressStreet, addressCity, addressState, addressZip):
+    
+    if request.method == "GET":
+
+        employeeQuery = """
+        SELECT 
+        Employees.employeeID AS "Employee #",
+        Employees.socialSecurityNumber AS "SSN",
+        Employees.firstName AS "First",
+        Employees.lastName AS "Last",
+        Employees.phoneNumber AS "Phone #",
+        Employees.addressStreet AS "Street",
+        Employees.addressCity AS "City",
+        Employees.addressState AS "State",
+        Employees.addressZip AS "Zip Code"
+        FROM Employees
+        WHERE employeeId = %s
+        """ % (id)
+
+        cur = mysql.connection.cursor()
+        cur.execute(employeeQuery)
+        employees = cur.fetchall()
+
+        return render_template("employees-edit.j2", employees=employees, employeeNum=id, ssn=ssn, firstName=firstName, lastName=lastName, phone=phone, addressStreet=addressStreet, addressCity=addressCity, addressState=addressState, addressZip=addressZip)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Edit_Employee"):
+            employeeID = request.form["employeeID"]
+            social = request.form["ssn"]
+            first = request.form["firstName"]
+            last = request.form["lastName"]
+            phoneNum = request.form["phoneNumber"]
+            street = request.form["street"]
+            city = request.form["city"]
+            state = request.form["state"]
+            zip = request.form["zip"]
+        
+        updateQuery = """
+        UPDATE Employees
+        SET 
+        Employees.socialSecurityNumber = %s,
+        Employees.firstName = %s,
+        Employees.lastName = %s,
+        Employees.phoneNumber = %s,
+        Employees.addressStreet = %s,
+        Employees.addressCity = %s,
+        Employees.addressState = %s,
+        Employees.addressZip = %s
+        WHERE
+        Employees.employeeID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateQuery, (social, first, last, phoneNum, street, city, state, zip, employeeID))
+        mysql.connection.commit()
+
+        return redirect("/employees")
+
+@app.route("/employees-delete/<int:id>", methods=["POST", "GET"])
+def delete_employee(id):
+    
+    if request.method == "GET":
+
+        employeeQuery = """
+        SELECT
+        Employees.employeeID AS "Employee #",
+        Employees.socialSecurityNumber AS "SSN",
+        Employees.firstName AS "First",
+        Employees.lastName AS "Last",
+        Employees.phoneNumber AS "Phone #",
+        Employees.addressStreet AS "Street",
+        Employees.addressCity AS "City",
+        Employees.addressState AS "State",
+        Employees.addressZip AS "Zip Code"
+        FROM Employees
+        WHERE employeeId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(employeeQuery)
+        employees = cur.fetchall()
+
+        return render_template("employees-delete.j2", employees=employees, employeeNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Delete_Employee"):
+            employeeID = request.form["employeeID"]
+        
+        deleteQuery = """
+        DELETE FROM Employees
+        WHERE
+        Employees.employeeID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (employeeID))
+        mysql.connection.commit()
+
+        return redirect("/employees")
 
 @app.route('/liquors')
 def liquors():

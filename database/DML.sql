@@ -8,7 +8,12 @@ Last Updated Date: May 19th, 2022
 -----------------Orders-------------------
 
 -- Create
-INSERT INTO Orders (orderID, Employees_employeeID, Stores_storeID, Customers_customerID, orderTotal) 
+INSERT INTO Orders (
+orderID, 
+Employees_employeeID, 
+Stores_storeID, 
+Customers_customerID, 
+orderTotal) 
 VALUES (%s, %s, %s, %s, %s)
 
 -- Read
@@ -41,8 +46,13 @@ Orders.orderID = %s
 
 -----------------Stores-------------------
 -- Create
-INSERT INTO Stores(storeID, addressStreet, addressCity, addressState, addressZip)
-VALUES(:storeID_input, :addressStreet_input, :addressCity_input, :addressState_input, :addressZip_input);
+INSERT INTO Stores (
+storeID, 
+addressStreet, 
+addressCity, 
+addressState, 
+addressZip) 
+VALUES (%s, %s, %s, %s, %s);
 
 -- Read
 SELECT 
@@ -70,7 +80,17 @@ Stores.storeID = %s
 
 -----------------Customers-------------------
 -- Create
-INSERT INTO Customers(customerID, email, firstName, lastName, addressStreet, addressCity, addressState, addressZip, cusTotalSales, RewardsTiers_rewardsTierId)
+INSERT INTO Customers(
+customerID, 
+email, 
+firstName, 
+lastName, 
+addressStreet, 
+addressCity, 
+addressState, 
+addressZip, 
+cusTotalSales, 
+RewardsTiers_rewardsTierId)
 VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
 
 -- Read
@@ -105,16 +125,55 @@ WHERE
 Customers.customerID = %s
 
 -- Delete
-
+DELETE FROM Customers
+WHERE
+Customers.customerID = %s
 
 -----------------Employees-------------------
 -- Create
-INSERT INTO Employees(employeeID, SocialSecurityNumber, firstName, lastName, phoneNumber, addressStreet, addressCity, addressState, addressZip)
-VALUES(:employeeID_input, :SocialSecurityNumber, :firstName_input, :lastName_input, :phoneNumber_input, :addressStreet_input, :addressCity_input, :addressState_input, :addressZip_input);
+INSERT INTO Employees(
+employeeID, 
+socialSecurityNumber, 
+firstName, 
+lastName, 
+phoneNumber,
+addressStreet, 
+addressCity, 
+addressState, 
+addressZip)
+VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
 
 -- Read
-SELECT * FROM Employees;
+SELECT
+Employees.employeeID AS "Employee #",
+Employees.socialSecurityNumber AS "SSN",
+Employees.firstName AS "First",
+Employees.lastName AS "Last",
+Employees.phoneNumber AS "Phone #",
+Employees.addressStreet AS "Street",
+Employees.addressCity AS "City",
+Employees.addressState AS "State",
+Employees.addressZip AS "Zip Code"
+FROM Employees;
 
+-- Update
+UPDATE Employees
+SET 
+Employees.socialSecurityNumber = %s,
+Employees.firstName = %s,
+Employees.lastName = %s,
+Employees.phoneNumber = %s,
+Employees.addressStreet = %s,
+Employees.addressCity = %s,
+Employees.addressState = %s,
+Employees.addressZip = %s
+WHERE
+Employees.employeeID = %s
+
+-- Delete
+DELETE FROM Employees
+WHERE
+Employees.employeeID = %s
 
 
 -----------------Liquors-------------------

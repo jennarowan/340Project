@@ -7,39 +7,14 @@
 			if (dowhat == 'insert'){
 				document.getElementById('browse').style.display = 'none';
 				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'update'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-			}
-      else if (dowhat == 'all'){
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'block';
 			}
 			else { //by default display browse
 				document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
 			}
 		}
     function newEmployee() { showform('insert'); }
-    function updateEmployee(pid) { showform('update'); }
-    function deleteEmployee(pid) { showform ('delete'); }
     function browseEmployee() { showform ('browse'); }
-    function showAll() { showform ('all'); }
 </script>
 </head>
 
@@ -49,115 +24,82 @@
 [ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
-<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+<p></p>
 <table border="1" cellpadding="5">
-  <tr>
-    <th><a href="#" onClick="newEmployee()">New</a></th>
-    <th></th>
-    <th>employeeID</th>
-    <th>SocialSecurityNumber</th>
-    <th>firstName</th>
-    <th>lastName</th>
-    <th>phoneNumber</th>
-    <th>addressStreet</th>
-    <th>addressCity</th>
-    <th>addressState</th>
-    <th>addressZip</th>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateEmployee('this.EmployeeID')">Edit</a></td>
-    <td><a href="#" onclick="deleteEmployee('this.EmployeeID')">Delete</a></td>
-    <td align="right" >1</td>
-    <td>111223333</td>
-    <td>Hank</td>
-    <td>Schrader</td>
-    <td>5016204338</td>
-    <td>4901 Cumbre Del Sur Court</td>
-    <td>Albuquerque</td>
-    <td>NM</td>
-    <td>87106</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateEmployee('this.EmployeeID')">Edit</a></td>
-    <td><a href="#" onclick="deleteEmployee('this.EmployeeID')">Delete</a></td>
-    <td align="right" >2</td>
-    <td>222334444</td>
-    <td>Walter</td>
-    <td>White</td>
-    <td>5051930809</td>
-    <td>308 Negra Arroyo Lane</td>
-    <td>Albuquerque</td>
-    <td>NM</td>
-    <td>87111</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateEmployee('this.EmployeeID')">Edit</a></td>
-    <td><a href="#" onclick="deleteEmployee('this.EmployeeID')">Delete</a></td>
-    <td align ="right">3</td>
-    <td>333445555</td>
-    <td>Jesse</td>
-    <td>Pinkman</td>
-    <td>5051483369</td>
-    <td>9809 Margo St</td>
-    <td>Albuquerque</td>
-    <td>NM</td>
-    <td>87104</td>
-  </tr>
+  <thead>
+    <tr>
+
+        <th><a href="#" onClick="newEmployee()">New</a></th>
+
+        <!-- Iterate through each key in the first entry to get the
+        column name -->
+        
+        <th></th>
+        {% for key in employees[0].keys() %}
+
+        <!-- Create a <th> tag with the key inside of it, this will be
+        our header row -->
+        <th>{{ key }}</th>
+
+        <!-- End of this for loop -->
+        {% endfor %}
+    </tr>
+    <tbody>    
+
+    <!-- Now, iterate through every person in bsg_people -->
+    {% for employee in employees %}
+    <tr>
+        <td><a href="/employees-edit/{{employee['Employee #']}}/{{employee['SSN']}}/{{employee['First']}}/{{employee['Last']}}/{{employee['Phone #']}}/{{employee['Street']}}/{{employee['City']}}/{{employee['State']}}/{{employee['Zip Code']}}" class="btn btn-default">Edit</a></td>
+        <td><a href="/employees-delete/{{employee['Employee #']}}" class="btn btn-default">Delete</a></td>
+        
+        <!-- Then iterate through every key in the current person dictionary -->
+        {% for key in employee.keys() %}
+
+        <!-- Create a <td> element with the value of that key in it -->
+        <td>{{employee[key]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
 </table>
 <p>&nbsp;</p>
 </div> 
 <div id="insert">
     <form method="POST" id="addEmployee">
+        <p>
         <legend><strong>Add Employee</strong></legend>
+        </p>
           <fieldset class="fields">
-            <label>employeeID</label><input type="text" name="EmployeeID">
-            <label>SocialSecurityNumber</label><input type="text" name="SocialSecurityNumber">
-            <label>firstName</label><input type="text" name="firstName">
-            <label>lastName</label><input type="text" name="lastName">
-            <label>phoneNumber</label><input type="text" name="phoneNumber">
-            <label>addressStreet</label><input type="text" name="addressStreet">
-            <label>addressCity</label><input type="text" name="addressCity">
-            <label>addressState</label><input type="text" name="addressState">
-            <label>addressZip</label><input type="text" name="addressZip">
+            
+            <p>
+            <label>SSN: </label><input type="text" name="socialSecurityNumber">
+            </p>
+            <p>
+            <label>First Name: </label><input type="text" name="firstName">
+            </p>
+            <p>
+            <label>Last Name: </label><input type="text" name="lastName">
+            </p>
+            <p>
+            <label>Phone #: </label><input type="text" name="phoneNumber">
+            </p>
+            <p>
+            <label>Street: </label><input type="text" name="addressStreet">
+            </p>
+            <p>
+            <label>City: </label><input type="text" name="addressCity">
+            </p>
+            <p>
+            <label>State: </label><input type="text" name="addressState">
+            </p>
+            <p>
+            <label>Zip Code: </label><input type="text" name="addressZip">
+            </p>
       </fieldset>
-          <input class="btn" type="submit" id="addEmployee" value="Add Employee">
+          <input class="btn" type="submit" id="addEmployee" value="Add Employee" name="Add_Employee">
           <input class="btn" type="button" value="cancel" onClick="browseEmployee()">
 	</form> 
 </div><!-- insert -->
 <p>&nbsp;</p>
-<div id="update">
-    <form method="POST" id="UpdateEmployee">
-        <legend><strong>Update Employee</strong></legend>
-          <fieldset class="fields">
-          <input type="hidden" name="EmployeeID" id="updateEmployeeID" value="1">
-          <label> ID: </label> 1
-            <label>employeeID</label><input type="text" name="EmployeeID" value="1">
-            <label>SocialSecurityNumber</label><input type="text" name="SocialSecurityNumber" value="111223333">
-            <label>firstName</label><input type="text" name="firstName" value="Hank">
-            <label>lastName</label><input type="text" name="lastName" value="Schrader">
-            <label>phoneNumber</label><input type="text" name="phoneNumber" value="5016204338">
-            <label>addressStreet</label><input type="text" name="addressStreet" value="4901 Cumbre Del Sur Court">
-            <label>addressCity</label><input type="text" name="addressCity" value="Albuquerque">
-            <label>addressState</label><input type="text" name="addressState" value="NM">
-            <label>addressZip</label><input type="text" name="addressZip" value="87106">
-      </fieldset>
-          <input class="btn" type="submit" id="UpdateSaveEmployee" value="Save Update Employee">
-          <input class="btn" type="button" value="cancel" onClick="browseEmployee()">
-	</form> 
-</div>
-<p>&nbsp;</p>
-<div id="delete" style="display: block">
-  <form method="POST" id="deleteEmployee">
-      <legend><strong>Delete Employee</strong></legend>
-          <fieldset class="fields">
-          <p>Are you sure you wish to delete the following?</p>
-          <input type="hidden" name="EmployeeID" id="deleteEmployeeID" value="1">
-          <label><strong>ID:</strong></label> 1
-            <label> <strong>Name</strong> </label> Hank
-    </fieldset>
-    <input class="btn" type="submit" id="DeleteEmployee" value="Delete Employee">
-          <input class="btn" type="button" value="cancel" onClick="browseEmployee()">
-  </form> 
-</div>
+
 </body>
 </html>
