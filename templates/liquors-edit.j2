@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <title>Edit Liquor</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <caption> Editing Liquor: </caption>
+            {% if liquors %}
+                <thead>
+                    <tr>
+                        <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in liquors[0].keys() %}
+
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+                        <th>{{ key }}</th>
+                        
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+                
+                <tbody>
+                    <!-- Now, iterate through every item in data -->
+                    {% for liquor in liquors %}
+                    <tr>
+                        <!-- Then iterate through every key in the current item dictionary -->
+                        {% for key in liquor.keys() %}
+                       
+                        <!-- Create a <td> element with the value of that key in it -->
+                        <td>{{liquor[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+
+        <div id ="edit">
+
+            <form id="editLiquor" action="/liquors-edit/{{productID}}/{{productName}}/{{productSizeMl}}/{{productPrice}}" method="post">
+                <p></p>
+                <legend><strong>Update Liquor</strong></legend>
+                <p></p>
+                <fieldset>
+                <! -- input type="hidden" value="{{productID}}" class = "form-control" name="productID" id="productID" required -- >
+                <p>
+                <!--label> ID: </label --> 
+                <p>
+                <label>productID</label> <input type="text" value="{{productID}}" class = "form-control" name="productID" id="productID" required>
+                </p>
+                <p>
+                <label>productName</label> <input type="text" value = "{{productName}}" class = "form-control" name="productName" id="productName">
+                </p>
+                <p>
+                <label>productSizeMl</label> <input type="text" value = "{{productSizeMl}}" class = "form-control" name = "productSizeMl" id="productSizeMl">
+                </p>
+                <p>
+                <label> productPrice </label> <input type="text" value="{{productPrice}}" name="productPrice" id="productPrice" >
+                </p>
+                <p>
+            </fieldset>
+                <input type="submit" value="Edit Liquor" name="Edit_Liquor" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/liquors'><input class="btn" type="button" value="cancel"></a>
+            </form> 
+        </div>
+</body>
+</html>

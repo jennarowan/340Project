@@ -685,9 +685,140 @@ def delete_employee(id):
 
         return redirect("/employees")
 
-@app.route('/liquors')
+@app.route('/liquors', methods=["POST", "GET"])
 def liquors():
-    return render_template("liquors.j2")
+
+    if request.method == "GET":
+
+        # Read
+        readQuery = """
+        SELECT 
+        Liquors.productID as "Product #"
+        Liquors.productName as "Name"
+        Liquors.productSizeMl as "Size (in ml)"
+        Liquors.productPrice as "Price ($)"
+        FROM Liquors;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        liquors = cursor.fetchall()
+    
+
+        return render_template("liquors.j2", liquors=liquors)
+    
+    if request.method =="POST":
+
+        # Create
+        if request.form.get("Add_Liquor"): # Find where this is coming from?
+            productID = request.form["productID"]
+            productName = request.form["productName"]
+            productSizeMl = request.form["productSizeMl"]
+            productPrice = request.form["productPrice"]
+
+        # Sets next productID, so user doesn't need to look
+        nextProductIDQuery = """
+        SELECT MAX(productID) + 1 AS "nextProductID" FROM Liquors
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextProductIDQuery)
+        productID = cursor.fetchall()
+
+        insertQuery = """
+        INSERT INTO Liquors(
+            productID, 
+            productName, 
+            productSizeMl, 
+            productPrice)
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (productID, productName, productSizeMl, productPrice))
+        mysql.connection.commit()
+
+        # Send user back to main liquors page
+        return redirect("/liquors")
+
+@app.route('/liquors-edit/<int:productID>/<productName>/<productSizeMl>/<productPrice>', methods=["POST", "GET"]) # Look back to make sure the string is correct, not sure..
+def edit_liquor(productID, productName, productSizeMl, productPrice):
+
+    if request.method == "GET":
+
+        liquorsQuery = """
+        UPDATE Liquors
+        SET 
+        Liquors.productID = %s,
+        Liquors.productName = %s,
+        Liquors.productSizeMl = %s,
+        Liquors.productPrice = %s
+        WHERE 
+        Liquors.productID = %s
+        """ % (productID)
+
+        cur = mysql.connection.cursor()
+        cur.execute(liquorsQuery)
+        liquors = cur.fetchall()
+
+        return render_template("liquors-edit.j2", productID = productID, productName = productName, productSizeMl = productSizeMl, productPrice = productPrice)
+    
+    if request.method == "POST":
+
+        updateQuery = """
+        UPDATE Liquors
+        SET 
+        Liquors.productID = %s,
+        Liquors.productName = %s,
+        Liquors.productSizeMl = %s,
+        Liquors.productPrice = %s
+        WHERE 
+        Liquors.productID = %s
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateQuery, (productID, productName, productSizeMl, productPrice))
+        mysql.connection.commit()
+
+        return redirect("/liquors")
+
+@app.route('/liquors-delete/<int:productID>', methods=["POST","GET"])
+def delete_liquor(productID):
+
+    if request.method == "GET":
+
+        liquorQuery = """
+        SELECT 
+        Liquors.productID as "Product #"
+        Liquors.productName as "Name"
+        Liquors.productSizeMl as "Size (in ml)"
+        Liquors.productPrice as "Price ($)"
+        FROM Liquors
+        WHERE productID = %s""" % (productID)
+
+        cur = mysql.connection.cursor()
+        cur.execute(liquorQuery)
+        liquors = cur.fetchall()
+
+        return render_template("liquors-delete.j2", liquors=liquors, productID = productID)
+    
+    if request.method == "POST":
+
+        if request.form.get("Delete_Liquor"):
+            productID = request.form["productID"]
+
+        deleteQuery = """
+        DELETE FROM Liquors
+        WHERE
+        Liquors.productID = %s
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (productID))
+        mysql.connection.commit()
+
+        return redirect('/liquors')
+
 
 @app.route('/rewardtiers')
 def rewardtiers():

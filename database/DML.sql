@@ -178,12 +178,31 @@ Employees.employeeID = %s
 
 -----------------Liquors-------------------
 -- Create
-INSERT INTO Liquors(productID, productName, productSize, productPrice)
-VALUES(:productID_input, :productName_input, :productSize_input, :productPrice_input);
+INSERT INTO Liquors(productID, productName, productSizeMl, productPrice)
+VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
 
 -- Read
-SELECT * FROM Liquors;
+SELECT 
+Liquors.productID as "Product #"
+Liquors.productName as "Name"
+Liquors.productSizeMl as "Size (in ml)"
+Liquors.productPrice as "Price ($)"
+FROM Liquors;
 
+-- Update
+UPDATE Liquors
+SET 
+Liquors.productID = %s,
+Liquors.productName = %s,
+Liquors.productSizeMl = %s,
+Liquors.productPrice = %s
+WHERE 
+Liquors.productID = %s
+
+-- Delete
+DELETE FROM Liquors
+WHERE
+Liquors.productID = %s
 
 
 -----------------RewardsTiers-------------------
