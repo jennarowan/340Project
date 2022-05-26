@@ -585,7 +585,46 @@ def employees():
         return redirect("/employees")
 
 
+@app.route("/employees-delete/<int:id>", methods=["POST", "GET"])
+def delete_employee(id):
+    
+    if request.method == "GET":
 
+        employeeQuery = """
+        SELECT
+        Employees.employeeID AS "Employee #",
+        Employees.socialSecurityNumber AS "SSN",
+        Employees.firstName AS "First",
+        Employees.lastName AS "Last",
+        Employees.phoneNumber AS "Phone #",
+        Employees.addressStreet AS "Street",
+        Employees.addressCity AS "City",
+        Employees.addressState AS "State",
+        Employees.addressZip AS "Zip Code"
+        FROM Employees
+        WHERE employeeId = %s""" % (id)
+        cur = mysql.connection.cursor()
+        cur.execute(employeeQuery)
+        employees = cur.fetchall()
+
+        return render_template("employees-delete.j2", employees=employees, employeeNum=id)
+
+    if request.method == "POST":
+
+         # Fires if user presses the Edit button
+        if request.form.get("Delete_Employee"):
+            employeeID = request.form["employeeID"]
+        
+        deleteQuery = """
+        DELETE FROM Employees
+        WHERE
+        Employees.employeeID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(deleteQuery, (employeeID))
+        mysql.connection.commit()
+
+        return redirect("/employees")
 
 @app.route('/liquors')
 def liquors():

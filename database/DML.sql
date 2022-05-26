@@ -160,7 +160,9 @@ FROM Employees;
 
 
 -- Delete
-
+DELETE FROM Employees
+WHERE
+Employees.employeeID = %s
 
 
 -----------------Liquors-------------------
