@@ -839,7 +839,7 @@ def rewardstiers():
         cursor.execute(readQuery)
         rewardstiers = cursor.fetchall()
 
-        return render_template("rewardstiers.j2", rewardstiers = rewardstiers)
+        return render_template("rewardstiers.j2", rewardstiers=rewardstiers)
 
     if request.method == "POST":
 
