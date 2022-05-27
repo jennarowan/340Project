@@ -693,9 +693,9 @@ def liquors():
         # Read
         readQuery = """
         SELECT 
-        Liquors.productID as "Product #"
-        Liquors.productName as "Name"
-        Liquors.productSizeMl as "Size (in ml)"
+        Liquors.productID as "Product #",
+        Liquors.productName as "Name",
+        Liquors.productSizeMl as "Size (in ml)",
         Liquors.productPrice as "Price ($)"
         FROM Liquors;
         """
@@ -789,9 +789,9 @@ def delete_liquor(productID):
 
         liquorQuery = """
         SELECT 
-        Liquors.productID as "Product #"
-        Liquors.productName as "Name"
-        Liquors.productSizeMl as "Size (in ml)"
+        Liquors.productID as "Product #",
+        Liquors.productName as "Name",
+        Liquors.productSizeMl as "Size (in ml)",
         Liquors.productPrice as "Price ($)"
         FROM Liquors
         WHERE productID = %s""" % (productID)
@@ -820,9 +820,63 @@ def delete_liquor(productID):
         return redirect('/liquors')
 
 
-@app.route('/rewardtiers')
-def rewardtiers():
-    return render_template("rewardtiers.j2")
+@app.route('/rewardstiers', methods = ["POST", "GET"])
+def rewardstiers():
+
+    if request.method == "GET":
+
+        #Read
+        readQuery = """
+        SELECT 
+        RewardsTiers.rewardsTierID as 'Reward Tier #',
+        RewardsTiers.rewardsTierName as 'Reward Tier Name',
+        RewardsTiers.rewardsTierDiscount as 'Reward Tier Discount (%)',
+        RewardsTiers.rewardsTierMinPurchase as 'Reward Tier Min Purchase'
+        FROM RewardsTiers;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        rewardstiers = cursor.fetchall()
+
+        return render_template("rewardstiers.j2", rewardstiers = rewardstiers)
+
+    if request.method == "POST":
+
+        #Create
+        if request.form.get("Add_RewardsTiers"):
+            rewardsTierID = request.form["rewardsTierID"]
+            rewardsTierName = request.form["rewardsTierName"]
+            rewardsTierDiscount = request.form["rewardsTierDiscount"]
+            rewardsTierMinPurchase = request.form["rewardsTierMinPurchase"]
+        
+        # Tier Ids are Already genereated, we automatically are creating 1-3 (Bronze-Gold), 4 will be made by user
+        # !! THIS IS AUTOINCREMENTED DO I NEED THIS STEP?
+        nextrewardsTierIDQuery = """
+        SELECT MAX(rewardsTierID) + 1 AS "nextProductID" FROM RewardsTiers
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(nextrewardsTierIDQuery)
+        rewardsTierID = cursor.fetchall()
+
+
+        insertQuery = """
+        INSERT INTO RewardsTiers(
+            rewardsTierID, 
+            rewardsTierName, 
+            rewardsTierDiscount, 
+            rewardsTierMinPurchase)
+        VALUES(%s, %s, %s, %s);
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (rewardsTierID, rewardsTierName, rewardsTierDiscount, rewardsTierMinPurchase))
+        mysql.connection.commit()
+
+        # Send user back to main rewardstiers page
+        return redirect("/rewardstiers")
+
 
 @app.route('/liquorsorders')
 def liquorsorders():

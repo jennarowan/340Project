@@ -54,35 +54,22 @@
   <tr>
     <th><a href="#" onClick="newRewardsTier()">New</a></th>
     <th></th>
-    <th>rewardsTierId</th>
-    <th>rewardsTierName</th>
-    <th>rewardsTierDiscount</th>
-    <th>rewardsTierMinPurchase</th>
+    {% for key in rewardstiers[0].keys() %}
+
+    <th>{{ key }}</th>
+
+    {% endfor %}
   </tr>
+  <tbody>
+
+  {% for rewardstier in rewardstiers %}
   <tr>
-    <td><a href="#" onClick="updateRewardsTier('this.RewardsTierID')">Edit</a></td>
-    <td><a href="#" onclick="deleteRewardsTier('this.RewardsTierID')">Delete</a></td>
-    <td align="right" >1</td>
-    <td>Bronze</td>
-    <td>.995</td>
-    <td>100</td>
+  {% for key in rewardstier.keys() %}
+
+    <td>{{store[key]}}</td>
+    {% endfor %}
   </tr>
-  <tr>
-    <td><a href="#" onClick="updateRewardsTier('this.RewardsTierID')">Edit</a></td>
-    <td><a href="#" onclick="deleteRewardsTier('this.RewardsTierID')">Delete</a></td>
-    <td align="right" >2</td>
-    <td>Silver</td>
-    <td>.9875</td>
-    <td>500</td>
-  </tr>
-  <tr>
-    <td><a href="#" onClick="updateRewardsTier('this.RewardsTierID')">Edit</a></td>
-    <td><a href="#" onclick="deleteRewardsTier('this.RewardsTierID')">Delete</a></td>
-    <td align="right" >3</td>
-    <td>Gold</td>
-    <td>.98</td>
-    <td>1000</td>
-  </tr>
+  {% endfor %}
 </table>
 <p>&nbsp;</p>
 </div> 
@@ -90,16 +77,24 @@
     <form method="POST" id="addRewardsTier">
         <legend><strong>Add RewardsTier</strong></legend>
           <fieldset class="fields">
+            <p>
             <label>rewardsTierId</label> <input type="text" name="rewardsTierId">
+            </p>
+            <p>
             <label>rewardsTierName</label> <input type="text" name="rewardsTierName">
+            </p>
+            <p>
             <label>rewardsTierDiscount</label> <input type="text" name = "rewardsTierDiscount">
+            </p>
+            <p>
             <label>rewardsTierMinPurchase</label> <input type="text" name="rewardsTierMinPurchase">
+            </p>
       </fieldset>
           <input class="btn" type="submit" id="addRewardsTier" value="Add RewardsTier">
           <input class="btn" type="button" value="cancel" onClick="browseRewardsTier()">
 	</form> 
 </div>
-<p>&nbsp;</p>
+{# <p>&nbsp;</p>
 <div id="update">
     <form method="POST" id="UpdateRewardsTier">
         <legend><strong>Update RewardsTier</strong></legend>
@@ -127,7 +122,8 @@
     </fieldset>
     <input class="btn" type="submit" id="DeleteRewardsTier" value="Delete RewardsTier">
           <input class="btn" type="button" value="cancel" onClick="browseRewardsTier()">
-  </form> 
-</div>
+  </form>  #}
+{# </div> #}
+
 </body>
 </html>

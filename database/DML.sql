@@ -183,9 +183,9 @@ VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
 
 -- Read
 SELECT 
-Liquors.productID as "Product #"
-Liquors.productName as "Name"
-Liquors.productSizeMl as "Size (in ml)"
+Liquors.productID as "Product #",
+Liquors.productName as "Name",
+Liquors.productSizeMl as "Size (in ml)",
 Liquors.productPrice as "Price ($)"
 FROM Liquors;
 
@@ -209,26 +209,35 @@ Liquors.productID = %s
 
 -- Create
 INSERT INTO RewardsTiers(rewardsTierID, rewardsTierName, rewardsTierDiscount, rewardsTierMinPurchase)
-VALUES(:rewardsTierID_input, :rewardsTierName_input, :rewardsTierDiscount_input, :rewardsTierMinPurchase_input);
+VALUES(%s, %s, %s, %s);
 
 -- Read
-SELECT * FROM RewardsTiers;
+SELECT 
+RewardsTiers.rewardsTierID as 'Reward Tier #',
+RewardsTiers.rewardsTierName as 'Reward Tier Name',
+RewardsTiers.rewardsTierDiscount as 'Reward Tier Discount (%)',
+RewardsTiers.rewardsTierMinPurchase as 'Reward Tier Min Purchase'
+FROM RewardsTiers;
 
 
 
 -------------------LiquorsOrders-------------------
 
 -- Create
-INSERT INTO LiquorsOrders(productID, OrderID, productQuantity)
-VALUES(:productID_input, :OrderID_input, :productQuantity_input);
+INSERT INTO LiquorsOrders(productID, orderID, productQuantity)
+VALUES(%s, %s, %s);
 
 -- Read
-SELECT * FROM LiquorsOrders;
+SELECT 
+LiquorsOrders.productID as 'Product #',
+LiquorsOrders.orderID as 'Order #',
+LiquorsOrders.productQuantity as 'Product Quantity (EA)'
+FROM LiquorsOrders;
 
--- Update
-UPDATE LiquorsOrders SET
-    productID = :productID, OrderID = :OrderID, productQuantity = :productQuantity_input
-    WHERE productID = :productID_input and orderID = :orderID_input;
+-- -- Update
+-- UPDATE LiquorsOrders SET
+--     productID = :productID, OrderID = :OrderID, productQuantity = :productQuantity_input
+--     WHERE productID = :productID_input and orderID = :orderID_input;
 
--- Delete
-DELETE FROM LiquorsOrders WHERE LiquorsOrders.LiquorsOrdersID = :LiquorsOrdersID_input;
+-- -- Delete
+-- DELETE FROM LiquorsOrders WHERE LiquorsOrders.LiquorsOrdersID = :LiquorsOrdersID_input;
