@@ -853,7 +853,7 @@ def rewardstiers():
         # Tier Ids are Already genereated, we automatically are creating 1-3 (Bronze-Gold), 4 will be made by user
         # !! THIS IS AUTOINCREMENTED DO I NEED THIS STEP?
         nextrewardsTierIDQuery = """
-        SELECT MAX(rewardsTierID) + 1 AS "nextProductID" FROM RewardsTiers
+        SELECT MAX(rewardsTierID) + 1 AS "nextrewardsTierID" FROM RewardsTiers
         """
 
         cursor = mysql.connection.cursor()
