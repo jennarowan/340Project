@@ -53,7 +53,6 @@
 <table border="1" cellpadding="5">
   <tr>
     <th><a href="#" onClick="newRewardsTier()">New</a></th>
-    <th></th>
     {% for key in rewardstiers[0].keys() %}
 
     <th>{{ key }}</th>
@@ -64,8 +63,9 @@
 
   {% for rewardstier in rewardstiers %}
   <tr>
+  <td></td>
   {% for key in rewardstier.keys() %}
-
+    
     <td>{{rewardstier[key]}}</td>
     {% endfor %}
   </tr>
