@@ -232,8 +232,6 @@ def delete_order(id, orderTotal):
         
         # updateCustomersQuery = """
         # UPDATE Customers
-        # JOIN RewardsTiers
-        # ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
         # SET 
         # Customers.cusTotalSales = Customers.cusTotalSales - %s
         # WHERE
