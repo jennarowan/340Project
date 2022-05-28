@@ -38,6 +38,33 @@ Orders.orderTotal = %s
 WHERE
 Orders.orderID = %s
 
+-- Update Total Sales on Customers table when an order is added
+UPDATE Customers
+JOIN RewardsTiers
+ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+SET 
+Customers.cusTotalSales = Customers.cusTotalSales + %s
+WHERE
+Customers.customerID = %s
+
+-- Update Total Sales on Customers table when an order is edited
+UPDATE Customers
+JOIN RewardsTiers
+ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+SET 
+Customers.cusTotalSales = Customers.cusTotalSales - %s + %s 
+WHERE
+Customers.customerID = %s
+
+-- Update Total Sales on Customers table when an order is deleted
+UPDATE Customers
+JOIN RewardsTiers
+ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+SET 
+Customers.cusTotalSales = Customers.cusTotalSales - %s
+WHERE
+Customers.customerID = %s
+
 -- Delete
 DELETE FROM Orders
 WHERE

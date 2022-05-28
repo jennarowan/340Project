@@ -178,7 +178,7 @@ INSERT INTO Customers (
   "Arlen",
   "TX",
   73104,
-  3450,
+  39.18,
   3
 ),
 (
@@ -189,7 +189,7 @@ INSERT INTO Customers (
   "Arlen",
   "TX",
   73104,
-  7288.37,
+  109.72,
   3
 ),
 (
@@ -200,7 +200,7 @@ INSERT INTO Customers (
   "Arlen",
   "TX",
   73104,
-  867.21,
+  12.93,
   2
 );
 

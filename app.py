@@ -88,6 +88,21 @@ def orders():
         cursor.execute(insertQuery, (orderID, employeeID, storeID, customer, orderTotal))
         mysql.connection.commit()
 
+        # Updates the total sales for the given customer on the customers table by adding the total of the new order
+        # The rewards tier join is for multiplying the order total by the correct discount (doesn't currently work)
+        updateCustomersQuery = """
+        UPDATE Customers
+        JOIN RewardsTiers
+        ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        SET 
+        Customers.cusTotalSales = Customers.cusTotalSales + %s
+        WHERE
+        Customers.customerID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateCustomersQuery, (orderTotal, customer))
+        mysql.connection.commit()
+
         # Send user back to the main orders page
         return redirect("/orders")
 
@@ -132,7 +147,8 @@ def edit_order(id, employeeName, total):
             orderTotal = request.form["orderTotal"]
             orderID = request.form["orderID"]
         
-        updateQuery = """
+        # Updates the order information in the orders table
+        updateOrdersQuery = """
         UPDATE Orders
         SET 
         Orders.Employees_employeeID = %s,
@@ -143,13 +159,27 @@ def edit_order(id, employeeName, total):
         Orders.orderID = %s
         """
         cursor = mysql.connection.cursor()
-        cursor.execute(updateQuery, (employeeID, storeID, customer, orderTotal, orderID))
+        cursor.execute(updateOrdersQuery, (employeeID, storeID, customer, orderTotal, orderID))
+        mysql.connection.commit()
+
+        # Updates the total sales for the given customer on the customers table by subtracting the original order total and adding the new one
+        updateCustomersQuery = """
+        UPDATE Customers
+        JOIN RewardsTiers
+        ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        SET 
+        Customers.cusTotalSales = Customers.cusTotalSales - %s + %s 
+        WHERE
+        Customers.customerID = %s
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateCustomersQuery, (total, orderTotal, customer))
         mysql.connection.commit()
 
         return redirect("/orders")
 
-@app.route("/orders-delete/<int:id>", methods=["POST", "GET"])
-def delete_order(id):
+@app.route("/orders-delete/<int:id>/<orderTotal>", methods=["POST", "GET"])
+def delete_order(id, orderTotal):
     
     if request.method == "GET":
 
@@ -169,7 +199,7 @@ def delete_order(id):
         cur.execute(orderQuery)
         orders = cur.fetchall()
 
-        return render_template("orders-delete.j2", orders=orders, orderNum=id)
+        return render_template("orders-delete.j2", orders=orders, orderNum=id, orderTotal=orderTotal)
 
     if request.method == "POST":
 
@@ -177,6 +207,22 @@ def delete_order(id):
         if request.form.get("Delete_Order"):
             orderID = request.form["orderID"]
         
+        # Updates the total sales for the given customer on the customers table by subtracting the original order total and adding the new one
+        updateCustomersQuery = """
+        UPDATE Customers
+        JOIN Orders
+        ON Orders.orderID = %s
+        JOIN RewardsTiers
+        ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        SET 
+        Customers.cusTotalSales = Customers.cusTotalSales - %s 
+        WHERE
+        Customers.customerID = Orders.Customers_customerID
+        """
+        cursor = mysql.connection.cursor()
+        cursor.execute(updateCustomersQuery, (orderID, orderTotal))
+        mysql.connection.commit()
+
         deleteQuery = """
         DELETE FROM Orders
         WHERE

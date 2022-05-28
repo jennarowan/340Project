@@ -50,7 +50,7 @@
     {% for order in orders %}
     <tr>
         <td><a href="/orders-edit/{{order['Order #']}}/{{order['Employee']}}/{{order['Total']}}" class="btn btn-default">Edit</a></td>
-        <td><a href="/orders-delete/{{order['Order #']}}" class="btn btn-default">Delete</a></td>
+        <td><a href="/orders-delete/{{order['Order #']}}/{{order['Total']}}" class="btn btn-default">Delete</a></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in order.keys() %}
