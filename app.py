@@ -206,22 +206,44 @@ def delete_order(id, orderTotal):
          # Fires if user presses the Edit button
         if request.form.get("Delete_Order"):
             orderID = request.form["orderID"]
+
+        # Remove dollar sign from total
+        orderTotal = orderTotal.replace('$', '')
         
+        ############# DOES NOT WORK #############################
+
         # Updates the total sales for the given customer on the customers table by subtracting the original order total and adding the new one
-        updateCustomersQuery = """
-        UPDATE Customers
-        JOIN Orders
-        ON Orders.orderID = %s
-        JOIN RewardsTiers
-        ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
-        SET 
-        Customers.cusTotalSales = Customers.cusTotalSales - %s 
-        WHERE
-        Customers.customerID = Orders.Customers_customerID
-        """
-        cursor = mysql.connection.cursor()
-        cursor.execute(updateCustomersQuery, (orderID, orderTotal))
-        mysql.connection.commit()
+
+        # Grabs customer ID given order ID
+        # customerQuery = """
+        # SELECT
+        # Customers_customerID
+        # FROM Orders
+        # WHERE orderID = %s
+        # """
+
+        # cursor = mysql.connection.cursor()
+        # cursor.execute(customerQuery, (orderID))
+        # customer = cursor.fetchall()
+
+        # # "customer" is a tuple object at this point instead of being a simple integer
+
+        # # orderTotal is perfect
+        
+        # updateCustomersQuery = """
+        # UPDATE Customers
+        # JOIN RewardsTiers
+        # ON Customers.RewardsTiers_rewardsTierId = RewardsTiers.rewardsTierId
+        # SET 
+        # Customers.cusTotalSales = Customers.cusTotalSales - %s
+        # WHERE
+        # Customers.customerID = %s
+        # """
+        # cursor = mysql.connection.cursor()
+        # cursor.execute(updateCustomersQuery, (orderTotal, customer))
+        # mysql.connection.commit()
+
+        ########################################################
 
         deleteQuery = """
         DELETE FROM Orders
