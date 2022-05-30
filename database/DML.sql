@@ -251,13 +251,13 @@ FROM RewardsTiers;
 -------------------LiquorsOrders-------------------
 
 -- Create
-INSERT INTO LiquorsOrders(productID, orderID, productQuantity)
+INSERT INTO LiquorsOrders(Liquors_productID, Orders_orderID, productQuantity)
 VALUES(%s, %s, %s);
 
 -- Read
 SELECT 
-LiquorsOrders.productID as 'Product #',
-LiquorsOrders.orderID as 'Order #',
+LiquorsOrders.Liquors_productID as 'Product #',
+LiquorsOrders.Orders_orderID as 'Order #',
 LiquorsOrders.productQuantity as 'Product Quantity (EA)'
 FROM LiquorsOrders;
 

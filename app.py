@@ -944,9 +944,48 @@ def rewardstiers():
         return redirect("/rewardtiers")
 
 
-@app.route('/liquorsorders')
+@app.route('/liquorsorders', methods=["POST","GET"])
 def liquorsorders():
-    return render_template("liquorsorders.j2")
+    
+    if request.method == "GET":
+
+        # Read
+        readQuery = """
+        SELECT 
+        LiquorsOrders.Liquors_productID as 'Product #',
+        LiquorsOrders.Orders_orderID as 'Order #',
+        LiquorsOrders.productQuantity as 'Product Quantity (EA)'
+        FROM LiquorsOrders;
+        """
+
+        cursor = mysql.connection.cursor()
+        cursor.execute(readQuery)
+        liquorsorders = cursor.fetchall()
+        
+        return render_template("liquorsorders.j2", liquorsorders=liquorsorders)
+    
+    if request.method == "POST":
+
+        # Create
+        if request.form.get("Add_LiquorsOrders"):
+            Liquors_productID = request.form["Liquors_productID"]
+            Orders_orderID = request.form["Orders_orderID"]
+            productQuantity = request.form["productQuantity"]
+        
+        insertQuery = """
+        INSERT INTO LiquorsOrders(
+            Liquors_productID, 
+            Orders_orderID, 
+            productQuantity)
+        VALUES(%s, %s, %s);
+        """
+        
+        cursor = mysql.connection.cursor()
+        cursor.execute(insertQuery, (Liquors_productID, Orders_orderID, productQuantity))
+        mysql.connection.commit()
+
+        # Send user back to main liquorsorders page
+        return redirect('/liquorsorders')
 
 # Listener
 
