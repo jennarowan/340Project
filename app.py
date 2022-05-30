@@ -886,7 +886,7 @@ def delete_liquor(productID):
         return redirect('/liquors')
 
 
-@app.route('/rewardstiers', methods = ["POST", "GET"])
+@app.route('/rewardtiers', methods = ["POST", "GET"])
 def rewardstiers():
 
     if request.method == "GET":
@@ -894,7 +894,7 @@ def rewardstiers():
         #Read
         readQuery = """
         SELECT 
-        RewardsTiers.rewardsTierID as 'Reward Tier #',
+        RewardsTiers.rewardsTierId as 'Reward Tier #',
         RewardsTiers.rewardsTierName as 'Reward Tier Name',
         RewardsTiers.rewardsTierDiscount as 'Reward Tier Discount (%)',
         RewardsTiers.rewardsTierMinPurchase as 'Reward Tier Min Purchase'
@@ -911,25 +911,25 @@ def rewardstiers():
 
         #Create
         if request.form.get("Add_RewardsTiers"):
-            rewardsTierID = request.form["rewardsTierID"]
+            rewardsTierID = request.form["rewardsTierId"]
             rewardsTierName = request.form["rewardsTierName"]
             rewardsTierDiscount = request.form["rewardsTierDiscount"]
             rewardsTierMinPurchase = request.form["rewardsTierMinPurchase"]
         
         # Tier Ids are Already genereated, we automatically are creating 1-3 (Bronze-Gold), 4 will be made by user
         # !! THIS IS AUTOINCREMENTED DO I NEED THIS STEP?
-        nextrewardsTierIDQuery = """
-        SELECT MAX(rewardsTierID) + 1 AS "nextrewardsTierID" FROM RewardsTiers
-        """
+        # nextrewardsTierIDQuery = """
+        # SELECT MAX(rewardsTierID) + 1 AS "nextrewardsTierID" FROM RewardsTiers
+        # """
 
-        cursor = mysql.connection.cursor()
-        cursor.execute(nextrewardsTierIDQuery)
-        rewardsTierID = cursor.fetchall()
+        # cursor = mysql.connection.cursor()
+        # cursor.execute(nextrewardsTierIDQuery)
+        # rewardsTierID = cursor.fetchall()
 
 
         insertQuery = """
         INSERT INTO RewardsTiers(
-            rewardsTierID, 
+            rewardsTierId, 
             rewardsTierName, 
             rewardsTierDiscount, 
             rewardsTierMinPurchase)
@@ -941,7 +941,7 @@ def rewardstiers():
         mysql.connection.commit()
 
         # Send user back to main rewardstiers page
-        return redirect("/rewardstiers")
+        return redirect("/rewardtiers")
 
 
 @app.route('/liquorsorders')

@@ -7,49 +7,28 @@
 			if (dowhat == 'insert'){
 				document.getElementById('browse').style.display = 'none';
 				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
 			}
-			else if (dowhat == 'update'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'none';
-			}
-			else if (dowhat == 'delete'){
-				document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'block';
-			}
-      else if (dowhat == 'all'){
-				document.getElementById('browse').style.display = 'block';
-				document.getElementById('insert').style.display = 'block';
-				document.getElementById('update').style.display = 'block';
-				document.getElementById('delete').style.display = 'block';
-			}
-			else { 
+			else { //by default display browse
 				document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'none';
-				document.getElementById('update').style.display = 'none';
-				document.getElementById('delete').style.display = 'none';
 			}
 		}
     function newLiquor() { showform('insert'); }
-    function updateLiquor(pid) { showform('update'); }
-    function deleteLiquor(pid) { showform ('delete'); }
+    {# function updateLiquor(pid) { showform('update'); }
+    function deleteLiquor(pid) { showform ('delete'); } #}
     function browseLiquor() { showform ('browse'); }
-    function showAll() { showform ('all'); }
+    {# function showAll() { showform ('all'); } #}
 </script>
 </head>
 
 <body onload="browseLiquor()">
 <h1>Liquors</h1>
 
-[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardstiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
-<p><a href="#" onClick="showAll()">Show CRUD</a> </p>
+{# <p><a href="#" onClick="showAll()">Show CRUD</a> </p> #}
+<p></p>
 <table border="1" cellpadding="5">
   <tr>
     <th><a href="#" onClick="newLiquor()">New</a></th>
