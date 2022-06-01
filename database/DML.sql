@@ -219,7 +219,6 @@ FROM Liquors;
 -- Update
 UPDATE Liquors
 SET 
-Liquors.productID = %s,
 Liquors.productName = %s,
 Liquors.productSizeMl = %s,
 Liquors.productPrice = %s

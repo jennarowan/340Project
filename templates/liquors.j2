@@ -41,14 +41,14 @@
   </tr>
   <tbody>
 
-  {% for liqour in liquors %}
+  {% for liquor in liquors %}
   <tr>
-    <td><a href="/liquors-edit/{{liquors['Product #']}}/{{liquors['Name']}}/{{liquors['Size (in ml)']}}/{{liquors['Price ($)']}}" class="btn btn-default">Edit</a></td>
-    <td><a href="/liquors-delete/{{liquors['Product #']}}" class="btn btn-default">Delete</a></td>
+    <td><a href="/liquors-edit/{{liquor['Product #']}}/{{liquor['Name']}}/{{liquor['Size (in ml)']}}/{{liquor['Price ($)']}}" class="btn btn-default">Edit</a></td>
+    <td><a href="/liquors-delete/{{liquor['Product #']}}" class="btn btn-default">Delete</a></td>
     
-    {% for key in liqour.keys() %}
+    {% for key in liquor.keys() %}
 
-    <td>{{liqour[key]}}</td>
+    <td>{{liquor[key]}}</td>
     {% endfor %}
   </tr>
   {% endfor %}

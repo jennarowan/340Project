@@ -813,14 +813,13 @@ def edit_liquor(productID, productName, productSizeMl, productPrice):
     if request.method == "GET":
 
         liquorsQuery = """
-        UPDATE Liquors
-        SET 
-        Liquors.productID = %s,
-        Liquors.productName = %s,
-        Liquors.productSizeMl = %s,
-        Liquors.productPrice = %s
-        WHERE 
-        Liquors.productID = %s
+        SELECT 
+        Liquors.productID as "Product #",
+        Liquors.productName as "Name",
+        Liquors.productSizeMl "Size (in ml)",
+        Liquors.productPrice as "Price ($)"
+        FROM Liquors
+        WHERE Liquors.productID = %s
         """ % (productID)
 
         cur = mysql.connection.cursor()
@@ -831,10 +830,15 @@ def edit_liquor(productID, productName, productSizeMl, productPrice):
     
     if request.method == "POST":
 
+        if request.form.get("Edit_Liquor"): 
+            productID = request.form["productID"]
+            productName = request.form["productName"]
+            productSizeMl = request.form["productSizeMl"]
+            productPrice = request.form["productPrice"]
+
         updateQuery = """
         UPDATE Liquors
         SET 
-        Liquors.productID = %s,
         Liquors.productName = %s,
         Liquors.productSizeMl = %s,
         Liquors.productPrice = %s
@@ -843,7 +847,7 @@ def edit_liquor(productID, productName, productSizeMl, productPrice):
         """
 
         cursor = mysql.connection.cursor()
-        cursor.execute(updateQuery, (productID, productName, productSizeMl, productPrice))
+        cursor.execute(updateQuery, (productName, productSizeMl, productPrice, productID))
         mysql.connection.commit()
 
         return redirect("/liquors")
