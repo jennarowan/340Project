@@ -779,7 +779,7 @@ def liquors():
         if request.form.get("Add_Liquor"): # Find where this is coming from?
             productID = request.form["productID"]
             productName = request.form["productName"]
-            productSizeMl = request.form["productSizeMl"]
+            productSizeMl = request.form["productSize(ML)"]
             productPrice = request.form["productPrice"]
 
         # Sets next productID, so user doesn't need to look
@@ -797,7 +797,7 @@ def liquors():
             productName, 
             productSizeMl, 
             productPrice)
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
+        VALUES(%s, %s, %s, %s);
         """
 
         cursor = mysql.connection.cursor()
