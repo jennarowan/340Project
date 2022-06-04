@@ -32,11 +32,9 @@
   <thead>
     <tr>
 
-        <th><a href="#" onClick="newStore()">New</a></th>
-
         <!-- Iterate through each key in the first entry to get the
         column name -->
-        
+        <th></th>
         <th></th>
         {% for key in stores[0].keys() %}
 
@@ -64,12 +62,14 @@
     </tr>
     {% endfor %}
 </table>
-<p>&nbsp;</p>
+
+<input class="addNewBtn" type="submit" name="newStore" onClick="newStore()" id="newStore" value="Add New Store">
+
 </div> 
 <div id="insert">
     <form method="POST" id="addStore">
         <p></p>
-        <legend><strong>Add Store</strong></legend>
+        <legend><strong>Add New Store</strong></legend>
           <p></p>
           <fieldset class="fields">
             <p>
@@ -85,8 +85,9 @@
             <label> addressZip </label> <input type="text" name="addressZip">
             </p>
       </fieldset>
+            <p></p>
           <input class="btn" type="submit" name="Add_Store" id="addStore" value="Add Store">
-          <input class="btn" type="button" value="cancel" onClick="browseStore()">
+          <input class="btn" type="button" value="Cancel" onClick="browseStore()">
 	</form> 
 </div>
 

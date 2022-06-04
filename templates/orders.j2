@@ -32,11 +32,9 @@
   <thead>
     <tr>
 
-        <th><a href="#" onClick="newOrders()">New</a></th>
-
         <!-- Iterate through each key in the first entry to get the
         column name -->
-        
+        <th></th>
         <th></th>
         {% for key in orders[0].keys() %}
 
@@ -64,13 +62,15 @@
     </tr>
     {% endfor %}
 </table>
-<p>&nbsp;</p>
+
+<input class="addNewBtn" type="submit" name="newOrder" onClick="newOrders()" id="newOrder" value="Add New Order">
+
 </div> 
 <div id="insert">
     
     <form action="/orders" method="POST" id="addOrders">
         <p></p>
-        <legend><strong>Add Orders</strong></legend>
+        <legend><strong>Add New Order</strong></legend>
         <p></p>
           <fieldset class="fields">
           <p>
@@ -113,8 +113,9 @@
             <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal">
             </p>
       </fieldset>
-          <input class="btn" type="submit" name="Add_Order" id="addOrders" value="Add Orders">
-          <input class="btn" type="button" value="cancel" onClick="browseOrders()">
+          <p></p>
+          <input class="btn" type="submit" name="Add_Order" id="addOrder" value="Add Order">
+          <input class="btn" type="button" value="Cancel" onClick="browseOrders()">
 	</form> 
 </div>
 

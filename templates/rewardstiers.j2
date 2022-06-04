@@ -33,7 +33,7 @@
 <p></p>
 <table border="1" cellpadding="5">
   <tr>
-    <th><a href="#" onClick="newRewardsTier()">New</a></th>
+    
     {% for key in rewardstiers[0].keys() %}
 
     <th>{{ key }}</th>
@@ -44,7 +44,7 @@
 
   {% for rewardstier in rewardstiers %}
   <tr>
-  <td></td>
+  
   {% for key in rewardstier.keys() %}
     
     <td>{{rewardstier[key]}}</td>
@@ -52,13 +52,17 @@
   </tr>
   {% endfor %}
 </table>
-<p>&nbsp;</p>
+
+<input class="addNewBtn" type="submit" name="newRewardsTier" onClick="newRewardsTier()" id="newRewardsTier" value="Add New RewardsTier">
+
 </div> 
 
 <div id="insert">
 
     <form action = "/rewardtiers" method="POST" id="addRewardsTier">
-        <legend><strong>Add RewardsTier</strong></legend>
+        <p></p>
+        <legend><strong>Add New RewardsTier</strong></legend>
+        <p></p>
           <fieldset class="fields">
             <p>
             <label>rewardsTierId</label> <input type="text" name="rewardsTierId">

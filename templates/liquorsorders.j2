@@ -22,7 +22,7 @@
 </header>
 
 <body onload="browseLiquorsOrders()">
-<h1>LiquorsOrders</h1>
+<h1>Liquor Orders</h1>
 
 [ <a href="/">Home</a> ~ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ]
 
@@ -30,8 +30,6 @@
 <p></p>
 <table border="1" cellpadding="5">
     <tr>
-
-        <th><a href="#" onClick="newLiquorsOrders()">New</a></th>
 
         <!-- Iterate through each key in the first entry to get the
         column name -->
@@ -50,7 +48,6 @@
     <!-- Now, iterate through every person in bsg_people -->
     {% for liquororder in liquorsorders %}
     <tr>
-    <td></td>
         
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in liquororder.keys() %}
@@ -61,13 +58,17 @@
     </tr>
     {% endfor %}
 </table>
-<p>&nbsp;</p>
+
+<input class="addNewBtn" type="submit" name="newLiquorsOrder" onClick="newLiquorsOrders()" id="newLiquorsOrder" value="Add New LiquorsOrder">
+
 </div> 
 
 <div id="insert">
 
     <form action = "/liquorsorders" method="POST" id="addLiquorsOrders">
-        <legend><strong>Add LiquorsOrders</strong></legend>
+        <p></p>
+        <legend><strong>Add New Liquor Order</strong></legend>
+        <p></p>
           <fieldset class="fields">
           <p>
             <label>productID</label> <input type="text" name="Liquors_productID">

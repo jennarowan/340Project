@@ -34,7 +34,7 @@
 <p></p>
 <table border="1" cellpadding="5">
   <tr>
-    <th><a href="#" onClick="newLiquor()">New</a></th>
+    <th></th>
     <th></th>
     {% for key in liquors[0].keys() %}
 
@@ -56,12 +56,15 @@
   </tr>
   {% endfor %}
   </table>
-<p>&nbsp;</p>
+
+<input class="addNewBtn" type="submit" name="newLiquor" onClick="newLiquor()" id="newLiquor" value="Add New Liquor">
+
 </div> 
 <div id="insert">
     <form method="POST" id="addLiquor">
         <p></p>
-        <legend><strong>Add Liquor</strong></legend>
+        <legend><strong>Add New Liquor</strong></legend>
+        <p></p>
           <fieldset class="fields">
             <p>
             <label>productID</label> <input type="text" name="productID">

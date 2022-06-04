@@ -32,11 +32,9 @@
   <thead>
     <tr>
 
-        <th><a href="#" onClick="newEmployee()">New</a></th>
-
         <!-- Iterate through each key in the first entry to get the
         column name -->
-        
+        <th></th>
         <th></th>
         {% for key in employees[0].keys() %}
 
@@ -64,12 +62,14 @@
     </tr>
     {% endfor %}
 </table>
-<p>&nbsp;</p>
+
+<input class="addNewBtn" type="submit" name="newEmployee" onClick="newEmployee()" id="newEmployee" value="Add New Employee">
+
 </div> 
 <div id="insert">
     <form method="POST" id="addEmployee">
         <p>
-        <legend><strong>Add Employee</strong></legend>
+        <legend><strong>Add New Employee</strong></legend>
         </p>
           <fieldset class="fields">
             
