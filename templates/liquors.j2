@@ -34,25 +34,27 @@
 <p></p>
 <table border="1" cellpadding="5">
   <tr>
-    <th></th>
-    <th></th>
     {% for key in liquors[0].keys() %}
 
     <th>{{ key }}</th>
 
     {% endfor %}
+
+    <th>Edit</th>
+    <th>Delete</th>
   </tr>
   <tbody>
 
   {% for liquor in liquors %}
   <tr>
-    <td><a href="/liquors-edit/{{liquor['Product #']}}/{{liquor['Name']}}/{{liquor['Size (in ml)']}}/{{liquor['Price ($)']}}" class="btn btn-default">Edit</a></td>
-    <td><a href="/liquors-delete/{{liquor['Product #']}}" class="btn btn-default">Delete</a></td>
-    
     {% for key in liquor.keys() %}
 
     <td>{{liquor[key]}}</td>
     {% endfor %}
+
+    <td><a href="/liquors-edit/{{liquor['Product #']}}/{{liquor['Name']}}/{{liquor['Size (in ml)']}}/{{liquor['Price ($)']}}" class="edbtn"><img src={{ edit }} width=30px height=30px></a></td>
+    <td><a href="/liquors-delete/{{liquor['Product #']}}" class="edbtn"><img src={{ trash }} width=30px height=30px></a></a></td>
+    
   </tr>
   {% endfor %}
   </table>

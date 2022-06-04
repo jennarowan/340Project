@@ -34,8 +34,7 @@
 
         <!-- Iterate through each key in the first entry to get the
         column name -->
-        <th></th>
-        <th></th>
+        
         {% for key in orders[0].keys() %}
 
         <!-- Create a <th> tag with the key inside of it, this will be
@@ -44,22 +43,26 @@
 
         <!-- End of this for loop -->
         {% endfor %}
+
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tbody>    
 
     <!-- Now, iterate through every person in bsg_people -->
     {% for order in orders %}
     <tr>
-        <td><a href="/orders-edit/{{order['Order #']}}/{{order['Employee']}}/{{order['Total']}}" class="btn btn-default">Edit</a></td>
-        <td><a href="/orders-delete/{{order['Order #']}}/{{order['Total']}}" class="btn btn-default">Delete</a></td>
-        
         <!-- Then iterate through every key in the current person dictionary -->
         {% for key in order.keys() %}
 
         <!-- Create a <td> element with the value of that key in it -->
         <td>{{order[key]}}</td>
         {% endfor %}
+
+        <td><a href="/orders-edit/{{order['Order #']}}/{{order['Employee']}}/{{order['Total']}}" class="edbtn"><img src={{ edit }} width=30px height=30px></a></td>
+        <td><a href="/orders-delete/{{order['Order #']}}/{{order['Total']}}" class="edbtn"><img src={{ trash }} width=30px height=30px></a></td>
     </tr>
+    
     {% endfor %}
 </table>
 

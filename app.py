@@ -35,6 +35,10 @@ def orders():
 
     if request.method == "GET":
 
+        # Grabs edit and delete icons to be used on the page
+        trash = url_for('static', filename="bin.png")
+        edit = url_for('static', filename="edit.png")
+
         # Grabs all data for the main Orders table
         readQuery = """
         SELECT 
@@ -56,7 +60,7 @@ def orders():
         # Call the dropdown creation function to query the database and pass values to the orders
         employees, stores, customers= ordersDropdownDatasets()        
 
-        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers)
+        return render_template("orders.j2", orders=orders, employees=employees, stores=stores, customers=customers, trash=trash, edit=edit)
 
     if request.method == "POST":
 
@@ -260,6 +264,10 @@ def stores():
 
     if request.method == "GET":
 
+        # Grabs edit and delete icons to be used on the page
+        trash = url_for('static', filename="bin.png")
+        edit = url_for('static', filename="edit.png")
+
         readQuery = """
         SELECT 
         Stores.storeID AS "Store #",
@@ -274,7 +282,7 @@ def stores():
         cursor.execute(readQuery)
         stores = cursor.fetchall()
 
-        return render_template("stores.j2", stores=stores)
+        return render_template("stores.j2", stores=stores, trash=trash, edit=edit)
 
     if request.method == "POST":
 
@@ -401,6 +409,10 @@ def customers():
 
     if request.method == "GET":
 
+        # Grabs edit and delete icons to be used on the page
+        trash = url_for('static', filename="bin.png")
+        edit = url_for('static', filename="edit.png")
+
         # Grabs all data for the main Customers table
         readQuery = """
         SELECT 
@@ -425,7 +437,7 @@ def customers():
 
         tiers = customersDropDowns()
 
-        return render_template("customers.j2", customers=customers, tiers=tiers)
+        return render_template("customers.j2", customers=customers, tiers=tiers, trash=trash, edit=edit)
 
     if request.method == "POST":
 
@@ -589,6 +601,10 @@ def employees():
 
     if request.method == "GET":
 
+        # Grabs edit and delete icons to be used on the page
+        trash = url_for('static', filename="bin.png")
+        edit = url_for('static', filename="edit.png")
+
         readQuery = """
         SELECT
         Employees.employeeID AS "Employee #",
@@ -607,7 +623,7 @@ def employees():
         cursor.execute(readQuery)
         employees = cursor.fetchall()
 
-        return render_template("employees.j2", employees=employees)
+        return render_template("employees.j2", employees=employees, trash=trash, edit=edit)
 
     if request.method == "POST":
 
@@ -757,6 +773,10 @@ def liquors():
 
     if request.method == "GET":
 
+        # Grabs edit and delete icons to be used on the page
+        trash = url_for('static', filename="bin.png")
+        edit = url_for('static', filename="edit.png")
+
         # Read
         readQuery = """
         SELECT 
@@ -772,7 +792,7 @@ def liquors():
         liquors = cursor.fetchall()
     
 
-        return render_template("liquors.j2", liquors=liquors)
+        return render_template("liquors.j2", liquors=liquors, trash=trash, edit=edit)
     
     if request.method =="POST":
 

@@ -43,9 +43,19 @@ body {
     border-radius: 8px;
   }
 
+  .edbtn {
+    padding: 15px 32px;
+    display: inline-block;
+    border-radius: 8px;
+  }
+
   .btn:hover {
     background-color: #d73f09;
     color: white;
+  }
+
+  .edbtn:hover {
+    background-color: #d73f09;
   }
   
   a:link {
@@ -84,6 +94,7 @@ body {
     border: #d73f09;
     border-width: 3px;
     border-style: inset;
+    text-align: center;
   }
   
   tr td {
@@ -91,6 +102,7 @@ body {
     border-width: 3px;
     border-style: inset;
     padding: 5px;
+    text-align: center;
   }
   
   fieldset {
