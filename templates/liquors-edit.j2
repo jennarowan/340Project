@@ -48,17 +48,16 @@
                 <! -- input type="hidden" value="{{productID}}" class = "form-control" name="productID" id="productID" required -- >
                 <p>
                 <!--label> ID: </label --> 
+                
+                <input type="hidden" value="{{productID}}" class = "form-control" name="productID" id="productID" required>
                 <p>
-                <label>productID</label> <input type="hidden" value="{{productID}}" class = "form-control" name="productID" id="productID" required>
+                <label>Product Name:</label> <input type="text" value = "{{productName}}" class = "form-control" name="productName" id="productName">
                 </p>
                 <p>
-                <label>productName</label> <input type="text" value = "{{productName}}" class = "form-control" name="productName" id="productName">
+                <label>Product Size (Ml):</label> <input type="text" value = "{{productSizeMl}}" class = "form-control" name = "productSizeMl" id="productSizeMl">
                 </p>
                 <p>
-                <label>productSizeMl</label> <input type="text" value = "{{productSizeMl}}" class = "form-control" name = "productSizeMl" id="productSizeMl">
-                </p>
-                <p>
-                <label> productPrice </label> <input type="text" value="{{productPrice}}" name="productPrice" id="productPrice" >
+                <label>Product Price:</label> <input type="text" value="{{productPrice}}" name="productPrice" id="productPrice" >
                 </p>
                 <p>
             </fieldset>
