@@ -28,7 +28,13 @@ body {
     color: #FFFFFF;
   }
   
-  nav a {
+  a:link {
+    color: #d73f09;
+    padding: 10px;
+    padding-top: 10px;
+  }
+
+  a:visited {
     color: #FFB500;
     padding: 10px;
     padding-top: 10px;
@@ -42,6 +48,8 @@ body {
   table {
     border-collapse: collapse;
     margin: 2%;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   caption{

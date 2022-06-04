@@ -1,7 +1,7 @@
 <html>
-<head>
+
 <title>Orders</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <script language="JavaScript">
 		function showform(dowhat) {
 			if (dowhat == 'insert'){
@@ -16,12 +16,15 @@
     function newOrders() { showform('insert'); }
     function browseOrders() { showform ('browse'); }
 </script>
-</head>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body onload="browseOrders()">
 <h1>Orders</h1>
 
-[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+[ <a href="/">Index</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
 <p></p>
@@ -117,6 +120,9 @@
 
 
 </body>
-<!-- Template used for this assignment was referenced by OSU CS 340 Professor, 
-and can be found at the following link https://canvas.oregonstate.edu/courses/1870053/files/92584084?wrap=1-->
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>
