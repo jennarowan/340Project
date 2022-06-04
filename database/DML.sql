@@ -212,7 +212,7 @@ VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s);
 SELECT 
 Liquors.productID as "Product #",
 Liquors.productName as "Name",
-Liquors.productSizeMl as "Size (in ml)",
+Liquors.productSizeMl as "Size (Ml)",
 Liquors.productPrice as "Price ($)"
 FROM Liquors;
 
@@ -239,10 +239,10 @@ VALUES(%s, %s, %s, %s);
 
 -- Read
 SELECT 
-RewardsTiers.rewardsTierID as 'Reward Tier #',
-RewardsTiers.rewardsTierName as 'Reward Tier Name',
-RewardsTiers.rewardsTierDiscount as 'Reward Tier Discount (%)',
-RewardsTiers.rewardsTierMinPurchase as 'Reward Tier Min Purchase'
+RewardsTiers.rewardsTierID as 'Rewards Tier #',
+RewardsTiers.rewardsTierName as 'Reward Tiers Name',
+RewardsTiers.rewardsTierDiscount as 'Reward Tiers Discount (%)',
+RewardsTiers.rewardsTierMinPurchase as 'Reward Tiers Min Purchase'
 FROM RewardsTiers;
 
 

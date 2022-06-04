@@ -1,6 +1,6 @@
 <html>
 
-<title>RewardsTiers</title>
+<title>Rewards Tiers</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <script language="JavaScript">
 		function showform(dowhat) {
@@ -25,7 +25,7 @@
 </header>
 
 <body onload="browseRewardsTier()">
-<h1>RewardsTiers</h1>
+<h1>Rewards Tiers</h1>
 
 [ <a href="/">Home</a> ~ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="liquorsorders">Liquor Orders</a>]
 
@@ -53,7 +53,7 @@
   {% endfor %}
 </table>
 
-<input class="addNewBtn" type="submit" name="newRewardsTier" onClick="newRewardsTier()" id="newRewardsTier" value="Add New RewardsTier">
+<input class="btn" type="submit" name="newRewardsTier" onClick="newRewardsTier()" id="newRewardsTier" value="Add New Rewards Tier">
 
 </div> 
 
@@ -78,7 +78,7 @@
             </p>
       </fieldset>
           <p></p>
-          <input class="btn" type="submit" name="Add_RewardsTiers" value="Add RewardsTier" id="Add_RewardsTiers">
+          <input class="btn" type="submit" name="Add_RewardsTiers" value="Add Rewards Tier" id="Add_RewardsTiers">
           <input class="btn" type="button" value="Cancel" onClick="browseRewardsTier()">
 	</form> 
 </div>

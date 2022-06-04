@@ -763,7 +763,7 @@ def liquors():
         SELECT 
         Liquors.productID as "Product #",
         Liquors.productName as "Name",
-        Liquors.productSizeMl as "Size (in ml)",
+        Liquors.productSizeMl as "Size (Ml)",
         Liquors.productPrice as "Price ($)"
         FROM Liquors;
         """
@@ -900,10 +900,10 @@ def rewardstiers():
         #Read
         readQuery = """
         SELECT 
-        RewardsTiers.rewardsTierId as 'Reward Tier #',
-        RewardsTiers.rewardsTierName as 'Reward Tier Name',
-        RewardsTiers.rewardsTierDiscount as 'Reward Tier Discount (%)',
-        RewardsTiers.rewardsTierMinPurchase as 'Reward Tier Min Purchase'
+        RewardsTiers.rewardsTierId as 'Rewards Tier #',
+        RewardsTiers.rewardsTierName as 'Rewards Tier Name',
+        RewardsTiers.rewardsTierDiscount as 'Rewards Tier Discount (%)',
+        RewardsTiers.rewardsTierMinPurchase as 'Rewards Tier Min Purchase'
         FROM RewardsTiers;
         """
 

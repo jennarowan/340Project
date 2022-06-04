@@ -31,7 +31,7 @@ body {
     color: #FFFFFF;
   }
 
-  .addNewBtn {
+  .btn {
     background-color: #000000;
     border: 2px solid #d73f09;
     color: white;
@@ -39,11 +39,11 @@ body {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 8px;
   }
 
-  .addNewBtn:hover {
+  .btn:hover {
     background-color: #d73f09;
     color: white;
   }
@@ -113,9 +113,4 @@ body {
   
   button {
     font-family: "Lucida Console", "Courier New", monospace;
-  }
-  
-  h6 {
-    margin: 0%;
-    padding: 5px;
   }
