@@ -1,15 +1,17 @@
 <html>
 
-<head>
-	<title>Delete Store</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<title>Delete Store</title>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body>
     <div>
         <form id="deleteStore" action="/stores-delete/{{storeNum}}" method="post">
         <table border="1" cellpadding="5"> 
-            <caption> Deleting Store: </caption>
+            <h1> Deleting Store: </h1>
             <!-- Access data tuple passed from app.py -->
             {% if stores %}
                 <thead>
@@ -40,8 +42,13 @@
         </table>
         
         <input type="submit" value="Delete Store" name="Delete_Store" class="btn btn-primary" style="margin:.5rem;">
-        <a href='/stores'><input class="btn" type="button" value="cancel"></a>
+        <a href='/stores'><input class="btn" type="button" value="Cancel"></a>
         </form>
     </div>
 </body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>
