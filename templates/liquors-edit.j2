@@ -1,14 +1,16 @@
 <html>
 
-<head>
-    <title>Edit Liquor</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<title>Edit Liquor</title>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body>
     <div>
         <table border="1" cellpadding="5"> 
-            <caption> Editing Liquor: </caption>
+            <h1> Editing Liquor: </h1>
             {% if liquors %}
                 <thead>
                     <tr>
@@ -40,7 +42,7 @@
 
             <form id="editLiquor" action="/liquors-edit/{{productID}}/{{productName}}/{{productSizeMl}}/{{productPrice}}" method="post">
                 <p></p>
-                <legend><strong>Update Liquor</strong></legend>
+                
                 <p></p>
                 <fieldset>
                 <! -- input type="hidden" value="{{productID}}" class = "form-control" name="productID" id="productID" required -- >
@@ -60,9 +62,15 @@
                 </p>
                 <p>
             </fieldset>
+                <p></p>
                 <input type="submit" value="Edit Liquor" name="Edit_Liquor" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/liquors'><input class="btn" type="button" value="cancel"></a>
+                <a href='/liquors'><input class="btn" type="button" value="Cancel"></a>
             </form> 
         </div>
 </body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>
