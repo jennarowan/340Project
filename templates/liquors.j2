@@ -1,7 +1,7 @@
 <html>
-<head>
+
 <title>Liquors</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <script language="JavaScript">
 		function showform(dowhat) {
 			if (dowhat == 'insert'){
@@ -19,12 +19,15 @@
     function browseLiquor() { showform ('browse'); }
     {# function showAll() { showform ('all'); } #}
 </script>
-</head>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body onload="browseLiquor()">
 <h1>Liquors</h1>
 
-[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+[ <a href="/">Home</a> ~ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
 {# <p><a href="#" onClick="showAll()">Show CRUD</a> </p> #}
@@ -73,12 +76,15 @@
             <label> ProductPrice </label> <input type="text" name="productPrice">
             </p>
       </fieldset>
+          <p></p>
           <input class="btn" type="submit" name="Add_Liquor" id="addLiquor" value="Add Liquor">
-          <input class="btn" type="button" value="cancel" onClick="browseLiquor()">
+          <input class="btn" type="button" value="Cancel" onClick="browseLiquor()">
 	</form> 
 </div>
 </body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>
-
-
-

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, json, redirect
+from flask import Flask, render_template, url_for, redirect
 from flask_mysqldb import MySQL
 from flask import request
 import os
@@ -27,7 +27,9 @@ mysql = MySQL(app)
 
 @app.route('/')
 def root():
-    return render_template("index.j2")
+    image_file = url_for('static', filename="liquor.jpg")
+
+    return render_template("index.j2", image_file=image_file)
 
 @app.route('/orders', methods=["POST", "GET"])
 def orders():

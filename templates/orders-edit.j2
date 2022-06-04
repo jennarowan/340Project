@@ -1,14 +1,16 @@
 <html>
 
-<head>
-	<title>Edit Order</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<title>Edit Order</title>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body>
     <div>
         <table border="1" cellpadding="5"> 
-            <caption> Editing Order: </caption>
+            <h1> Editing Order: </h1>
             <!-- Access data tuple passed from app.py -->
             {% if orders %}
                 <thead>
@@ -41,7 +43,7 @@
         
             <form id="editOrder" action="/orders-edit/{{orderNum}}/{{employeeName}}/{{total}}" method="post">
                 <p></p>
-                <legend><strong>Edit Order</strong></legend>
+                
                 <p></p>
                 <fieldset>
                     <!-- We can preset form inputs to match attributes currently stored for 'id' of order to be updated via value= and accessing our passed data tuple -->
@@ -96,8 +98,14 @@
                     <label> orderTotal </label> <input type="text" class="form-control" name="orderTotal" id="orderTotal" value="{{ total }}">
                     </p>
                 </fieldset>
+                <p></p>
                 <input type="submit" value="Edit Order" name="Edit_Order" class="btn btn-primary" style="margin:.5rem;">
-                <a href='/orders'><input class="btn" type="button" value="cancel"></a>
+                <a href='/orders'><input class="btn" type="button" value="Cancel"></a>
             </form>
 </body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>

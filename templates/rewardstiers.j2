@@ -1,7 +1,7 @@
 <html>
-<head>
+
 <title>RewardsTiers</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <script language="JavaScript">
 		function showform(dowhat) {
 			if (dowhat == 'insert'){
@@ -19,12 +19,15 @@
     function browseRewardsTier() { showform ('browse'); }
     {# function showAll() { showform ('all'); } #}
 </script>
-</head>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body onload="browseRewardsTier()">
 <h1>RewardsTiers</h1>
 
-[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+[ <a href="/">Home</a> ~ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
 
 <div id="browse">
 <p></p>
@@ -70,8 +73,9 @@
             <label>rewardsTierMinPurchase</label> <input type="text" name="rewardsTierMinPurchase">
             </p>
       </fieldset>
+          <p></p>
           <input class="btn" type="submit" name="Add_RewardsTiers" value="Add RewardsTier" id="Add_RewardsTiers">
-          <input class="btn" type="button" value="cancel" onClick="browseRewardsTier()">
+          <input class="btn" type="button" value="Cancel" onClick="browseRewardsTier()">
 	</form> 
 </div>
 {# <p>&nbsp;</p>
@@ -106,4 +110,9 @@
 {# </div> #}
 
 </body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>

@@ -1,14 +1,25 @@
 <html>
-<head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <title>Home</title>
-<link href="style.css" rel="stylesheet" type="text/css" />
-</head>
 
-<h1>Home</h1>
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
-[ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardstiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+<body>
+    <h1>Home</h1>
+    [<a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardstiers">RewardTiers</a> ~ <a href="liquorsorders">LiquorsOrders</a>]
+
+    <p></p>
+
+    <img src={{ image_file }} alt="Liquor Store" width="1267" height="712">
+ </div>
 
 
-<!-- Template used for this assignment was referenced by OSU CS 340 Professor, 
-and can be found at the following link https://canvas.oregonstate.edu/courses/1870053/files/92584084?wrap=1-->
+</body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>
