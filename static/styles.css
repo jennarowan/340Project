@@ -27,6 +27,23 @@ body {
     background-color: #000000;
     color: #FFFFFF;
   }
+
+  .addNewBtn {
+    background-color: #000000;
+    border: 2px solid #d73f09;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 8px;
+  }
+
+  .addNewBtn:hover {
+    background-color: #d73f09;
+    color: white;
+  }
   
   a:link {
     color: #d73f09;
