@@ -1,6 +1,5 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from flask_mysqldb import MySQL
-from flask import request
 import os
 import database.db_connector as db
 from dotenv import load_dotenv, find_dotenv

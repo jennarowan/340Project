@@ -1,8 +1,8 @@
 /*
-Draft Version of DML queries for JL Liquor
+DML queries for JL Liquor
 Author: Liam Maloney and Jenna Rowan
 Creation Date: May 5th, 2022
-Last Updated Date: May 19th, 2022
+Last Updated Date: June 4th, 2022
 */
 
 -----------------Orders-------------------
