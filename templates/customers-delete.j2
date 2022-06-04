@@ -1,15 +1,17 @@
 <html>
 
-<head>
-	<title>Delete Customer</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<title>Delete Customer</title>
+
+<header>
+    <h1>JL Liquors Inc.</h1>
+</header>
 
 <body>
     <div>
         <form id="deleteCustomer" action="/customers-delete/{{customerNum}}" method="post">
         <table border="1" cellpadding="5"> 
-            <caption> Deleting Customer: </caption>
+            <h1> Deleting Customer: </h1>
             <!-- Access data tuple passed from app.py -->
             {% if customers %}
                 <thead>
@@ -44,4 +46,9 @@
         </form>
     </div>
 </body>
+
+<footer class="page-footer">
+    <p>© 2022 Liam Maloney and Jenna Rowan</p>
+</footer>
+
 </html>
