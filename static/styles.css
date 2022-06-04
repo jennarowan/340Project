@@ -1,0 +1,93 @@
+body {
+    background-color: #000000;
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: #FFFFFF;
+    margin: 0%;
+    padding: 0%;
+    text-align: center;
+  }
+    
+  header {
+    background-color: #d73f09;
+    min-height: 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(5px + 2vmin);
+    color: white;
+  }
+  
+  footer {
+    background-color: #d73f09;
+    color: #FFFFFF;
+  }
+  
+  main {
+    background-color: #000000;
+    color: #FFFFFF;
+  }
+  
+  nav a {
+    color: #FFB500;
+    padding: 10px;
+    padding-top: 10px;
+  }
+  
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  table {
+    border-collapse: collapse;
+    margin: 2%;
+  }
+  
+  caption{
+    color: #d73f09;
+    font-size: 50px;
+    font-weight: bold;
+  }
+  
+  tr th {
+    background-color: #d73f09;
+    color: white;
+    border: #d73f09;
+    border-width: 3px;
+    border-style: inset;
+  }
+  
+  tr td {
+    border: #d73f09;
+    border-width: 3px;
+    border-style: inset;
+    padding: 5px;
+  }
+  
+  fieldset {
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+  
+  legend {
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+  
+  label {
+    font-family: "Lucida Console", "Courier New", monospace;
+    padding: 5px;
+  }
+  
+  input {
+    font-family: "Lucida Console", "Courier New", monospace;
+    min-width: 5em;
+  }
+  
+  button {
+    font-family: "Lucida Console", "Courier New", monospace;
+  }
+  
+  h6 {
+    margin: 0%;
+    padding: 5px;
+  }
