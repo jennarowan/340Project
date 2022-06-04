@@ -21,6 +21,9 @@ body {
   footer {
     background-color: #d73f09;
     color: #FFFFFF;
+    position:absolute;
+    width:100%;
+    bottom:0px;
   }
   
   main {
