@@ -783,7 +783,7 @@ def liquors():
         Liquors.productID as "Product #",
         Liquors.productName as "Name",
         Liquors.productSizeMl as "Size (Ml)",
-        Liquors.productPrice as "Price ($)"
+        CONCAT("$", Liquors.productPrice) as "Price ($)"
         FROM Liquors;
         """
 
@@ -830,6 +830,9 @@ def liquors():
 
 @app.route('/liquors-edit/<int:productID>/<productName>/<productSizeMl>/<productPrice>', methods=["POST", "GET"]) # Look back to make sure the string is correct, not sure..
 def edit_liquor(productID, productName, productSizeMl, productPrice):
+
+    # Remove dollar sign from total
+    productPrice = productPrice.replace('$', '')
 
     if request.method == "GET":
 
@@ -921,8 +924,8 @@ def rewardstiers():
         SELECT 
         RewardsTiers.rewardsTierId as 'Rewards Tier #',
         RewardsTiers.rewardsTierName as 'Rewards Tier Name',
-        RewardsTiers.rewardsTierDiscount as 'Rewards Tier Discount (%)',
-        RewardsTiers.rewardsTierMinPurchase as 'Rewards Tier Min Purchase'
+        TRIM(((1 - RewardsTiers.rewardsTierDiscount) * 100))+0 as 'Rewards Tier Discount (%)',
+        CONCAT("$", RewardsTiers.rewardsTierMinPurchase) as 'Rewards Tier Min Purchase'
         FROM RewardsTiers;
         """
 

@@ -110,7 +110,7 @@ DROP TABLE IF EXISTS RewardsTiers;
 CREATE TABLE IF NOT EXISTS RewardsTiers (
   rewardsTierId INT NOT NULL AUTO_INCREMENT,
   rewardsTierName VARCHAR(45) NOT NULL DEFAULT 'Bronze',
-  rewardsTierDiscount DECIMAL(10,2) NOT NULL DEFAULT .995,
+  rewardsTierDiscount DECIMAL(10,4) NOT NULL DEFAULT .995,
   rewardsTierMinPurchase INT NOT NULL,
   PRIMARY KEY (rewardsTierId))
 ENGINE = InnoDB;

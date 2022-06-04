@@ -213,7 +213,7 @@ SELECT
 Liquors.productID as "Product #",
 Liquors.productName as "Name",
 Liquors.productSizeMl as "Size (Ml)",
-Liquors.productPrice as "Price ($)"
+CONCAT("$", Liquors.productPrice) as "Price ($)"
 FROM Liquors;
 
 -- Update
@@ -239,10 +239,10 @@ VALUES(%s, %s, %s, %s);
 
 -- Read
 SELECT 
-RewardsTiers.rewardsTierID as 'Rewards Tier #',
-RewardsTiers.rewardsTierName as 'Reward Tiers Name',
-RewardsTiers.rewardsTierDiscount as 'Reward Tiers Discount (%)',
-RewardsTiers.rewardsTierMinPurchase as 'Reward Tiers Min Purchase'
+RewardsTiers.rewardsTierId as 'Rewards Tier #',
+RewardsTiers.rewardsTierName as 'Rewards Tier Name',
+TRIM(((1 - RewardsTiers.rewardsTierDiscount) * 100))+0 as 'Rewards Tier Discount (%)',
+CONCAT("$", RewardsTiers.rewardsTierMinPurchase) as 'Rewards Tier Min Purchase'
 FROM RewardsTiers;
 
 
