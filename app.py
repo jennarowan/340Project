@@ -111,8 +111,8 @@ def orders():
         # Send user back to the main orders page
         return redirect("/orders")
 
-@app.route("/orders-edit/<int:id>/<employeeName>/<total>", methods=["POST", "GET"])
-def edit_order(id, employeeName, total):
+@app.route("/orders-edit/<int:id>/<employeeName>/<storeLocation>/<customerName>/<total>", methods=["POST", "GET"])
+def edit_order(id, employeeName, storeLocation, customerName, total):
 
     # Remove dollar sign from total
     total = total.replace('$', '')
@@ -140,7 +140,7 @@ def edit_order(id, employeeName, total):
         # Call the dropdown creation function to query the database and pass values to the orders
         employees, stores, customers = ordersDropdownDatasets()
 
-        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id, employeeName=employeeName, total=total)
+        return render_template("orders-edit.j2", orders=orders, employees=employees, stores=stores, customers=customers, orderNum=id, employeeName=employeeName, total=total, storeLocation=storeLocation, customerName=customerName)
 
     if request.method == "POST":
 

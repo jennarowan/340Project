@@ -59,7 +59,7 @@
         <td>{{order[key]}}</td>
         {% endfor %}
 
-        <td><a href="/orders-edit/{{order['Order #']}}/{{order['Employee']}}/{{order['Total']}}" class="edbtn"><img src={{ edit }} width=30px height=30px></a></td>
+        <td><a href="/orders-edit/{{order['Order #']}}/{{order['Employee']}}/{{order['Store Location']}}/{{order['Customer']}}/{{order['Total']}}" class="edbtn"><img src={{ edit }} width=30px height=30px></a></td>
         <td><a href="/orders-delete/{{order['Order #']}}/{{order['Total']}}" class="edbtn"><img src={{ trash }} width=30px height=30px></a></td>
     </tr>
     

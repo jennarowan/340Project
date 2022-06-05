@@ -41,7 +41,7 @@
         
         <div id="edit">
         
-            <form id="editOrder" action="/orders-edit/{{orderNum}}/{{employeeName}}/{{total}}" method="post">
+            <form id="editOrder" action="/orders-edit/{{orderNum}}/{{employeeName}}/{{storeLocation}}/{{customerName}}/{{total}}" method="post">
                 <p></p>
                 
                 <p></p>
@@ -53,18 +53,13 @@
                     <label for="employeeID">Employee:</label>
                     <select class="form-control" id="employeeID" name="employeeID" selected="Walter White" required> 
                 
-                        <option value="0">&nbsp;</option>
                         {% for employee in employees %}
                             
-                            {# employeeName is passed in correctly but the if condition won't work to select a default value #}
-                            
-                            {# {% if {{employeeName}} == {{employee['Employee']}} %}
+                            {% if employeeName == employee['Employee'] %}
                                 <option value="{{ employee['employeeID'] }}" selected>{{ employee['Employee'] }}</option>
                             {% else %}
                                 <option value="{{ employee['employeeID'] }}">{{ employee['Employee'] }}</option>
-                            {% endif %} #}
-
-                            <option value="{{ employee['employeeID'] }}"> {{employee['Employee']}}</option> 
+                            {% endif %}
                         
                         {% endfor %} 
 
@@ -74,22 +69,28 @@
                     <label for="storeID">Store Location:</label>
                     <select class="form-control" id="storeID" name="storeID" placeholder="" required> 
                         
-                        <option value="0">&nbsp;</option>
                         {% for store in stores %}
-                                
-                        <option value="{{ store['storeID'] }}"> {{store['Store Location']}}</option> 
+                            
+                            {% if storeLocation == store['Store Location'] %}
+                                <option value="{{ store['storeID'] }}" selected> {{store['Store Location']}}</option> 
+                            {% else %}
+                                <option value="{{ store['storeID'] }}"> {{store['Store Location']}}</option> 
+                            {% endif %}
                         
-                        {% endfor %} 
+                        {% endfor %}
                     </select>
                     </p>
                     <p>
                     <label for="customerID">Customer Name:</label>
                     <select class="form-control" id="customerID" name="customerID" placeholder="" required> 
                         
-                        <option value="0">&nbsp;</option>
                         {% for customer in customers %}
-                                
-                        <option value="{{ customer['customerID'] }}"> {{customer['Customer']}}</option> 
+
+                            {% if customerName == customer['Customer'] %}
+                                <option value="{{ customer['customerID'] }}" selected> {{customer['Customer']}}</option> 
+                            {% else %}
+                                <option value="{{ customer['customerID'] }}"> {{customer['Customer']}}</option> 
+                            {% endif %}
                         
                         {% endfor %} 
                     </select>

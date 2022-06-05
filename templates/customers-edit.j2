@@ -77,10 +77,13 @@
                     <label>Rewards Tier:</label>
                     <select class="form-control" id="tier" name="tier" required> 
                 
-                        <option value="0">&nbsp;</option>
                         {% for tier in tiers %}
 
-                            <option value="{{ tier['rewardsTierID'] }}"> {{tier['rewardsTierName']}}</option> 
+                            {% if rewardsTier == tier['rewardsTierName'] %}
+                                <option value="{{ tier['rewardsTierID'] }}" selected> {{tier['rewardsTierName']}}</option> 
+                            {% else %}
+                                <option value="{{ tier['rewardsTierID'] }}"> {{tier['rewardsTierName']}}</option>  
+                            {% endif %}
                         
                         {% endfor %} 
 
