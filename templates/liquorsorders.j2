@@ -1,6 +1,6 @@
 <html>
 
-<title>Liquor Orders</title>
+<title>Order Items</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 <script language="JavaScript">
 		function showform(dowhat) {
@@ -22,7 +22,7 @@
 </header>
 
 <body onload="browseLiquorsOrders()">
-<h1>Liquor Orders</h1>
+<h1>Order Items</h1>
 
 [ <a href="/">Home</a> ~ <a href="orders">Orders</a> ~ <a href="stores">Stores</a> ~ <a href="customers">Customers</a> ~ <a href="employees">Employees</a> ~ <a href="liquors">Liquors</a> ~ <a href="rewardtiers">Rewards Tiers</a> ]
 
@@ -59,7 +59,7 @@
     {% endfor %}
 </table>
 
-<input class="btn" type="submit" name="newLiquorsOrder" onClick="newLiquorsOrders()" id="newLiquorsOrder" value="Add New Liquor Order">
+<input class="btn" type="submit" name="newLiquorsOrder" onClick="newLiquorsOrders()" id="newLiquorsOrder" value="Add New Order Item">
 
 </div> 
 
@@ -67,7 +67,7 @@
 
     <form action = "/liquorsorders" method="POST" id="addLiquorsOrders">
         <p></p>
-        <legend><strong>Add New Liquor Order</strong></legend>
+        <legend><strong>Add New Order Item</strong></legend>
         <p></p>
           <fieldset class="fields">
           <p>
@@ -81,7 +81,7 @@
           </p>
       </fieldset>
           <p></p>
-          <input class="btn" type="submit" name="Add_LiquorsOrders" value="Add Liquor Order" id="Add_LiquorOrders">
+          <input class="btn" type="submit" name="Add_LiquorsOrders" value="Add Item To Order" id="Add_LiquorOrders">
           <input class="btn" type="button" value="Cancel" onClick="browseLiquorsOrders()">
 	</form> 
   </div>
