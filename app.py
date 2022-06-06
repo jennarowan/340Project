@@ -5,6 +5,10 @@ import database.db_connector as db
 from dotenv import load_dotenv, find_dotenv
 from dropdownQueries import *
 
+# The majority of the code here that isn't SQL was adapted from the OSU CS 340
+# Flask starter guide.  The SQL was written ourselves, as was some common
+# sense Python.  Each template page was also adapted from the same major source.
+
 # Load our environment variables from the .env file in the root of our project.
 load_dotenv(find_dotenv())
 
